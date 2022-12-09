@@ -1,6 +1,6 @@
 <template>
   <div class="text-center">
-    <h1 class="text-xl">Huddle Guide</h1>
+    <div class="pt-4 text-2xl">Huddle Guide</div>
   </div>
 </template>
 

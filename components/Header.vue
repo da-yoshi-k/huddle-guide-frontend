@@ -1,8 +1,8 @@
 <template>
   <div class="navbar bg-neutral">
     <div class="flex-1">
-      <NuxtLink to="/" class="btn btn-active btn-primary no-animation shadow text-xl text-base-100">
-        Huddle Guide
+      <NuxtLink to="/" class="">
+        <img src="/img/nav_logo.png" alt="huddle-guide brand logo">
       </NuxtLink>
     </div>
     <div class="flex-none">

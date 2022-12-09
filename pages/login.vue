@@ -1,3 +1,6 @@
 <template>
-  <div class="px-10">login page</div>
+  <div class="text-center">
+    <div class="pt-4">login page</div>
+  </div>
+
 </template>
