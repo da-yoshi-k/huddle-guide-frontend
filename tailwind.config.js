@@ -3,10 +3,10 @@ module.exports = {
     themes: [
       {
         mytheme: {
-          "primary": "#1EB854",
+          "primary": "#4FC662",
           "secondary": "#1FD65F",
           "accent": "#D99330",
-          "neutral": "#86efac",
+          "neutral": "#89D996",
           "base-100": "#f3f4f6",
           "info": "#3ABFF8",
           "success": "#36D399",

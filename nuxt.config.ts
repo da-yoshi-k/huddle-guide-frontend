@@ -1,4 +1,11 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  modules: ['@nuxtjs/tailwindcss']
-})
+  app: {
+    head: {
+      htmlAttrs: {
+        'data-theme': 'mytheme',
+      },
+    },
+  },
+  modules: ['@nuxtjs/tailwindcss'],
+});

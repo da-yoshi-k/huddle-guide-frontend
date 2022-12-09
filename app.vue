@@ -1,5 +1,6 @@
 <template>
   <div>
-    <button class="btn">daisyUIを入れてみました</button>
+    <Header />
+    <NuxtPage />
   </div>
 </template>
