@@ -6,7 +6,7 @@
       </NuxtLink>
     </div>
     <div class="flex-none">
-      <NuxtLink to="/login" class="btn btn-active brn-primary shadow text-xl text-base-100">
+      <NuxtLink to="/login" class="btn btn-active brn-primary shadow text-sm md:text-lg text-base-100">
         ログイン
       </NuxtLink>
     </div>
