@@ -8,7 +8,7 @@
         <img class="object-contain" src="/img/top_discussion.png" alt="discussion image">
       </div>
       <div class="flex justify-center md:justify-end md:mr-16">
-        <p class="pt-6 text-3xl">オンラインでもチーム内で<br>コミュニケーションが<br>取れていますか？</p>
+        <p class="pt-6 text-3xl">オンラインでもチームで<br>コミュニケーションが<br>取れていますか？</p>
       </div>
       <div class="my-6 flex justify-center md:justify-end md:mr-16">
         <NuxtLink to="/register" class="btn btn-active brn-primary shadow text-sm md:text-lg text-base-100 mr-12">
