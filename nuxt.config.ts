@@ -12,5 +12,13 @@ export default defineNuxtConfig({
       },
     },
   },
-  modules: ['@nuxtjs/tailwindcss'],
+  ssr: false,
+  modules: [['@nuxtjs/tailwindcss'], ['@nuxtjs/google-fonts']],
+  googleFonts: {
+    families: {
+      'BIZ+UDPGothic': true,
+    },
+    display: 'swap',
+    download: true,
+  },
 });
