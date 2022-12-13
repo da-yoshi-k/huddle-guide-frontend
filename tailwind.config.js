@@ -24,7 +24,12 @@ module.exports = {
     "./plugins/**/*.{js,ts}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        black: '#455A64',
+        white: '#f3f4f6',
+      }
+    },
   },
   plugins: [require("@tailwindcss/typography"), require("daisyui")],
 };
