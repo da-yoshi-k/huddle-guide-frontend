@@ -1,8 +1,9 @@
 <script setup>
 const runTimeConfig = useRuntimeConfig();
+const header = { credentials: 'include' };
 const { data } = await useFetch(
   runTimeConfig.public.apiServerUrl
-);
+  , { headers: header });
 </script>
 
 <template>
