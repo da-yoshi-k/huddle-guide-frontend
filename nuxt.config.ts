@@ -16,6 +16,11 @@ export default defineNuxtConfig({
     },
   },
   ssr: false,
+  runtimeConfig: {
+    public: {
+      apiServerUrl: process.env.API_SERVER_URL,
+    },
+  },
   modules: [['@nuxtjs/tailwindcss'], ['@nuxtjs/google-fonts']],
   googleFonts: {
     families: {

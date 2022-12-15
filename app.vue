@@ -3,6 +3,7 @@
     <Header />
     <NuxtPage />
     <Footer />
+    <WorkList />
   </div>
 </template>
 
