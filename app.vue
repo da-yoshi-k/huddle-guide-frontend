@@ -1,5 +1,14 @@
 <template>
-  <div>
-    <button class="btn">daisyUIを入れてみました</button>
+  <div class="flex flex-col min-h-screen">
+    <Header />
+    <NuxtPage />
+    <Footer />
+    <WorkList />
   </div>
 </template>
+
+<style>
+html {
+  font-family: 'BIZ UDPGothic', sans-serif;
+}
+</style>
