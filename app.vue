@@ -12,7 +12,6 @@ if (runTimeConfig.public.stage === 'development') {
     <Header />
     <NuxtPage />
     <Footer />
-    <WorkList />
   </div>
 </template>
 
