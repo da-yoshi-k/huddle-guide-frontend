@@ -19,6 +19,7 @@ export default defineNuxtConfig({
   runtimeConfig: {
     public: {
       apiServerUrl: process.env.API_SERVER_URL,
+      stage: process.env.STAGE,
     },
   },
   modules: [['@nuxtjs/tailwindcss'], ['@nuxtjs/google-fonts']],
