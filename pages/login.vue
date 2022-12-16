@@ -8,6 +8,7 @@
             <div calss="form-control">
               <label for="email" class="label">
                 <span class="label-text">メールアドレス</span>
+                <span class="label-text-alt text-error">【必須】</span>
               </label>
               <input id="email" type="text" placeholder="huddle@example.com" class="input input-bordered w-full mb-5" />
             </div>
@@ -16,7 +17,7 @@
                 <span class="label-text">パスワード</span>
                 <span class="label-text-alt text-error">【必須】</span>
               </label>
-              <input id="password" type="password" placeholder="password" class="input input-bordered mb-5" />
+              <input id="password" type="password" placeholder="password" class="input input-bordered w-3/4 mb-5" />
             </div>
             <div class="mb-4">
               <NuxtLink to="/register" class="link-info">
