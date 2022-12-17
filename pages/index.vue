@@ -1,6 +1,6 @@
 <template>
   <div class="text-center">
-    <div class="top-container pt-10 grid grid-cols-1 md:grid-cols-2">
+    <div class="top-container pt-5 grid grid-cols-1 md:grid-cols-2">
       <div class="flex justify-center md:justify-end md:mr-4">
         <img class="object-contain" src="/img/top_banner.png" alt="huddle-guide brand banner">
       </div>
@@ -60,7 +60,9 @@
         ログイン
       </NuxtLink>
     </div>
-    <a href="https://storyset.com/research">Illustration by Storyset</a>
+    <div class="text-right">
+      <a href="https://storyset.com/research" class="link-hover text-info text-xs">Illustration by Storyset</a>
+    </div>
   </div>
 </template>
 

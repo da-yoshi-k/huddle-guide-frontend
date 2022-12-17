@@ -2,7 +2,7 @@
   <div id="login-form" class="flex justify-center">
     <div class="card w-3/4 md:w-96 bg-base-100 shadow-md my-12">
       <div class="card-body">
-        <h2 class="py-4 text-xl text-center">ログイン</h2>
+        <h2 class="py-4 text-xl text-center font-bold">ログイン</h2>
         <div>
           <form @submit.prevent="">
             <div calss="form-control">
@@ -17,15 +17,15 @@
                 <span class="label-text">パスワード</span>
                 <span class="label-text-alt text-error">【必須】</span>
               </label>
-              <input id="password" type="password" placeholder="password" class="input input-bordered w-3/4 mb-5" />
+              <input id="password" type="password" placeholder="password" class="input input-bordered w-full mb-5" />
             </div>
             <div class="mb-4">
-              <NuxtLink to="/register" class="link-info">
+              <NuxtLink to="/register" class="link-hover text-info">
                 新規登録はこちら
               </NuxtLink>
             </div>
             <div class="mb-4">
-              <NuxtLink to="#" class="link-info">
+              <NuxtLink to="#" class="link-hover text-info">
                 パスワードを忘れた
               </NuxtLink>
             </div>

@@ -1,5 +1,5 @@
 <template>
-  <div class="sticky top-0 z-30 navbar bg-neutral">
+  <div class="sticky top-0 z-30 navbar bg-neutral bg-opacity-95 h-1 md:h-16">
     <div class="flex-1">
       <NuxtLink to="/">
         <img src="/img/nav_logo.png" alt="huddle-guide brand logo">
