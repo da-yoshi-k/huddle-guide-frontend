@@ -9,9 +9,9 @@ if (runTimeConfig.public.stage === 'development') {
 
 <template>
   <div class="flex flex-col min-h-screen">
-    <Header />
-    <NuxtPage />
-    <Footer />
+    <NuxtLayout>
+      <NuxtPage />
+    </NuxtLayout>
   </div>
 </template>
 

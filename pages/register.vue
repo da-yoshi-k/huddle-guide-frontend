@@ -1,8 +1,32 @@
+<script setup lang="ts">
+const options = useApiFetchOption();
+const email = ref('' as string);
+const name = ref('' as string);
+const password = ref('' as string);
+const passwordConfirmataion = ref('' as string);
+const user = {
+  user: {
+    "name": name,
+    "email": email,
+    "password": password
+  }
+};
+const register = async () => {
+  let { data } = await useFetch('users', {
+    method: 'POST',
+    body: user,
+    ...options,
+  });
+  const router = useRouter();
+  router.push('/login');
+};
+</script>
+
 <template>
   <div id="login-form" class="flex justify-center bg-green-100">
     <div class="card w-3/4 md:w-96 bg-base-100 shadow-md my-12">
       <div class="card-body">
-        <h2 class="py-4 text-xl text-center">新規登録</h2>
+        <h2 class="py-4 text-xl text-center font-bold">新規登録</h2>
         <div>
           <form @submit.prevent="">
             <div calss="form-control">
@@ -10,37 +34,42 @@
                 <span class="label-text">メールアドレス</span>
                 <span class="label-text-alt text-error">【必須】</span>
               </label>
-              <input id="email" type="text" placeholder="huddle@example.com" class="input input-bordered w-full mb-5" />
+              <input id="email" type="text" v-model="email" placeholder="huddle@example.com"
+                class="input input-bordered w-full mb-5" />
             </div>
             <div calss="form-control">
               <label for="name" class="label">
                 <span class="label-text">ニックネーム（表示名）</span>
                 <span class="label-text-alt text-error">【必須】</span>
               </label>
-              <input id="name" type="text" placeholder="ハドルタロウ" class="input input-bordered w-full mb-5" />
+              <input id="name" type="text" v-model="name" placeholder="ハドルタロウ"
+                class="input input-bordered w-full mb-5" />
             </div>
             <div calss="form-control">
               <label for="password" class="label">
                 <span class="label-text">パスワード</span>
                 <span class="label-text-alt text-error">【必須】</span>
               </label>
-              <input id="password" type="password" placeholder="password" class="input input-bordered w-3/4 mb-5" />
+              <input id="password" type="password" v-model="password" placeholder="password"
+                class="input input-bordered w-full mb-5" />
             </div>
             <div calss="form-control">
               <label for="password_confirmation" class="label">
                 <span class="label-text">パスワード（確認用）</span>
                 <span class="label-text-alt text-error">【必須】</span>
               </label>
-              <input id="password_confirmation" type="password" placeholder="password"
-                class="input input-bordered w-3/4 mb-5" />
+              <input id="password_confirmation" type="password" v-model="passwordConfirmataion" placeholder="password"
+                class="input input-bordered w-full mb-5" />
             </div>
           </form>
         </div>
-        <NuxtLink to="/login" class="link-info mb-4">
-          ログインはこちら
-        </NuxtLink>
+        <div class="mb-4">
+          <NuxtLink to="/login" class="link-hover text-info">
+            ログインはこちら
+          </NuxtLink>
+        </div>
         <div class="card-actions justify-center">
-          <button class="btn btn-primary text-white">登録</button>
+          <button class="btn btn-primary text-white" @click="register">登録</button>
         </div>
       </div>
     </div>

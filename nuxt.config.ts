@@ -7,9 +7,7 @@ export default defineNuxtConfig({
         { charset: 'utf-8' },
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       ],
-      link: [
-        { rel: 'icon', type: 'image/png', href: '/favicon.png' }, // これを追記する
-      ],
+      link: [{ rel: 'icon', type: 'image/png', href: '/favicon.png' }],
       htmlAttrs: {
         'data-theme': 'mytheme',
       },
@@ -22,12 +20,11 @@ export default defineNuxtConfig({
       stage: process.env.STAGE,
     },
   },
-  modules: [['@nuxtjs/tailwindcss'], ['@nuxtjs/google-fonts']],
+  modules: [['@nuxtjs/tailwindcss'], ['@nuxtjs/google-fonts'], ['@pinia/nuxt']],
   googleFonts: {
     families: {
       'BIZ+UDPGothic': true,
     },
     display: 'swap',
-    download: true,
   },
 });
