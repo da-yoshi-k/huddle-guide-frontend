@@ -13,21 +13,23 @@ export const useAuthUserStore = defineStore('authUser', {
   actions: {
     async loginUser(userForm: any) {
       // ログイン
-      let { data } = await useFetch<Token>('authentication', {
-        method: 'POST',
-        body: userForm,
-        ...options,
-      });
-      localStorage.auth_token = data.value?.token;
       const getMyUserData = async (): Promise<UserInfo | null> => {
         const { data } = useFetch<UserInfo>('users/me', {
           ...options,
         });
         return data.value;
       };
-      await getMyUserData().then((data) => {
-        this.authUser = data;
+      let { data } = await useFetch<Token>('authentication', {
+        method: 'POST',
+        body: userForm,
+        ...options,
       });
+      localStorage.auth_token = data.value?.token;
+      if (!localStorage.auth_token) {
+        await getMyUserData().then((data) => {
+          this.authUser = data;
+        });
+      }
     },
   },
 });
