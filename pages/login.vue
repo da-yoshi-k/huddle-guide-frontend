@@ -1,14 +1,20 @@
 <script setup lang="ts">
+import { useForm, useField } from 'vee-validate';
 import { useAuthUserStore } from '~~/stores/authUser';
 const store = useAuthUserStore();
-const email = ref('' as string)
-const password = ref('' as string)
-const user = { email, password }
-const login = () => {
+const { handleSubmit } = useForm({})
+const { value: email } = useField("email");
+const { value: password } = useField("password");
+
+const login = handleSubmit(() => {
+  const user = {
+    "email": email.value,
+    "password": password.value
+  }
   store.loginUser(user);
   const router = useRouter()
   router.push('/home')
-}
+});
 </script>
 
 <template>
@@ -17,24 +23,30 @@ const login = () => {
       <div class="card-body mb-7">
         <h2 class="py-4 text-xl text-center font-bold">ログイン</h2>
         <div>
-          <form @submit.prevent="">
-            <div calss="form-control">
+          <form @submit.prevent="login">
+            <div calss=" form-control">
               <label for="email" class="label">
                 <span class="label-text">メールアドレス</span>
                 <span class="label-text-alt text-error">【必須】</span>
               </label>
-              <input id="email" type="text" v-model="email" placeholder="huddle@example.com"
-                class="input input-bordered w-full mb-5" />
+              <ValidationField name="メールアドレス" v-model="email" rules="required|email" v-slot="{ errors, handleChange }">
+                <input id="email" type="text" @change="handleChange" placeholder="huddle@example.com"
+                  class="input input-bordered w-full" />
+                <span class="text-error mt-2 mb-5">{{ errors[0] }}</span>
+              </ValidationField>
             </div>
             <div calss="form-control">
               <label for="password" class="label">
                 <span class="label-text">パスワード</span>
                 <span class="label-text-alt text-error">【必須】</span>
               </label>
-              <input id="password" type="password" v-model="password" placeholder="password"
-                class="input input-bordered w-full mb-5" />
+              <ValidationField name="パスワード" v-model="password" rules="required" v-slot="{ errors, handleChange }">
+                <input id="password" type="password" @change="handleChange" placeholder="password"
+                  class="input input-bordered w-full" />
+                <span class="text-error my-2">{{ errors[0] }}</span>
+              </ValidationField>
             </div>
-            <div class="mb-4">
+            <div class="my-4">
               <NuxtLink to="/register" class="link-hover text-info">
                 新規登録はこちら
               </NuxtLink>

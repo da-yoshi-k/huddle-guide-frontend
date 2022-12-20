@@ -1,17 +1,20 @@
 <script setup lang="ts">
+import { useForm, useField } from 'vee-validate';
 const options = useApiFetchOption();
-const email = ref('' as string);
-const name = ref('' as string);
-const password = ref('' as string);
-const passwordConfirmataion = ref('' as string);
-const user = {
-  user: {
-    "name": name,
-    "email": email,
-    "password": password
-  }
-};
-const register = async () => {
+const { handleSubmit } = useForm({})
+const { value: email } = useField("email");
+const { value: name } = useField("name");
+const { value: password } = useField("password");
+const { value: password_confirmataion } = useField("password_confirmataion");
+
+const register = handleSubmit(async () => {
+  const user = {
+    user: {
+      "name": name.value,
+      "email": email.value,
+      "password": password.value
+    }
+  };
   let { data } = await useFetch('users', {
     method: 'POST',
     body: user,
@@ -19,7 +22,7 @@ const register = async () => {
   });
   const router = useRouter();
   router.push('/login');
-};
+});
 </script>
 
 <template>
@@ -28,42 +31,55 @@ const register = async () => {
       <div class="card-body">
         <h2 class="py-4 text-xl text-center font-bold">新規登録</h2>
         <div>
-          <form @submit.prevent="">
+          <form @submit.prevent="register">
             <div calss="form-control">
               <label for="email" class="label">
                 <span class="label-text">メールアドレス</span>
                 <span class="label-text-alt text-error">【必須】</span>
               </label>
-              <input id="email" type="text" v-model="email" placeholder="huddle@example.com"
-                class="input input-bordered w-full mb-5" />
+              <ValidationField name="メールアドレス" v-model="email" rules="required|email" v-slot="{ errors, handleChange }">
+                <input id="email" type="text" @change="handleChange" placeholder="huddle@example.com"
+                  class="input input-bordered w-full" />
+                <span class="text-error mt-2 mb-5">{{ errors[0] }}</span>
+              </ValidationField>
             </div>
             <div calss="form-control">
               <label for="name" class="label">
                 <span class="label-text">ニックネーム（表示名）</span>
                 <span class="label-text-alt text-error">【必須】</span>
               </label>
-              <input id="name" type="text" v-model="name" placeholder="ハドルタロウ"
-                class="input input-bordered w-full mb-5" />
+              <ValidationField name="ニックネーム" v-model="name" rules="required|max:20" v-slot="{ errors, handleChange }">
+                <input id="name" type="text" @change="handleChange" placeholder="ハドルタロウ"
+                  class="input input-bordered w-full" />
+                <span class="text-error mt-2 mb-5">{{ errors[0] }}</span>
+              </ValidationField>
             </div>
             <div calss="form-control">
               <label for="password" class="label">
                 <span class="label-text">パスワード</span>
                 <span class="label-text-alt text-error">【必須】</span>
               </label>
-              <input id="password" type="password" v-model="password" placeholder="password"
-                class="input input-bordered w-full mb-5" />
+              <ValidationField name="パスワード" v-model="password" rules="required|min:8" v-slot="{ errors, handleChange }">
+                <input id="password" type="password" @change="handleChange" placeholder="password"
+                  class="input input-bordered w-full" />
+                <span class="text-error my-2">{{ errors[0] }}</span>
+              </ValidationField>
             </div>
             <div calss="form-control">
               <label for="password_confirmation" class="label">
                 <span class="label-text">パスワード（確認用）</span>
                 <span class="label-text-alt text-error">【必須】</span>
               </label>
-              <input id="password_confirmation" type="password" v-model="passwordConfirmataion" placeholder="password"
-                class="input input-bordered w-full mb-5" />
+              <ValidationField name="パスワード（確認用）" v-model="password_confirmataion" rules="required|confirmed:@パスワード"
+                v-slot="{ errors, handleChange }">
+                <input id="password_confirmation" type="password" @change="handleChange" placeholder="password"
+                  class="input input-bordered w-full" />
+                <span class="text-error my-2">{{ errors[0] }}</span>
+              </ValidationField>
             </div>
           </form>
         </div>
-        <div class="mb-4">
+        <div class="my-4">
           <NuxtLink to="/login" class="link-hover text-info">
             ログインはこちら
           </NuxtLink>
