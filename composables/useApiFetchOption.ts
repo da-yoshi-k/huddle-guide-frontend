@@ -5,6 +5,7 @@ const useApiFetchOption = () => {
   return {
     baseURL: config.public.apiServerUrl,
     headers: {
+      Credentials: 'include',
       Authorization: accessToken ? `Bearer ${accessToken}` : '',
     },
   };
