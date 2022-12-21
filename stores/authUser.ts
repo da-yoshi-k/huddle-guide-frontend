@@ -2,7 +2,6 @@ import { defineStore } from 'pinia';
 import { Token } from '~/types/token';
 import { UserInfo } from '~/types/userInfo';
 
-const options = useApiFetchOption();
 export const useAuthUserStore = defineStore('authUser', {
   state: () => ({
     authUser: null as UserInfo | null,
@@ -13,23 +12,31 @@ export const useAuthUserStore = defineStore('authUser', {
   actions: {
     async loginUser(userForm: any) {
       // ログイン
-      const getMyUserData = async (): Promise<UserInfo | null> => {
-        const { data } = useFetch<UserInfo>('users/me', {
-          ...options,
-        });
-        return data.value;
-      };
-      let { data } = await useFetch<Token>('authentication', {
+      const options = useApiFetchOption();
+      await useFetch<Token>('authentication', {
         method: 'POST',
         body: userForm,
         ...options,
+      }).then((data) => {
+        localStorage.auth_token = data.data.value?.token;
       });
-      localStorage.auth_token = data.value?.token;
-      if (!localStorage.auth_token) {
-        await getMyUserData().then((data) => {
-          this.authUser = data;
-        });
-      }
+      await this.fetchAuthUser().then((data) => {
+        this.authUser = data;
+      });
     },
+    // 自分のユーザー情報を取得
+    async fetchAuthUser() {
+      if (!localStorage.auth_token) return null;
+      if (this.authUser) return this.authUser;
+
+      const options = useApiFetchOption();
+      const { data } = await useFetch<UserInfo>('users/me', {
+        ...options,
+      });
+      return data.value;
+    },
+  },
+  persist: {
+    storage: persistedState.localStorage,
   },
 });
