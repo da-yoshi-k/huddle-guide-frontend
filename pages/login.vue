@@ -6,12 +6,12 @@ const { handleSubmit } = useForm({})
 const { value: email } = useField("email");
 const { value: password } = useField("password");
 
-const login = handleSubmit(() => {
+const login = handleSubmit(async () => {
   const user = {
     "email": email.value,
     "password": password.value
   }
-  store.loginUser(user);
+  await store.loginUser(user);
   const router = useRouter()
   router.push('/home')
 });
