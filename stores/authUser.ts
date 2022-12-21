@@ -35,6 +35,11 @@ export const useAuthUserStore = defineStore('authUser', {
       });
       return data.value;
     },
+    // logoutUser() {
+    //   localStorage.removeItem('auth_token');
+    //   this.authUser = null;
+    //   console.log('ログアウト');
+    // },
   },
   persist: {
     storage: persistedState.localStorage,
