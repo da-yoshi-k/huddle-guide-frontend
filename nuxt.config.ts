@@ -20,7 +20,12 @@ export default defineNuxtConfig({
       stage: process.env.STAGE,
     },
   },
-  modules: [['@nuxtjs/tailwindcss'], ['@nuxtjs/google-fonts'], ['@pinia/nuxt']],
+  modules: [
+    ['@nuxtjs/tailwindcss'],
+    ['@nuxtjs/google-fonts'],
+    ['@pinia/nuxt'],
+    ['@pinia-plugin-persistedstate/nuxt'],
+  ],
   googleFonts: {
     families: {
       'BIZ+UDPGothic': true,
