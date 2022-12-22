@@ -23,13 +23,25 @@
       <div class="flex-none text-yellow-100 mr-4">
         <ul class="menu menu-horizontal px-1">
           <li tabindex="0">
-            <div>
+            <div id="user-info">
               {{ store.authUser?.user.name }}
+              <template v-if="!!store.authUser.user.avatar_url">
+                <div class="avatar">
+                  <div class="w-10 rounded-full">
+                    <img :src="store.authUser.user.avatar_url" />
+                  </div>
+                </div>
+              </template>
               <svg class="fill-current" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
                 <path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z" />
               </svg>
             </div>
             <ul class="p-2 bg-neutral">
+              <li>
+                <NuxtLink to="/profile">
+                  プロフィール
+                </NuxtLink>
+              </li>
               <li>
                 <NuxtLink to="/login" @click="logout()">
                   ログアウト

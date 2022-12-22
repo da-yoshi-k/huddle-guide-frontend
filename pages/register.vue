@@ -32,7 +32,7 @@ const register = handleSubmit(async () => {
         <h2 class="py-4 text-xl text-center font-bold">新規登録</h2>
         <div>
           <form @submit.prevent="register">
-            <div calss="form-control">
+            <div class="form-control">
               <label for="email" class="label">
                 <span class="label-text">メールアドレス</span>
                 <span class="label-text-alt text-error">【必須】</span>
@@ -40,10 +40,10 @@ const register = handleSubmit(async () => {
               <ValidationField name="メールアドレス" v-model="email" rules="required|email" v-slot="{ errors, handleChange }">
                 <input id="email" type="text" @change="handleChange" placeholder="huddle@example.com"
                   class="input input-bordered w-full" />
-                <span class="text-error mt-2 mb-5">{{ errors[0] }}</span>
+                <span class="text-error my-2">{{ errors[0] }}</span>
               </ValidationField>
             </div>
-            <div calss="form-control">
+            <div class="form-control">
               <label for="name" class="label">
                 <span class="label-text">ニックネーム（表示名）</span>
                 <span class="label-text-alt text-error">【必須】</span>
@@ -51,10 +51,10 @@ const register = handleSubmit(async () => {
               <ValidationField name="ニックネーム" v-model="name" rules="required|max:20" v-slot="{ errors, handleChange }">
                 <input id="name" type="text" @change="handleChange" placeholder="ハドルタロウ"
                   class="input input-bordered w-full" />
-                <span class="text-error mt-2 mb-5">{{ errors[0] }}</span>
+                <span class="text-error my-2">{{ errors[0] }}</span>
               </ValidationField>
             </div>
-            <div calss="form-control">
+            <div class="form-control">
               <label for="password" class="label">
                 <span class="label-text">パスワード</span>
                 <span class="label-text-alt text-error">【必須】</span>
@@ -65,7 +65,7 @@ const register = handleSubmit(async () => {
                 <span class="text-error my-2">{{ errors[0] }}</span>
               </ValidationField>
             </div>
-            <div calss="form-control">
+            <div class="form-control">
               <label for="password_confirmation" class="label">
                 <span class="label-text">パスワード（確認用）</span>
                 <span class="label-text-alt text-error">【必須】</span>
