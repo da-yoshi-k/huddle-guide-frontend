@@ -1,10 +1,16 @@
+<script setup lang="ts">
+definePageMeta({
+  layout: "static",
+});
+</script>
+
 <template>
   <div class="text-center">
     <div class="top-container pt-5 grid grid-cols-1 md:grid-cols-2">
       <div class="flex justify-center md:justify-end md:mr-4">
         <img class="object-contain" src="/img/top_banner.png" alt="huddle-guide brand banner">
       </div>
-      <div class="flex justify-center row-span-3 md:justify-start md:ml-4">
+      <div class="flex justify-center row-span-3 md:justify-start md:ml-4 max-w-[500px]">
         <img class="object-contain" src="/img/top_discussion.png" alt="discussion image">
       </div>
       <div class="flex justify-center md:justify-end md:mr-16">
@@ -65,9 +71,3 @@
     </div>
   </div>
 </template>
-
-<script></script>
-
-<style>
-
-</style>

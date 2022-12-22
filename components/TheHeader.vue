@@ -38,11 +38,6 @@
             </div>
             <ul class="p-2 bg-neutral">
               <li>
-                <NuxtLink to="/profile">
-                  プロフィール
-                </NuxtLink>
-              </li>
-              <li>
                 <NuxtLink to="/login" @click="logout()">
                   ログアウト
                 </NuxtLink>
