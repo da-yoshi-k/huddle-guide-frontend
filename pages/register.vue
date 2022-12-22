@@ -23,6 +23,10 @@ const register = handleSubmit(async () => {
   const router = useRouter();
   router.push('/login');
 });
+
+definePageMeta({
+  layout: "static",
+});
 </script>
 
 <template>

@@ -15,6 +15,10 @@ const login = handleSubmit(async () => {
   const router = useRouter()
   router.push('/home')
 });
+
+definePageMeta({
+  layout: "static",
+});
 </script>
 
 <template>
