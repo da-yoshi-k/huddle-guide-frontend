@@ -5,7 +5,9 @@
         <h2 class="font-bold leading-tight text-2xl text-black mb-4">参加可能なワーク</h2>
         <div class="flex">
           <div class="self-center text-lg text-black pl-4 mr-4">現在参加可能なワークはありません</div>
-          <button class="btn btn-primary text-yellow-100">ワークを開始する</button>
+          <NuxtLink to="/works" class="btn btn-primary text-yellow-100">
+            ワークを開始する
+          </NuxtLink>
         </div>
       </div>
       <div id="team-container">
