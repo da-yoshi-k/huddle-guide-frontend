@@ -20,7 +20,7 @@
           <img src="/img/nav_logo.png" alt="huddle-guide brand logo">
         </NuxtLink>
       </div>
-      <div class="flex-none text-yellow-100 mr-4">
+      <div class="flex-none text-yellow-100 md:mr-4">
         <ul class="menu menu-horizontal px-1">
           <li tabindex="0">
             <div id="user-info">
