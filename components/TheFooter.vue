@@ -1,5 +1,5 @@
 <template>
-  <footer class="footer p-10 bg-neutral text-base-content mt-auto">
+  <footer class="footer p-10 pb-20 md:pb-10 bg-neutral text-base-content mt-auto">
     <div>
       <NuxtLink to="/">
         <div class="text-4xl text-yellow-100">Huddle</div>

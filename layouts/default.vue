@@ -8,5 +8,6 @@
         <TheFooter />
       </div>
     </div>
+    <TheBottomNav />
   </div>
 </template>

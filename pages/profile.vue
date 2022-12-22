@@ -42,11 +42,11 @@ const edit = handleSubmit(async () => {
     <h2 class="py-4 text-3xl text-center font-bold">プロフィール</h2>
     <h2 class="py-4 text-xl text-center font-bold">アカウント情報</h2>
     <div id="account-info" class="mb-12">
-      <div class="flex justify-center">
-        <table class="table text-center w-[800px]">
+      <div class="flex justify-center overflow-x-auto">
+        <table class="table text-center text-sm md:w-[800px]">
           <tbody>
             <tr>
-              <th>メールアドレス</th>
+              <td>メールアドレス</td>
               <td>{{ store.authUser?.user.email }}</td>
               <td>
                 <div class="tooltip" data-tip="開発中">
@@ -55,7 +55,7 @@ const edit = handleSubmit(async () => {
               </td>
             </tr>
             <tr>
-              <th>パスワード</th>
+              <td>パスワード</td>
               <td>************</td>
               <td>
                 <div class="tooltip" data-tip="開発中">
