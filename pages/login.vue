@@ -24,7 +24,7 @@ const login = handleSubmit(async () => {
         <h2 class="py-4 text-xl text-center font-bold">ログイン</h2>
         <div>
           <form @submit.prevent="login">
-            <div calss=" form-control">
+            <div class="form-control">
               <label for="email" class="label">
                 <span class="label-text">メールアドレス</span>
                 <span class="label-text-alt text-error">【必須】</span>
@@ -32,10 +32,10 @@ const login = handleSubmit(async () => {
               <ValidationField name="メールアドレス" v-model="email" rules="required|email" v-slot="{ errors, handleChange }">
                 <input id="email" type="text" @change="handleChange" placeholder="huddle@example.com"
                   class="input input-bordered w-full" />
-                <span class="text-error mt-2 mb-5">{{ errors[0] }}</span>
+                <span class="text-error mt-2">{{ errors[0] }}</span>
               </ValidationField>
             </div>
-            <div calss="form-control">
+            <div class="form-control">
               <label for="password" class="label">
                 <span class="label-text">パスワード</span>
                 <span class="label-text-alt text-error">【必須】</span>

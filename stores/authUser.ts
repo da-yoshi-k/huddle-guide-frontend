@@ -40,6 +40,16 @@ export const useAuthUserStore = defineStore('authUser', {
     //   this.authUser = null;
     //   console.log('ログアウト');
     // },
+    async updateUser(formData: any) {
+      const options = useApiFetchOption();
+      await useFetch<UserInfo>(`profile/${this.authUser?.user.id}`, {
+        method: 'PATCH',
+        body: formData,
+        ...options,
+      }).then((data) => {
+        this.authUser = data.data.value;
+      });
+    },
   },
   persist: {
     storage: persistedState.localStorage,
