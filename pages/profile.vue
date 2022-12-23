@@ -1,14 +1,13 @@
 <script setup lang="ts">
 import { useAuthUserStore } from '~~/stores/authUser';
 import { useForm, useField } from 'vee-validate';
-import { file } from '@babel/types';
 const store = useAuthUserStore();
 definePageMeta({
-  middleware: ['require-login']
+  requireLogin: true
 })
 
 const { handleSubmit } = useForm({})
-const { value: name, meta } = useField("name", undefined, { initialValue: store.authUser?.user.name });
+const { value: name } = useField("name", undefined, { initialValue: store.authUser?.user.name });
 const { value: description } = useField("description", undefined, { initialValue: store.authUser?.user.description });
 const avatarFile = ref<File | null>();
 

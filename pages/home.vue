@@ -1,3 +1,9 @@
+<script setup lang="ts">
+definePageMeta({
+  requireLogin: true
+})
+</script>
+
 <template>
   <div id="home">
     <div id="home-container" class="mt-4 mx-auto px-4 max-w-3xl">
@@ -20,8 +26,3 @@
   </div>
 </template>
 
-<script setup lang="ts">
-definePageMeta({
-  middleware: ['require-login']
-})
-</script>
