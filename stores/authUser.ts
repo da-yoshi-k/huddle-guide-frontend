@@ -20,9 +20,7 @@ export const useAuthUserStore = defineStore('authUser', {
       }).then((data) => {
         localStorage.auth_token = data.data.value?.token;
       });
-      await this.fetchAuthUser().then((data) => {
-        this.authUser = data;
-      });
+      await this.fetchAuthUser();
     },
     // 自分のユーザー情報を取得
     async fetchAuthUser() {
@@ -33,25 +31,17 @@ export const useAuthUserStore = defineStore('authUser', {
       const { data } = await useFetch<UserInfo>('users/me', {
         ...options,
       });
+      this.authUser = data.value;
       return data.value;
     },
-    // logoutUser() {
-    //   localStorage.removeItem('auth_token');
-    //   this.authUser = null;
-    //   console.log('ログアウト');
-    // },
     async updateUser(formData: any) {
       const options = useApiFetchOption();
       await useFetch<UserInfo>(`profile/${this.authUser?.user.id}`, {
         method: 'PATCH',
         body: formData,
         ...options,
-      }).then((data) => {
-        this.authUser = data.data.value;
       });
+      await this.fetchAuthUser();
     },
-  },
-  persist: {
-    storage: persistedState.localStorage,
   },
 });
