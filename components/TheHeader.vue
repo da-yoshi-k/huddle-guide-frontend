@@ -1,3 +1,18 @@
+<script setup lang="ts">
+import { useAuthUserStore } from '~~/stores/authUser';
+const store = useAuthUserStore();
+const logout = () => {
+  try {
+    localStorage.removeItem('auth_token');
+    store.$patch({
+      authUser: null
+    })
+  } catch (error) {
+    console.log(error);
+  }
+}
+</script>
+
 <template>
   <div class="sticky top-0 z-30 navbar bg-neutral bg-opacity-95 h-12 md:h-16">
     <!-- 未ログイン -->
@@ -25,10 +40,10 @@
           <li tabindex="0">
             <div id="user-info">
               {{ store.authUser?.user.name }}
-              <template v-if="!!store.authUser.user.avatar_url">
+              <template v-if="!!store.authUser.user.avatarUrl">
                 <div class="avatar">
                   <div class="w-10 rounded-full">
-                    <img :src="store.authUser.user.avatar_url" />
+                    <img :src="store.authUser.user.avatarUrl" />
                   </div>
                 </div>
               </template>
@@ -50,17 +65,3 @@
   </div>
 </template>
 
-<script setup lang="ts">
-import { useAuthUserStore } from '~~/stores/authUser';
-const store = useAuthUserStore();
-const logout = () => {
-  try {
-    localStorage.removeItem('auth_token');
-    store.$patch({
-      authUser: null
-    })
-  } catch (error) {
-    console.log(error);
-  }
-}
-</script>
