@@ -12,22 +12,14 @@ const handleShowSelectModal = (id: number, name: string) => {
 }
 const teamStore = useTeamStore()
 const teams = await teamStore.fetchTeams()
-const startWork = async (teamId: string) => {
-  console.log(`${teamId}でワークを開始します`);
+const startWork = (async (teamId: string) => {
   // TODO: 作成後のワークショップのIDへの差し替え
-  await navigate(teamId)
-}
-
-function navigate(id: string) {
-  return navigateTo({
-    path: `works/find-similarities/${id}/standby`,
-  })
-}
+  await navigateTo(`/works/find-similarities/${teamId}/standby`)
+})
 
 definePageMeta({
   requireLogin: true
 })
-
 </script>
 
 <template>

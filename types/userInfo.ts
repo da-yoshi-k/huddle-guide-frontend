@@ -4,6 +4,6 @@ export interface UserInfo {
     name: string;
     email: string;
     description: string;
-    avatarUrl: string;
+    avatar_url: string;
   };
 }
