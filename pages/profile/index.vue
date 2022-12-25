@@ -27,8 +27,7 @@ const edit = handleSubmit(async () => {
   }
   try {
     await store.updateUser(formData);
-    const router = useRouter()
-    router.push('/home')
+    location.reload()
   } catch (error) {
     console.log(error);
   }

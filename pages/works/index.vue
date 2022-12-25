@@ -1,7 +1,33 @@
 <script setup lang="ts">
+import { useTeamStore } from '~~/stores/teams';
+const selectedWork = ref({
+  work: {
+    id: 1,
+    name: '共通点探し'
+  }
+})
+const handleShowSelectModal = (id: number, name: string) => {
+  selectedWork.value.work.id = id
+  selectedWork.value.work.name = name
+}
+const teamStore = useTeamStore()
+const teams = await teamStore.fetchTeams()
+const startWork = async (teamId: string) => {
+  console.log(`${teamId}でワークを開始します`);
+  // TODO: 作成後のワークショップのIDへの差し替え
+  await navigate(teamId)
+}
+
+function navigate(id: string) {
+  return navigateTo({
+    path: `works/find-similarities/${id}/standby`,
+  })
+}
+
 definePageMeta({
   requireLogin: true
 })
+
 </script>
 
 <template>
@@ -36,7 +62,9 @@ definePageMeta({
             <h2 class="card-title">共通点探し</h2>
             <p>チームの仲間との共通点を探してみませんか？</p>
             <div class="card-actions justify-around">
-              <button class="btn btn-primary text-yellow-100">開始する</button>
+              <div @click="handleShowSelectModal(1, '共通点探し')">
+                <label for="work-select-modal" class="btn btn-primary text-yellow-100">開始する</label>
+              </div>
               <div class="tooltip" data-tip="開発中">
                 <button class="btn btn-neutral text-yellow-100">使い方</button>
               </div>
@@ -55,4 +83,5 @@ definePageMeta({
       <a href="https://storyset.com/research" class="link-hover text-info text-xs">Illustration by Storyset</a>
     </div>
   </div>
+  <WorkSelectModal :work="selectedWork.work" :teams="teams!.teams" @start-work="startWork" />
 </template>
