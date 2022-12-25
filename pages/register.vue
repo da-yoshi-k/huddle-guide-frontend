@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { useForm, useField } from 'vee-validate';
-const options = useApiFetchOption();
 const { handleSubmit } = useForm({})
 const { value: email } = useField("email");
 const { value: name } = useField("name");
@@ -15,6 +14,7 @@ const register = handleSubmit(async () => {
       "password": password.value
     }
   };
+  const options = useApiFetchOption();
   let { data } = await useFetch('users', {
     method: 'POST',
     body: user,

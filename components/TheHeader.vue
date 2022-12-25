@@ -40,10 +40,10 @@ const logout = () => {
           <li tabindex="0">
             <div id="user-info">
               {{ store.authUser?.user.name }}
-              <template v-if="!!store.authUser.user.avatarUrl">
+              <template v-if="!!store.authUser.user.avatar_url">
                 <div class="avatar">
                   <div class="w-10 rounded-full">
-                    <img :src="store.authUser.user.avatarUrl" />
+                    <img :src="store.authUser.user.avatar_url" />
                   </div>
                 </div>
               </template>

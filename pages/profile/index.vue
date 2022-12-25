@@ -2,9 +2,6 @@
 import { useAuthUserStore } from '~~/stores/authUser';
 import { useForm, useField } from 'vee-validate';
 const store = useAuthUserStore();
-definePageMeta({
-  requireLogin: true
-})
 
 const { handleSubmit } = useForm({})
 const { value: name } = useField("name", undefined, { initialValue: store.authUser?.user.name });
@@ -33,6 +30,9 @@ const edit = handleSubmit(async () => {
   }
 })
 
+definePageMeta({
+  requireLogin: true
+})
 </script>
 
 <template>

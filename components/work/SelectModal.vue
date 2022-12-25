@@ -34,7 +34,7 @@ const handleStartWork = () => {
           <option v-for="item in props.teams" :key="item.id" :value="item.id">{{ item.name }}</option>
         </select>
         <div class="flex justify-center mt-4">
-          <button class="btn btn-primary text-white" @click="handleStartWork">ワークを開始</button>
+          <div class="btn btn-primary text-white" @click="handleStartWork">ワークを開始</div>
         </div>
       </form>
     </label>
