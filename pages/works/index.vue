@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { useTeamStore } from '~~/stores/teams';
+import { useWorkshopStore } from '~~/stores/workshop';
 import { Workshop } from '~~/types/workshop';
+const store = useWorkshopStore
 const selectedWork = ref({
   work: {
     id: 1,
