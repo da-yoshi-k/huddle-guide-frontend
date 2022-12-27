@@ -1,7 +1,5 @@
-export interface WorkStepInfo {
-  workStep: {
-    id: number;
-    workId: number;
-    name: string;
-  };
+export interface WorkStep {
+  id: number;
+  workId: number;
+  name: string;
 }

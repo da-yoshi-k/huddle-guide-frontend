@@ -18,7 +18,9 @@ const handleAvatarFile = async ($event: Event) => {
 const edit = handleSubmit(async () => {
   const formData = new FormData();
   formData.append("user[name]", name.value);
-  formData.append("user[description]", description.value);
+  if (description.value) {
+    formData.append("user[description]", description.value);
+  }
   if (avatarFile !== null) {
     formData.append("user[avatar]", avatarFile.value as Blob);
   }
@@ -40,7 +42,7 @@ definePageMeta({
     <h2 class="py-4 text-3xl text-center font-bold">プロフィール</h2>
     <h2 class="py-4 text-xl text-center font-bold">アカウント情報</h2>
     <div id="account-info" class="mb-12">
-      <div class="flex justify-center overflow-x-auto">
+      <div class="flex justify-center overflow-x-auto pt-4">
         <table class="table text-center text-sm md:w-[800px]">
           <tbody>
             <tr>

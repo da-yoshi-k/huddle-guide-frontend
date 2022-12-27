@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { useAuthUserStore } from '~~/stores/authUser';
 const store = useAuthUserStore();
+const isLogin = ref(store.authUser?.user);
+const route = useRoute()
 const logout = () => {
   try {
     localStorage.removeItem('auth_token');
@@ -16,7 +18,7 @@ const logout = () => {
 <template>
   <div class="sticky top-0 z-30 navbar bg-neutral bg-opacity-95 h-12 md:h-16">
     <!-- 未ログイン -->
-    <template v-if="!store.authUser?.user">
+    <template v-if="!isLogin">
       <div class="flex-1">
         <NuxtLink to="/">
           <img src="/img/nav_logo.png" alt="huddle-guide brand logo">
@@ -29,7 +31,7 @@ const logout = () => {
       </div>
     </template>
     <!-- ログイン後 -->
-    <template v-else>
+    <template v-else-if="isLogin">
       <div class="flex-1">
         <NuxtLink to="/home">
           <img src="/img/nav_logo.png" alt="huddle-guide brand logo">
@@ -40,7 +42,7 @@ const logout = () => {
           <li tabindex="0">
             <div id="user-info">
               {{ store.authUser?.user.name }}
-              <template v-if="!!store.authUser.user.avatar_url">
+              <template v-if="!!store.authUser?.user.avatar_url">
                 <div class="avatar">
                   <div class="w-10 rounded-full">
                     <img :src="store.authUser.user.avatar_url" />

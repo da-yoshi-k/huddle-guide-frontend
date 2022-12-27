@@ -29,14 +29,14 @@ definePageMeta({
     <div class="hero bg-base-100">
       <div>
         <div class="my-8 hero-content flex-col md:flex-row">
-          <img src="/img/top_signup.png" class="object-contain" />
+          <img src="/img/top_signup.svg" class="object-contain w-[500px]" />
           <div>
             <h1 class="text-2xl font-bold">1. まずはユーザー登録</h1>
             <p class="py-6 text-xl">チームを作成するユーザーは新規登録を行います</p>
           </div>
         </div>
         <div class="my-8 hero-content flex-col md:flex-row-reverse">
-          <img src="/img/top_team_spirit.png" class="object-contain" />
+          <img src="/img/top_together.svg" class="object-contain w-[500px]" />
           <div>
             <h1 class="text-2xl font-bold">2. チームを作成</h1>
             <p class="py-6 text-xl">ワークを一緒に行うチームを作成してメンバーを招待します</p>
