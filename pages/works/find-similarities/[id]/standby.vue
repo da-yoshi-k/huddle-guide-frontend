@@ -1,8 +1,8 @@
 <script setup lang="ts">
-// import { useWorkshopStore } from '~~/stores/workshop';
-// const store = useWorkshopStore();
+import { useWorkshopStore } from '~~/stores/workShop';
+const store = useWorkshopStore();
 const route = useRoute();
-// await store.fetchWorkshop(route.params.id as string)
+await store.fetchWorkshop(route.params.id as string)
 
 definePageMeta({
   requireLogin: true,
@@ -13,7 +13,7 @@ definePageMeta({
 
 <template>
   <h2 class="py-4 text-3xl text-center font-bold">待機画面</h2>
-  <!-- <div id="profile-form" class="flex justify-center mb-5">
+  <div id="profile-form" class="flex justify-center mb-5">
     <div class="w-11/12 md:max-w-xl">
       <div id="work-info-container" class="flex flex-col mb-8">
         <div class="flex mb-4">
@@ -39,5 +39,5 @@ definePageMeta({
         <ParticipationCard :users="store.workshop?.workshop.users!" />
       </div>
     </div>
-  </div> -->
+  </div>
 </template>

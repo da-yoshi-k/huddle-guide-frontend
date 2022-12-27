@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia';
-import { Workshop } from '~/types/workshop';
+import { Workshop } from '~~/types/workshop';
 
 export const useWorkshopStore = defineStore('workshop', {
   state: () => ({
