@@ -1,6 +1,4 @@
-export interface WorkInfo {
-  work: {
-    id: number;
-    name: string;
-  };
+export interface Work {
+  id: number;
+  name: string;
 }

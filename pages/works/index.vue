@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useTeamStore } from '~~/stores/teams';
+import { Workshop } from '~~/types/workshop';
 const selectedWork = ref({
   work: {
     id: 1,
@@ -13,8 +14,19 @@ const handleShowSelectModal = (id: number, name: string) => {
 const teamStore = useTeamStore()
 const teams = await teamStore.fetchTeams()
 const startWork = (async (teamId: string) => {
-  // TODO: 作成後のワークショップのIDへの差し替え
-  await navigateTo(`/works/find-similarities/${teamId}/standby`)
+  const workshop = {
+    work_id: selectedWork.value.work.id,
+    team_id: teamId,
+  }
+  const options = useApiFetchOption();
+  await useFetch<Workshop>('workshops', {
+    method: 'POST',
+    body: workshop,
+    ...options,
+  }).then((data) => {
+    const workshopId = data.data.value?.workshop.id
+    navigateTo(`/works/find-similarities/${workshopId}/standby`)
+  })
 })
 
 definePageMeta({
@@ -33,10 +45,10 @@ definePageMeta({
       </div>
       <h2 class="font-bold leading-tight text-2xl text-black mb-4">ワーク一覧</h2>
       <div id="works-container" class="flex flex-col items-center md:flex-row md:justify-around mb-8">
-        <div class="card w-80 bg-base-100 shadow-xl mb-8">
-          <figure><img src="/img/works_news.svg" alt="Good&new" /></figure>
+        <div class="card w-80 bg-gray-200 shadow-xl mb-8">
+          <figure><img src="/img/works_news.svg" alt="Good&new" class="w-[200px]" /></figure>
           <div class="card-body">
-            <h2 class="card-title">Good & New</h2>
+            <h2 class="card-title">Good & New (開発中)</h2>
             <p>日々の中であった良かったことや<br />新しいニュースを共有しましょう</p>
             <div class="card-actions justify-around">
               <div class="tooltip" data-tip="開発中">
@@ -49,7 +61,7 @@ definePageMeta({
           </div>
         </div>
         <div class="card w-80 bg-base-100 shadow-xl mb-8">
-          <figure><img src="/img/works_discussion.svg" alt="共通点探し" /></figure>
+          <figure><img src="/img/works_discussion.svg" alt="共通点探し" class="w-[200px]" /></figure>
           <div class="card-body">
             <h2 class="card-title">共通点探し</h2>
             <p>チームの仲間との共通点を探してみませんか？</p>
