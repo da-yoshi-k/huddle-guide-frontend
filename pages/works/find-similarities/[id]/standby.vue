@@ -1,11 +1,8 @@
 <script setup lang="ts">
-import { useWorkshopStore } from '~/stores/workshop';
+import { useWorkshopStore } from '~~/stores/workshop';
 const store = useWorkshopStore();
 const route = useRoute();
 await store.fetchWorkshop(route.params.id as string)
-
-console.log(store.workshop?.workshop.users);
-
 
 definePageMeta({
   requireLogin: true,
