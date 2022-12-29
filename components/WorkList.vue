@@ -2,7 +2,6 @@
 const runTimeConfig = useRuntimeConfig();
 const options = useApiFetchOption();
 const { data } = await useFetch("works", options);
-console.log(data);
 </script>
 
 <template>

@@ -11,7 +11,7 @@ const MAX_MEMBER_COUNT = 6;
 </script>
 
 <template>
-  <div class="bg-gray-200 w-11/12 grid grid-cols-3 place-items-center">
+  <div class="bg-gray-200 rounded-xl w-11/12 grid grid-cols-3 place-items-center">
     <div v-for="n of MAX_MEMBER_COUNT" :key="n">
       <div class="w-32 h-30 p-4 col-span-1 flex flex-col">
         <template v-if="!!props.users[n - 1]">

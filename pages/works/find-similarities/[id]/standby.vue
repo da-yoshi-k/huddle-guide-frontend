@@ -4,9 +4,16 @@ const store = useWorkshopStore();
 const route = useRoute();
 await store.fetchWorkshop(route.params.id as string)
 
+const disabled = computed(() => {
+  return { 'btn-disabled': store.workshop!.workshop.users.length === 1 }
+})
+
+const startWorkshop = () => {
+  navigateTo(`/works/find-similarities/${store.workshop?.workshop.id}`)
+}
+
 definePageMeta({
   requireLogin: true,
-  workPage: true,
   layout: "work",
 })
 </script>
@@ -33,10 +40,16 @@ definePageMeta({
             <li class="text-black">ファシリテーターは発言者の偏りとタイムキープを意識しつつ適宜発言者を交代します。</li>
           </ul>
         </div>
-        <div class="flex mb-8">
+        <div class="flex flex-col mb-8">
           <h2 class="font-bold leading-tight text-xl text-black">参加者一覧</h2>
+          <div class="flex justify-center mt-4">
+            <WorkParticipationCard :users="store.workshop?.workshop.users!" />
+          </div>
         </div>
-        <ParticipationCard :users="store.workshop?.workshop.users!" />
+        <div class="flex justify-center">
+          <button @click="startWorkshop" class="btn btn-primary w-48 justify-center text-yellow-100"
+            :class="disabled">ワークを始める</button>
+        </div>
       </div>
     </div>
   </div>

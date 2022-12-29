@@ -13,7 +13,7 @@ const handleShowSelectModal = (id: number, name: string) => {
 }
 const teamStore = useTeamStore()
 const teams = await teamStore.fetchTeams()
-const startWork = (async (teamId: string) => {
+const standby = (async (teamId: string) => {
   const workshop = {
     work_id: selectedWork.value.work.id,
     team_id: teamId,
@@ -87,5 +87,5 @@ definePageMeta({
       <a href="https://storyset.com/research" class="link-hover text-info text-xs">Illustration by Storyset</a>
     </div>
   </div>
-  <WorkSelectModal :work="selectedWork.work" :teams="teams!.teams" @start-work="startWork" />
+  <WorkSelectModal :work="selectedWork.work" :teams="teams!.teams" @standby-work="standby" />
 </template>
