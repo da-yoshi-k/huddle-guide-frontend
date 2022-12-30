@@ -11,7 +11,7 @@ definePageMeta({
         <img class="object-contain" src="/img/top_banner.png" alt="huddle-guide brand banner">
       </div>
       <div class="flex justify-center row-span-3 md:justify-start md:ml-4 max-w-[500px]">
-        <img class="object-contain" src="/img/top_discussion.png" alt="discussion image">
+        <img class="object-contain" src="/img/top_discussion.svg" alt="discussion image">
       </div>
       <div class="flex justify-center md:justify-end md:mr-16">
         <p class="pt-6 text-3xl">オンラインでもチームで<br>コミュニケーションが<br>取れていますか？</p>
@@ -43,14 +43,14 @@ definePageMeta({
           </div>
         </div>
         <div class="my-8 hero-content flex-col md:flex-row">
-          <img src="/img/top_group_chat.png" class="object-contain" />
+          <img src="/img/top_group_chat.svg" class="object-contain w-[500px]" />
           <div>
             <h1 class="text-2xl font-bold">3. 簡単なワークを実施</h1>
             <p class="py-6 text-xl">10〜30分程度のワークを行います。<br>この際、別途ビデオ通話ツールなどを併用しても構いません。</p>
           </div>
         </div>
         <div class="my-8 hero-content flex-col md:flex-row-reverse">
-          <img src="/img/top_group.png" class="object-contain" />
+          <img src="/img/top_group.png" class="object-contain w-[500px]" />
           <div>
             <h1 class="text-2xl font-bold">4. ワークの結果をふりかえる</h1>
             <p class="py-6 text-xl">ワーク後、SNSにシェアしたり<br>1on1の機会に繋げます</p>

@@ -6,6 +6,7 @@ definePageMeta({
 
 <template>
   <div id="home">
+    <h2 class="py-4 text-3xl text-center font-bold">ホーム</h2>
     <div id="home-container" class="mt-4 mx-auto px-4 max-w-3xl">
       <div id="ongoing-work-container" class="flex flex-col mb-8">
         <h2 class="font-bold leading-tight text-2xl text-black mb-4">参加可能なワーク</h2>

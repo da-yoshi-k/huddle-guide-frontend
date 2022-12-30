@@ -6,8 +6,8 @@ definePageMeta({
 
 <template>
   <div>
-    <div id="home-container" class="mt-4 mx-auto px-4 max-w-3xl">
-      <h2 class="py-4 text-3xl text-center font-bold">チーム</h2>
+    <h2 class="py-4 text-3xl text-center font-bold">チーム</h2>
+    <div id="team-container" class="mt-4 mx-auto px-4 max-w-3xl">
       <div class="ml-8 mb-8">
         <NuxtLink to="/teams/new" class="btn btn-primary text-yellow-100">
           チームを作成する
