@@ -30,7 +30,7 @@ definePageMeta({
 <template>
   <div>
     <h2 class="py-4 text-3xl text-center font-bold">新規チーム作成</h2>
-    <div id="profile-form" class="flex justify-center mb-5">
+    <div id="team-form" class="flex justify-center mb-5">
       <div class="w-3/4 md:w-96">
         <form @submit.prevent="create">
           <div class="form-control">
@@ -59,6 +59,5 @@ definePageMeta({
         </form>
       </div>
     </div>
-
   </div>
 </template>

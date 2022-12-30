@@ -91,7 +91,4 @@ definePageMeta({
   <div v-if="teams?.teams != null">
     <WorkSelectModal :work="selectedWork.work" :teams="teams?.teams" @standby-work="standby" />
   </div>
-  <template v-else>
-    <WorkCautionModal />
-  </template>
 </template>
