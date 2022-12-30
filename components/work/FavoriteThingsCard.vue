@@ -9,12 +9,12 @@ const props = defineProps<{
     descriptipn?: string,
     avatar_url?: string
   }
-  posts?: [{
+  posts?: {
     id: number,
     content: string,
     workshop_id: string,
     user_id?: string,
-  }]
+  }[]
   reactions?: [{
     post_id: number,
     user_id: string,
@@ -22,10 +22,15 @@ const props = defineProps<{
   }]
   presenterId?: string
 }>()
-
 const bgColor = computed(() => {
   return props.presenterId === props.user.id ? 'bg-green-200' : 'bg-gray-200'
 })
+const emits = defineEmits<{
+  (e: 'modal-open'): void;
+}>();
+const handleEditModalOpen = () => {
+  emits('modal-open')
+}
 </script>
 
 <template>
@@ -43,21 +48,29 @@ const bgColor = computed(() => {
       </div>
     </div>
     <div class="col-span-7 flex items-center pl-2">
-      <div class="text-left">
+      <div class="text-left text-bold">
         {{ props.user?.name }}
       </div>
     </div>
     <div class="col-span-1 row-span-3 flex items-center">
-      <button v-if="props.user.id === store.authUser?.user.id" class="btn btn-circle btn-ghost">
+      <button for="favorite-edit-modal" v-if="props.user.id === store.authUser?.user.id && props.posts?.length === 0"
+        @click="handleEditModalOpen" class="btn btn-circle btn-ghost">
         <img src="/img/edit.svg" class="w-6 h-6" />
       </button>
     </div>
-    <template v-if="!!props.posts">
-      <div v-for="post in props.posts">
-        <ul>
-          <li>{{ post.content }}</li>
-        </ul>
-      </div>
-    </template>
+    <div class="col-span-5 row-span-3 flex flex-col">
+      <template v-if="props.posts?.length !== 0">
+        <div v-for="post in props.posts">
+          <div class="h-12 flex items-center">
+            ・{{ post.content }}
+          </div>
+        </div>
+      </template>
+      <template v-else>
+        <div class="text-black">
+          まだ投稿されていません。
+        </div>
+      </template>
+    </div>
   </div>
 </template>

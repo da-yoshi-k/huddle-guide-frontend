@@ -11,8 +11,8 @@ const handleShowSelectModal = (id: number, name: string) => {
   selectedWork.value.work.id = id
   selectedWork.value.work.name = name
 }
-const teamStore = useTeamStore()
-const teams = await teamStore.fetchTeams()
+const teamStore = useTeamStore();
+const teams = await teamStore.fetchTeams();
 const standby = (async (teamId: string) => {
   const workshop = {
     work_id: selectedWork.value.work.id,
@@ -36,9 +36,10 @@ definePageMeta({
 
 <template>
   <div id="work">
+    <h2 class="py-4 text-3xl text-center font-bold">ワーク</h2>
     <div id="ongoing-work-container" class="mt-4 mx-auto px-4 max-w-3xl">
       <div id="work-container" class="flex flex-col mb-8">
-        <h2 class="font-bold leading-tight text-2xl text-black mb-4">参加可能なワーク</h2>
+        <h2 class="font-bold leading-tight text-2xl text-black mb-4">参加可能なワーク（開発中）</h2>
         <div class="flex">
           <div class="self-center text-lg text-black pl-4 mr-4">現在参加可能なワークはありません</div>
         </div>
@@ -76,7 +77,7 @@ definePageMeta({
           </div>
         </div>
       </div>
-      <h2 class="font-bold leading-tight text-2xl text-black mb-4">ワーク参加履歴</h2>
+      <h2 class="font-bold leading-tight text-2xl text-black mb-4">ワーク参加履歴(開発中)</h2>
       <div class="ml-4 mb-10">
         <div>2022/12/03 Good&New</div>
         <div>2022/12/02 Good&New</div>
@@ -87,5 +88,10 @@ definePageMeta({
       <a href="https://storyset.com/research" class="link-hover text-info text-xs">Illustration by Storyset</a>
     </div>
   </div>
-  <WorkSelectModal :work="selectedWork.work" :teams="teams!.teams" @standby-work="standby" />
+  <div v-if="teams?.teams != null">
+    <WorkSelectModal :work="selectedWork.work" :teams="teams?.teams" @standby-work="standby" />
+  </div>
+  <template v-else>
+    <WorkCautionModal />
+  </template>
 </template>

@@ -9,6 +9,7 @@ const disabled = computed(() => {
 })
 
 const startWorkshop = () => {
+  store.updateWorkStep(2)
   navigateTo(`/works/find-similarities/${store.workshop?.workshop.id}`)
 }
 

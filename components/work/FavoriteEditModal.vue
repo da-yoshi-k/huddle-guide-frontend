@@ -1,28 +1,83 @@
 <script setup lang="ts">
+import { useWorkshopStore } from '~~/stores/workshop';
+import { useAuthUserStore } from '~~/stores/authUser';
+const authUserStore = useAuthUserStore();
+const workShopStore = useWorkshopStore();
+
 const props = defineProps<{
+  openFlag: boolean
+}>();
+
+const modalOpen = computed(() => {
+  return props.openFlag ? 'modal-open' : ''
+})
+
+const prevPosts = workShopStore.posts?.posts.filter(post => post.user_id === authUserStore.authUser?.user.id)
+const posts = ref({
   posts: [{
-    id: number,
-    name: string,
+    id: 0,
+    content: '',
+    workshop_id: workShopStore.workshop?.workshop.id,
+    user_id: authUserStore.authUser?.user.id
+  }, {
+    id: 0,
+    content: '',
+    workshop_id: workShopStore.workshop?.workshop.id,
+    user_id: authUserStore.authUser?.user.id
+  }, {
+    id: 0,
+    content: '',
+    workshop_id: workShopStore.workshop?.workshop.id,
+    user_id: authUserStore.authUser?.user.id
   }]
-}>()
+})
+if (prevPosts != null) {
+  for (let i = 0; i < prevPosts.length; i++) {
+    posts.value.posts[i] = prevPosts[i]
+  }
+}
+
+const emits = defineEmits<{
+  (e: 'posts-edit', posts: any): void;
+  (e: 'close-modal'): void;
+}>();
+const handleEditFavoriteThings = () => {
+  emits('posts-edit', posts.value)
+}
+const handleCloseModal = () => {
+  emits('close-modal')
+}
 </script>
 
 <template>
-  <!-- <input type="checkbox" id="work-select-modal" class="modal-toggle" />
-  <label for="work-select-modal" class="modal cursor-pointer">
+  <label for="favorite-edit-modal" class="modal cursor-pointer" :class="modalOpen">
     <label class="modal-box relative" for="">
-      <label for="work-select-modal" class="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
-      <h3 class="text-xl font-bold mb-4">ワーク開始</h3>
-      <p>実施するワーク: {{ props.work.name }}</p>
-      <p class="py-4">ワークを行うチームを選択してください</p>
+      <label for="favorite-edit-modal" class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
+        @click="handleCloseModal">✕</label>
+      <h3 class="text-xl font-bold mb-4">自分の好きなことを3つまで入力してください</h3>
       <form>
-        <select v-model="selectedTeamId" class="select select-bordered w-full max-w-xs">
-          <option v-for="item in props.teams" :key="item.id" :value="item.id">{{ item.name }}</option>
-        </select>
+        <div class="form-control">
+          <label class="label">
+            <span class="label-text">1つ目</span>
+          </label>
+          <input type="text" v-model.lazy="posts.posts[0].content" class="input input-bordered w-full">
+        </div>
+        <div class="form-control">
+          <label class="label">
+            <span class="label-text">2つ目</span>
+          </label>
+          <input type="text" v-model.lazy="posts.posts[1].content" class="input input-bordered w-full">
+        </div>
+        <div class="form-control">
+          <label class="label">
+            <span class="label-text">3つ目</span>
+          </label>
+          <input type="text" v-model.lazy="posts.posts[2].content" class="input input-bordered w-full">
+        </div>
         <div class="flex justify-center mt-4">
-          <div class="btn btn-primary text-white" @click="handleStandbyWork">ワークを開始</div>
+          <div class="btn btn-primary text-white" @click.prevent="handleEditFavoriteThings">登録</div>
         </div>
       </form>
     </label>
-  </label> -->
+  </label>
 </template>

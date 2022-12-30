@@ -44,5 +44,58 @@ export const useWorkshopStore = defineStore('workshop', {
         }
       }
     },
+    async fetchPosts(workshopId: string) {
+      const options = useApiFetchOption();
+      await useFetch<Posts>('posts', {
+        query: { workshop: workshopId },
+        ...options,
+      })
+        .then((data) => {
+          if (!!data.data.value) this.posts = data.data.value;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    async createPosts(posts: any) {
+      const options = useApiFetchOption();
+      await useFetch<Posts>('posts', {
+        method: 'POST',
+        body: posts,
+        ...options,
+      })
+        .then((data) => {
+          this.posts = data.data.value;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    // async editPosts(posts: any) {
+    //   const options = useApiFetchOption();
+    //   posts.forEach(async (post: any) => {
+    //     await useFetch<Posts>(`posts/${post.id}`, {
+    //       method: 'PATCH',
+    //       body: post,
+    //       ...options,
+    //     }).catch((error) => {
+    //       console.log(error);
+    //     });
+    //   });
+    // },
+    async updateWorkStep(stepNum: number) {
+      const options = useApiFetchOption();
+      const bodyParam = {
+        workshop: {
+          work_step_id: stepNum,
+        },
+      };
+      await useFetch(`workshops/${this.workshop?.workshop.id}`, {
+        method: 'PATCH',
+        body: bodyParam,
+        ...options,
+      });
+      this.workshop!.workshop.work_step_id = stepNum;
+    },
   },
 });
