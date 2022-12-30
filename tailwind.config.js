@@ -8,7 +8,7 @@ module.exports = {
           "accent": "#D99330",
           "neutral": "#89D996",
           "base-100": "#f3f4f6",
-          "info": "#3ABFF8",
+          "info": "#3b82f6",
           "success": "#36D399",
           "warning": "#FBBD23",
           "error": "#F87272",
@@ -28,6 +28,9 @@ module.exports = {
       colors: {
         black: '#455A64',
         white: '#f3f4f6',
+      },
+      blur: {
+        xs: '0.5px',
       }
     },
   },
