@@ -1,19 +1,30 @@
+<script setup lang="ts">
+import TeamMemberCard from './TeamMemberCard.vue';
+
+const props = defineProps<{
+  teams?: {
+    id: string,
+    name: string,
+    descriptipn?: string,
+    users: {
+      id: string,
+      name: string,
+      avatar_url?: string,
+      description?: string
+    }[]
+  }[]
+}>();
+</script>
+
 <template>
   <div class="carousel carousel-center p-4 w-full space-x-4 bg-white rounded-box">
-    <div class="carousel-item border-2 w-[245px]">
-      チーム1
-    </div>
-    <div class="carousel-item border-2 w-[245px] h-[185px]">
-      チーム2
-    </div>
-    <div class="carousel-item border-2 w-[245px] h-[185px]">
-      チーム3
-    </div>
-    <div class="carousel-item border-2 w-[245px] h-[185px]">
-      チーム4
-    </div>
-    <div class="carousel-item border-2 w-[245px] h-[185px]">
-      チーム5
-    </div>
+    <template v-if="teams?.length !== 0">
+      <div v-for="team in props.teams">
+        <TeamMemberCard :team="team" />
+      </div>
+    </template>
+    <template v-else>
+      <div class="text-gray-700">参加中のチームがありません</div>
+    </template>
   </div>
 </template>

@@ -1,4 +1,7 @@
 <script setup lang="ts">
+import { useTeamStore } from '~~/stores/teams';
+const store = useTeamStore();
+store.fetchTeams();
 definePageMeta({
   requireLogin: true
 })
@@ -15,7 +18,7 @@ definePageMeta({
       </div>
       <div id="team-container">
         <h2 class="font-bold leading-tight text-2xl text-black mb-5">参加中のチーム</h2>
-        <TeamCarousel />
+        <TeamCarousel :teams="store.teams?.teams" />
       </div>
     </div>
   </div>
