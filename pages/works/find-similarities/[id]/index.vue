@@ -1,11 +1,34 @@
 <script setup lang="ts">
 import { useWorkshopStore } from '~~/stores/workshop';
+import ActionCable from 'actioncable'
 const store = useWorkshopStore();
 const route = useRoute();
 await store.fetchWorkshop(route.params.id as string);
 await store.fetchPosts(route.params.id as string);
 const isEditModalOpen = ref(false)
-
+const runTimeConfig = useRuntimeConfig();
+const cable = ActionCable.createConsumer(runTimeConfig.public.actioncableUrl)
+const workshopChannel = cable.subscriptions.create(
+  { channel: 'WorkshopChannel', room: store.workshop?.workshop.id },
+  {
+    received({ type, body }) {
+      switch (type) {
+        case 'create_post':
+          store.fetchPosts(store.workshop!.workshop.id)
+          break
+        case 'update_work_step':
+          store.fetchWorkshop(store.workshop!.workshop.id)
+          break
+        case 'update_presenter':
+          store.fetchWorkshop(store.workshop!.workshop.id)
+          break
+        case 'end_workshop':
+          navigateTo(`/works/find-similarities/${store.workshop?.workshop.id}/complete`)
+          break
+      }
+    }
+  }
+)
 const facilitator = computed(() => {
   return store.workshop?.workshop.users.find(user => user.id === store.workshop?.workshop.facilitator)
 })
@@ -16,8 +39,10 @@ const workStep = computed(() => {
   return store.workshop!.workshop.work_step_id
 })
 
-const nextPresenter = () => {
-  store.nextPresenter();
+const nextPresenter = async () => {
+  await store.nextPresenter().then(() => {
+    workshopChannel.perform('update_presenter', {})
+  });
 }
 const handleModalOpen = () => {
   isEditModalOpen.value = true
@@ -25,8 +50,10 @@ const handleModalOpen = () => {
 const handleModalClose = () => {
   isEditModalOpen.value = false
 }
-const handleWorkStep = () => {
-  store.updateWorkStep(store.workshop!.workshop.work_step_id + 1)
+const handleWorkStep = async () => {
+  await store.updateWorkStep(store.workshop!.workshop.work_step_id + 1).then(() => {
+    workshopChannel.perform('update_work_step', {})
+  })
 }
 
 const handlePostEdit = async (posts: any) => {
@@ -34,9 +61,10 @@ const handlePostEdit = async (posts: any) => {
   isEditModalOpen.value = false
 }
 
-const handleEndWorkshop = () => {
-  store.updateWorkStep(store.workshop!.workshop.work_step_id + 1)
-  navigateTo(`/works/find-similarities/${store.workshop?.workshop.id}/complete`)
+const handleEndWorkshop = async () => {
+  await store.updateWorkStep(store.workshop!.workshop.work_step_id + 1).then(() => {
+    workshopChannel.perform('end_workshop', {})
+  })
 }
 
 definePageMeta({

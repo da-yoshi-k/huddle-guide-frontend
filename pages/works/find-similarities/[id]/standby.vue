@@ -13,12 +13,9 @@ const workshopStandbyChannel = cable.subscriptions.create(
     received({ type, body }) {
       switch (type) {
         case 'join_member':
-          console.log('ユーザー参加');
-
           store.fetchWorkshop(route.params.id as string)
           break
         case 'start_workshop':
-          console.log('ワークショップ開始');
           navigateTo(`/works/find-similarities/${store.workshop?.workshop.id}`)
           break
       }
@@ -30,9 +27,10 @@ const disabled = computed(() => {
   return { 'btn-disabled': store.workshop!.workshop.users.length < MIN_MEMBER_COUNT }
 })
 
-const startWorkshop = () => {
-  store.updateWorkStep(2)
-  workshopStandbyChannel.perform('start_workshop', {})
+const startWorkshop = async () => {
+  await store.updateWorkStep(2).then(() => {
+    workshopStandbyChannel.perform('start_workshop', {})
+  })
 }
 
 definePageMeta({
