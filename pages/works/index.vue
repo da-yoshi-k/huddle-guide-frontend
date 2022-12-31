@@ -47,7 +47,7 @@ definePageMeta({
       <h2 class="font-bold leading-tight text-2xl text-black mb-4">ワーク一覧</h2>
       <div id="works-container" class="flex flex-col items-center md:flex-row md:justify-around mb-8">
         <div class="card w-80 bg-gray-200 shadow-xl mb-8">
-          <figure><img src="/img/works_news.svg" alt="Good&new" class="w-[200px]" /></figure>
+          <figure><img src="/img/works_news.svg" alt="Good&new" class="w-[200px] mt-4" /></figure>
           <div class="card-body">
             <h2 class="card-title">Good & New (開発中)</h2>
             <p>日々の中であった良かったことや<br />新しいニュースを共有しましょう</p>
@@ -62,7 +62,7 @@ definePageMeta({
           </div>
         </div>
         <div class="card w-80 bg-base-100 shadow-xl mb-8">
-          <figure><img src="/img/works_discussion.svg" alt="共通点探し" class="w-[200px]" /></figure>
+          <figure><img src="/img/works_discussion.svg" alt="共通点探し" class="w-[200px] mt-4" /></figure>
           <div class="card-body">
             <h2 class="card-title">共通点探し</h2>
             <p>チームの仲間との共通点を探してみませんか？</p>
