@@ -1,16 +1,36 @@
 <script setup lang="ts">
 import { useWorkshopStore } from '~~/stores/workshop';
+import ActionCable from 'actioncable'
 const store = useWorkshopStore();
 const route = useRoute();
+const MIN_MEMBER_COUNT = 2;
 await store.fetchWorkshop(route.params.id as string)
+const runTimeConfig = useRuntimeConfig();
+const cable = ActionCable.createConsumer(runTimeConfig.public.actioncableUrl)
+const workshopStandbyChannel = cable.subscriptions.create(
+  { channel: 'WorkshopStandbyChannel', room: store.workshop?.workshop.id },
+  {
+    received({ type, body }) {
+      switch (type) {
+        case 'join_member':
+          store.fetchWorkshop(route.params.id as string)
+          break
+        case 'start_workshop':
+          navigateTo(`/works/find-similarities/${store.workshop?.workshop.id}`)
+          break
+      }
+    }
+  }
+)
 
 const disabled = computed(() => {
-  return { 'btn-disabled': store.workshop!.workshop.users.length === 1 }
+  return { 'btn-disabled': store.workshop!.workshop.users.length < MIN_MEMBER_COUNT }
 })
 
-const startWorkshop = () => {
-  store.updateWorkStep(2)
-  navigateTo(`/works/find-similarities/${store.workshop?.workshop.id}`)
+const startWorkshop = async () => {
+  await store.updateWorkStep(2).then(() => {
+    workshopStandbyChannel.perform('start_workshop', {})
+  })
 }
 
 definePageMeta({

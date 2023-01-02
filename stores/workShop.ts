@@ -30,19 +30,31 @@ export const useWorkshopStore = defineStore('workshop', {
     },
     async nextPresenter() {
       const prev = this.workshop!.workshop.presenter;
-      if (prev === null || prev === undefined) {
-        this.workshop!.workshop.presenter = this.workshop!.workshop.users[0].id;
+      let nextPresenter: string;
+      if (!prev) {
+        nextPresenter = this.workshop!.workshop.users[0].id;
       } else {
         const prevIndex = this.workshop!.workshop.users.findIndex(
           (user) => user.id === prev
         );
         if (prevIndex === this.workshop!.workshop.users.length - 1) {
-          this.workshop!.workshop.presenter = null;
+          nextPresenter = '';
         } else {
-          this.workshop!.workshop.presenter =
-            this.workshop!.workshop.users[prevIndex + 1].id;
+          nextPresenter = this.workshop!.workshop.users[prevIndex + 1].id;
         }
       }
+      this.workshop!.workshop.presenter = nextPresenter;
+      const options = useApiFetchOption();
+      const param = {
+        workshop: {
+          presenter: nextPresenter,
+        },
+      };
+      await useFetch(`workshops/${this.workshop?.workshop.id}`, {
+        method: 'PATCH',
+        body: param,
+        ...options,
+      });
     },
     async fetchPosts(workshopId: string) {
       const options = useApiFetchOption();
@@ -71,18 +83,6 @@ export const useWorkshopStore = defineStore('workshop', {
           console.log(error);
         });
     },
-    // async editPosts(posts: any) {
-    //   const options = useApiFetchOption();
-    //   posts.forEach(async (post: any) => {
-    //     await useFetch<Posts>(`posts/${post.id}`, {
-    //       method: 'PATCH',
-    //       body: post,
-    //       ...options,
-    //     }).catch((error) => {
-    //       console.log(error);
-    //     });
-    //   });
-    // },
     async updateWorkStep(stepNum: number) {
       const options = useApiFetchOption();
       const bodyParam = {
