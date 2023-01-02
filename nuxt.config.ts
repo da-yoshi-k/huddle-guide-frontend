@@ -16,9 +16,9 @@ export default defineNuxtConfig({
   ssr: false,
   runtimeConfig: {
     public: {
-      apiServerUrl: process.env.API_SERVER_URL,
-      stage: process.env.STAGE,
-      actioncableUrl: process.env.ACTIONCABLE_URL,
+      apiServerUrl: '',
+      stage: '',
+      actioncableUrl: '',
     },
   },
   modules: [
