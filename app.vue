@@ -3,13 +3,13 @@ const runTimeConfig = useRuntimeConfig();
 if (runTimeConfig.public.stage === 'production') {
   useHead({
     titleTemplate: (titleChunk) => {
-      return titleChunk ? `${titleChunk} - Huddle Guide` : 'Huddle Guide';
+      return titleChunk ? `${titleChunk} | Huddle Guide` : 'Huddle Guide';
     }
   });
 } else {
   useHead({
     titleTemplate: (titleChunk) => {
-      return titleChunk ? `${runTimeConfig.public.stage} ${titleChunk} | Huddle Guide` : 'Huddle Guide';
+      return titleChunk ? `(${runTimeConfig.public.stage})${titleChunk} | Huddle Guide` : `(${runTimeConfig.public.stage}) Huddle Guide`;
     },
     meta: { hid: "robots", name: "robots", content: "noindex" }
   });
