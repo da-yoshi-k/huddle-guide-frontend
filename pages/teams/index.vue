@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import { useTeamStore } from '~~/stores/teams';
+import { useNotification } from "@kyvg/vue3-notification";
+const { notify } = useNotification()
 const store = useTeamStore();
 store.fetchTeams();
 definePageMeta({

@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { useForm, useField } from 'vee-validate';
 import { useAuthUserStore } from '~~/stores/authUser';
+import { useNotification } from '@kyvg/vue3-notification';
+const { notify } = useNotification();
 const store = useAuthUserStore();
 const { handleSubmit } = useForm({})
 const { value: email } = useField("email");
@@ -11,9 +13,15 @@ const login = handleSubmit(async () => {
     "email": email.value,
     "password": password.value
   }
-  await store.loginUser(user);
-  const router = useRouter()
-  router.push('/home')
+  await store.loginUser(user).then(() => {
+    const router = useRouter()
+    router.push('/home')
+  }).catch(() => {
+    notify({
+      type: 'error',
+      text: 'ユーザIDもしくはパスワードが違います。',
+    });
+  });
 });
 
 definePageMeta({
