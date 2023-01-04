@@ -2,7 +2,8 @@
   <!-- aside -->
   <link rel="stylesheet" href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css" />
   <div class="hidden md:inline-block">
-    <aside class="flex sticky w-72 flex-col space-y-2 border-r-2 border-gray-200 bg-white p-2" style="height: 88vh">
+    <aside class="flex sticky top-16 w-72 flex-col space-y-2 border-r-2 border-gray-200 bg-white p-2"
+      style="height: 88vh">
       <NuxtLink to="/home" class="flex items-center space-x-1 rounded-md px-5 py-3 hover:bg-gray-300">
         <span class="text-2xl"><i class="bx bx-home"></i></span>
         <span>ホーム</span>
