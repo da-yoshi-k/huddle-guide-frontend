@@ -27,7 +27,7 @@ const edit = handleSubmit(async () => {
     formData.append("user[avatar]", avatarFile.value as Blob);
   }
   try {
-    notify({ type: "success", text: 'プロフィールの変更が完了しました。' })
+    notify({ type: "success", text: 'プロフィールを変更しました。' })
     await store.updateUser(formData);
     location.reload()
   } catch (error) {
