@@ -1,11 +1,14 @@
 <script setup lang="ts">
 import { useWorkshopStore } from '~~/stores/workshop';
 import ActionCable from 'actioncable'
+import { useNotification } from '@kyvg/vue3-notification';
+const { notify } = useNotification();
+
 const store = useWorkshopStore();
 const route = useRoute();
 await store.fetchWorkshop(route.params.id as string);
 await store.fetchPosts(route.params.id as string);
-const isEditModalOpen = ref(false)
+
 const runTimeConfig = useRuntimeConfig();
 const cable = ActionCable.createConsumer(runTimeConfig.public.actioncableUrl)
 const workshopChannel = cable.subscriptions.create(
@@ -17,18 +20,22 @@ const workshopChannel = cable.subscriptions.create(
           store.fetchPosts(store.workshop!.workshop.id)
           break
         case 'update_work_step':
+          notify({ type: "info", text: "ワークのステップが変更されました。", duration: 1000 })
           store.fetchWorkshop(store.workshop!.workshop.id)
           break
         case 'update_presenter':
           store.fetchWorkshop(store.workshop!.workshop.id)
           break
         case 'end_workshop':
+          cable.disconnect();
           navigateTo(`/works/find-similarities/${store.workshop?.workshop.id}/complete`)
           break
       }
     }
   }
 )
+
+const isEditModalOpen = ref(false)
 const facilitator = computed(() => {
   return store.workshop?.workshop.users.find(user => user.id === store.workshop?.workshop.facilitator)
 })

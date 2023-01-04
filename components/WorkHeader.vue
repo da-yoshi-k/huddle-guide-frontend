@@ -1,6 +1,13 @@
 <script setup lang="ts">
 import { useAuthUserStore } from '~~/stores/authUser';
+import ActionCable from 'actioncable'
+const runTimeConfig = useRuntimeConfig();
+const handleCloseConnect = () => {
+  const cable = ActionCable.createConsumer(runTimeConfig.public.actioncableUrl)
+  cable.disconnect();
+}
 const store = useAuthUserStore();
+
 </script>
 
 <template>
@@ -24,7 +31,7 @@ const store = useAuthUserStore();
           </div>
           <ul class="p-2 bg-neutral">
             <li>
-              <NuxtLink to="/home">
+              <NuxtLink to="/home" @click="handleCloseConnect">
                 ワークを退出する
               </NuxtLink>
             </li>
