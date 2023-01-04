@@ -11,7 +11,7 @@ const store = useAuthUserStore();
 </script>
 
 <template>
-  <div class="sticky top-0 z-30 navbar bg-neutral bg-opacity-95 h-12 md:h-16">
+  <div class="sticky top-0 z-30 navbar bg-neutral bg-opacity-95 h-12 md:h-16 shadow-sm">
     <!-- ワーク画面 -->
     <div class="flex-1">
       <img src="/img/nav_logo.png" alt="huddle-guide brand logo">
