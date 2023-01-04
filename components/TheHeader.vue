@@ -16,7 +16,7 @@ const logout = () => {
 </script>
 
 <template>
-  <div class="sticky top-0 z-30 navbar bg-neutral bg-opacity-95 h-12 md:h-16">
+  <div class="sticky top-0 z-30 navbar bg-neutral bg-opacity-95 h-12 md:h-16 shadow-sm">
     <!-- 未ログイン -->
     <template v-if="!isLogin">
       <div class="flex-1">
