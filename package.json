@@ -24,13 +24,15 @@
     "prettier": "^2.8.1"
   },
   "dependencies": {
+    "@kyvg/vue3-notification": "^2.7.0",
     "@pinia/nuxt": "^0.4.6",
+    "@types/actioncable": "^5.2.7",
     "@vee-validate/i18n": "^4.7.3",
     "@vee-validate/rules": "^4.7.3",
     "actioncable": "^5.2.8-1",
-    "@types/actioncable": "^5.2.7",
     "pinia": "^2.0.28",
     "pinia-plugin-persistedstate": "^3.0.1",
+    "sass": "^1.57.1",
     "vee-validate": "^4.7.3",
     "vue-gtag": "^2.0.1"
   }

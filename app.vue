@@ -22,6 +22,7 @@ if (runTimeConfig.public.stage === 'production') {
       <NuxtPage />
     </NuxtLayout>
   </div>
+  <CustomNotification />
 </template>
 
 <style>

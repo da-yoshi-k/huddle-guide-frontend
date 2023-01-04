@@ -13,13 +13,16 @@ export const useAuthUserStore = defineStore('authUser', {
     async loginUser(userForm: any) {
       // ログイン
       const options = useApiFetchOption();
-      await useFetch<Token>('authentication', {
+      const { data, error } = await useFetch<Token>('authentication', {
         method: 'POST',
         body: userForm,
         ...options,
-      }).then((data) => {
-        localStorage.auth_token = data.data.value?.token;
       });
+      if (data.value) {
+        localStorage.auth_token = data.value?.token;
+      } else {
+        throw error;
+      }
       await this.fetchAuthUser();
     },
     // 自分のユーザー情報を取得

@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { useAuthUserStore } from '~~/stores/authUser';
 import { useForm, useField } from 'vee-validate';
+import { useNotification } from '@kyvg/vue3-notification';
+const { notify } = useNotification();
 const store = useAuthUserStore();
 
 const { handleSubmit } = useForm({})
@@ -25,6 +27,7 @@ const edit = handleSubmit(async () => {
     formData.append("user[avatar]", avatarFile.value as Blob);
   }
   try {
+    notify({ type: "success", text: 'プロフィールを変更しました。' })
     await store.updateUser(formData);
     location.reload()
   } catch (error) {

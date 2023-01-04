@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import { useForm, useField } from 'vee-validate';
+import { useNotification } from "@kyvg/vue3-notification";
+const { notify } = useNotification()
 const { handleSubmit } = useForm({})
 const { value: email } = useField("email");
 const { value: name } = useField("name");
@@ -15,13 +17,18 @@ const register = handleSubmit(async () => {
     }
   };
   const options = useApiFetchOption();
-  let { data } = await useFetch('users', {
+  const { data, error } = await useFetch('users', {
     method: 'POST',
     body: user,
     ...options,
-  });
-  const router = useRouter();
-  router.push('/login');
+  })
+  if (data.value) {
+    const router = useRouter();
+    router.push('/login');
+    notify({ type: "success", text: "ユーザー登録が完了しました" });
+  } else {
+    notify({ type: "error", text: error.value?.response?._data.errors[0] })
+  }
 });
 
 definePageMeta({
