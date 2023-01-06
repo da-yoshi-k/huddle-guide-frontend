@@ -11,7 +11,6 @@ export const useAuthUserStore = defineStore('authUser', {
   },
   actions: {
     async loginUser(userForm: any) {
-      // ログイン
       const options = useApiFetchOption();
       const { data, error } = await useFetch<Token>('authentication', {
         method: 'POST',
@@ -25,7 +24,6 @@ export const useAuthUserStore = defineStore('authUser', {
       }
       await this.fetchAuthUser();
     },
-    // 自分のユーザー情報を取得
     async fetchAuthUser() {
       if (!localStorage.auth_token) return null;
       if (this.authUser) return this.authUser;
