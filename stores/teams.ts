@@ -9,7 +9,6 @@ export const useTeamStore = defineStore('team', {
     getTeams: (state) => state.teams,
   },
   actions: {
-    // 自分の所属するチーム情報を取得
     async fetchTeams() {
       const options = useApiFetchOption();
       const { data } = await useFetch<Teams>('teams', {

@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import { useAuthUserStore } from '~~/stores/authUser';
+import { useNotification } from '@kyvg/vue3-notification';
+const { notify } = useNotification();
 const store = useAuthUserStore();
 const isLogin = ref(store.authUser?.user);
 const route = useRoute()
@@ -9,6 +11,7 @@ const logout = () => {
     store.$patch({
       authUser: null
     })
+    notify({ type: 'success', text: "ログアウトしました。" })
   } catch (error) {
     console.log(error);
   }

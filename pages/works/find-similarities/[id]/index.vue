@@ -1,30 +1,37 @@
 <script setup lang="ts">
 import { useWorkshopStore } from '~~/stores/workshop';
+import { useAuthUserStore } from '~~/stores/authUser';
 import ActionCable from 'actioncable'
 import { useNotification } from '@kyvg/vue3-notification';
+import { Message } from '~~/types/message';
 const { notify } = useNotification();
 
 const store = useWorkshopStore();
+const authUserStore = useAuthUserStore();
 const route = useRoute();
 await store.fetchWorkshop(route.params.id as string);
 await store.fetchPosts(route.params.id as string);
+await store.fetchMessages();
 
 const runTimeConfig = useRuntimeConfig();
 const cable = ActionCable.createConsumer(runTimeConfig.public.actioncableUrl)
 const workshopChannel = cable.subscriptions.create(
   { channel: 'WorkshopChannel', room: store.workshop?.workshop.id },
   {
-    received({ type, body }) {
+    async received({ type, body }) {
       switch (type) {
         case 'create_post':
-          store.fetchPosts(store.workshop!.workshop.id)
+          await store.fetchPosts(store.workshop!.workshop.id)
+          break
+        case 'create_message':
+          await store.fetchMessages()
           break
         case 'update_work_step':
-          notify({ type: "info", text: "ワークのステップが変更されました。", duration: 1000 })
-          store.fetchWorkshop(store.workshop!.workshop.id)
+          notify({ type: "info", text: "ステップが変更されました。", duration: 1000 })
+          await store.fetchWorkshop(store.workshop!.workshop.id)
           break
         case 'update_presenter':
-          store.fetchWorkshop(store.workshop!.workshop.id)
+          await store.fetchWorkshop(store.workshop!.workshop.id)
           break
         case 'end_workshop':
           cable.disconnect();
@@ -36,6 +43,7 @@ const workshopChannel = cable.subscriptions.create(
 )
 
 const isEditModalOpen = ref(false)
+const isChatModalOpen = ref(false)
 const facilitator = computed(() => {
   return store.workshop?.workshop.users.find(user => user.id === store.workshop?.workshop.facilitator)
 })
@@ -57,6 +65,14 @@ const handleModalOpen = () => {
 const handleModalClose = () => {
   isEditModalOpen.value = false
 }
+
+const handleChatModalOpen = () => {
+  isChatModalOpen.value = true
+}
+const handleChatModalClose = () => {
+  isChatModalOpen.value = false
+}
+
 const handleWorkStep = async () => {
   await store.updateWorkStep(store.workshop!.workshop.work_step_id + 1).then(() => {
     workshopChannel.perform('update_work_step', {})
@@ -66,6 +82,10 @@ const handleWorkStep = async () => {
 const handlePostEdit = async (posts: any) => {
   await store.createPosts(posts);
   isEditModalOpen.value = false
+}
+
+const handleCreateMessage = async (message: Message) => {
+  await store.createMessage(message);
 }
 
 const handleEndWorkshop = async () => {
@@ -96,5 +116,13 @@ definePageMeta({
         :reactions=undefined :presenter-id="presenter?.id" @modal-open="handleModalOpen" />
     </div>
   </div>
+  <div
+    class="fixed right-5 bottom-5 flex justify-center items-center rounded-full border-2 border-black bg-white h-12 w-12"
+    @click="handleChatModalOpen">
+    <img src="/img/chat.svg" class="h-8 w-8" />
+  </div>
   <WorkFavoriteEditModal :open-flag="isEditModalOpen" @close-modal="handleModalClose" @posts-edit="handlePostEdit" />
+  <WorkChatMessageModal :open-flag="isChatModalOpen" :messages="store.messages?.messages"
+    :users="store.workshop!.workshop.users" :auth-user-id="authUserStore.authUser!.user.id"
+    @close-chat-modal="handleChatModalClose" @create-message="handleCreateMessage" />
 </template>
