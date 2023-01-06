@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { useWorkshopStore } from '~~/stores/workshop';
 import ActionCable from 'actioncable'
+import { useNotification } from '@kyvg/vue3-notification';
+const { notify } = useNotification();
 const store = useWorkshopStore();
 const route = useRoute();
 const MIN_MEMBER_COUNT = 2;
@@ -16,6 +18,7 @@ const workshopStandbyChannel = cable.subscriptions.create(
           store.fetchWorkshop(route.params.id as string)
           break
         case 'start_workshop':
+          notify({ type: "info", text: "ワークが開始されました。", duration: 1000 })
           navigateTo(`/works/find-similarities/${store.workshop?.workshop.id}`)
           break
       }

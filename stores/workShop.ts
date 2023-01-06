@@ -1,13 +1,15 @@
 import { defineStore } from 'pinia';
 import { Workshop } from '~~/types/workshop';
 import { Posts } from '~~/types/posts';
+import { Messages } from '~~/types/messages';
+import { Message } from '~~/types/message';
 
 export const useWorkshopStore = defineStore('workshop', {
   state: () => ({
     workshop: null as Workshop | null,
     posts: null as Posts | null,
     reactions: null,
-    messages: null,
+    messages: null as Messages | null,
   }),
   getters: {
     getWorkshop: (state) => state.workshop,
@@ -50,7 +52,7 @@ export const useWorkshopStore = defineStore('workshop', {
           presenter: nextPresenter,
         },
       };
-      await useFetch(`workshops/${this.workshop?.workshop.id}`, {
+      await useFetch(`workshops/${this.workshop!.workshop.id}`, {
         method: 'PATCH',
         body: param,
         ...options,
@@ -90,12 +92,36 @@ export const useWorkshopStore = defineStore('workshop', {
           work_step_id: stepNum,
         },
       };
-      await useFetch(`workshops/${this.workshop?.workshop.id}`, {
+      await useFetch(`workshops/${this.workshop!.workshop.id}`, {
         method: 'PATCH',
         body: bodyParam,
         ...options,
       });
       this.workshop!.workshop.work_step_id = stepNum;
+    },
+    async fetchMessages() {
+      const options = useApiFetchOption();
+      await useFetch<Messages>(
+        `workshops/${this.workshop!.workshop.id}/messages`,
+        { ...options }
+      )
+        .then((data) => {
+          this.messages = data.data.value;
+          return this.messages;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    async createMessage(message: Message) {
+      const options = useApiFetchOption();
+      await useFetch(`workshops/${this.workshop!.workshop.id}/messages`, {
+        method: 'POST',
+        body: message,
+        ...options,
+      }).then(() => {
+        return;
+      });
     },
   },
 });
