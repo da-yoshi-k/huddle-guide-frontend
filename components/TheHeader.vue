@@ -4,7 +4,6 @@ import { useNotification } from '@kyvg/vue3-notification';
 const { notify } = useNotification();
 const store = useAuthUserStore();
 const isLogin = ref(store.authUser?.user);
-const route = useRoute()
 const logout = () => {
   try {
     localStorage.removeItem('auth_token');
@@ -40,23 +39,27 @@ const logout = () => {
           <img src="/img/nav_logo.png" alt="huddle-guide brand logo">
         </NuxtLink>
       </div>
-      <div class="flex-none text-yellow-100 md:mr-4">
-        <ul class="menu menu-horizontal px-1">
+      <div class="flex-none text-yellow-100">
+        <ul class="menu menu-horizontal">
           <li tabindex="0">
             <div id="user-info">
-              {{ store.authUser?.user.name }}
+              <div class="text-sm md:text-base">
+                {{ store.authUser?.user.name }}
+              </div>
               <template v-if="!!store.authUser?.user.avatar_url">
                 <div class="avatar">
-                  <div class="w-10 rounded-full">
+                  <div class="w-6 md:w-10 rounded-full">
                     <img :src="store.authUser.user.avatar_url" />
                   </div>
                 </div>
               </template>
-              <svg class="fill-current" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
-                <path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z" />
-              </svg>
+              <div class="w-4 md:w-5 h-4 md:h-5">
+                <svg class="fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                  <path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z" />
+                </svg>
+              </div>
             </div>
-            <ul class="p-2 bg-neutral">
+            <ul class="p-3 bg-neutral rounded-lg">
               <li>
                 <NuxtLink to="/login" @click="logout()">
                   ログアウト

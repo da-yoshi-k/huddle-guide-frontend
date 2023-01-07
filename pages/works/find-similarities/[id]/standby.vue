@@ -43,7 +43,7 @@ definePageMeta({
 </script>
 
 <template>
-  <h2 class="py-4 text-3xl text-center font-bold">待機画面</h2>
+  <h2 class="py-4 text-3xl text-center text-black font-bold">待機画面</h2>
   <div id="profile-form" class="flex justify-center mb-5">
     <div class="w-11/12 md:max-w-xl">
       <div id="work-info-container" class="flex flex-col mb-8">
@@ -52,11 +52,11 @@ definePageMeta({
           <div class="text-lg text-black pl-4 mr-4">{{ store.workshop?.workshop.work.name }}</div>
         </div>
         <div class="flex mb-8">
-          <h2 class="font-bold leading-tight text-xl text-black">チーム名</h2>
+          <h3 class="font-bold leading-tight text-xl text-black">チーム名</h3>
           <div class="text-lg text-black pl-4 mr-4">{{ store.workshop?.workshop.team.name }}</div>
         </div>
         <div class="mb-8">
-          <h2 class="font-bold leading-tight text-xl text-black mb-4">ワークを行う上での心構え</h2>
+          <h3 class="font-bold leading-tight text-xl text-black mb-4">ワークを行う上での心構え</h3>
           <ul class="list-decimal ml-8">
             <li class="text-black">ワークを盛り上げるため、リアクションを活発に行います。</li>
             <li class="text-black">お互いを尊重しあい、譲り合ってワークに参加します。</li>
@@ -65,7 +65,7 @@ definePageMeta({
           </ul>
         </div>
         <div class="flex flex-col mb-8">
-          <h2 class="font-bold leading-tight text-xl text-black">参加者一覧</h2>
+          <h3 class="font-bold leading-tight text-xl text-black">参加者一覧</h3>
           <div class="flex justify-center mt-4">
             <WorkParticipationCard :users="store.workshop?.workshop.users!" />
           </div>

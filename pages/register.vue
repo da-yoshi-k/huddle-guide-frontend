@@ -40,7 +40,7 @@ definePageMeta({
   <div id="login-form" class="flex justify-center bg-green-100">
     <div class="card w-3/4 md:w-96 bg-base-100 shadow-md my-12">
       <div class="card-body">
-        <h2 class="py-4 text-xl text-center font-bold">新規登録</h2>
+        <h2 class="py-4 text-xl text-center text-black font-bold">新規登録</h2>
         <div>
           <form @submit.prevent="register">
             <div class="form-control">

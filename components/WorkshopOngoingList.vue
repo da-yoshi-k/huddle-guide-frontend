@@ -37,7 +37,7 @@ const handleParticipateWorkshop = async (workshopId: string) => {
     <h2 class="font-bold leading-tight text-2xl text-black mb-4">参加可能なワーク</h2>
     <template v-if="ongoingWorkshops?.length !== 0">
       <div v-for="workshop in ongoingWorkshops" :key="workshop.id">
-        <div class="flex flex-row justify-center gap-10">
+        <div class="flex flex-row justify-center gap-10 mb-2">
           <div class="flex items-center">{{ workshop.team.name }}</div>
           <div class="flex items-center">{{ workshop.work.name }}</div>
           <button class="btn btn-primary text-yellow-100" @click="handleParticipateWorkshop(workshop.id)">参加する</button>

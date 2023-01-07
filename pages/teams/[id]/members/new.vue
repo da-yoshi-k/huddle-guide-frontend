@@ -47,7 +47,7 @@ definePageMeta({
 
 <template>
   <div>
-    <h2 class="py-4 text-3xl text-center font-bold">メンバー追加</h2>
+    <h2 class="py-4 text-3xl text-center text-black font-bold">メンバー追加</h2>
     <h3 class="text-center text-lg mb-4">追加するメンバーのメールアドレスで検索してください</h3>
     <div class="form-controll flex justify-center mb-8">
       <input type="text" class="input input-bordered w-full max-w-sm mr-4" v-model.lazy="searchParam">

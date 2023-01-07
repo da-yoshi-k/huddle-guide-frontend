@@ -42,14 +42,14 @@ definePageMeta({
 
 <template>
   <div>
-    <h2 class="py-4 text-3xl text-center font-bold">プロフィール</h2>
-    <h2 class="py-4 text-xl text-center font-bold">アカウント情報</h2>
+    <h2 class="py-4 text-3xl text-center text-black font-bold">プロフィール</h2>
+    <h3 class="py-4 text-xl text-center text-black font-bold">アカウント情報</h3>
     <div id="account-info" class="mb-12">
       <div class="flex justify-center overflow-x-auto pt-4">
-        <table class="table text-center text-sm md:w-[800px]">
+        <table class="table text-center text-sm w-3/4 ">
           <tbody>
             <tr>
-              <td>メールアドレス</td>
+              <td class="text-xs">メールアドレス</td>
               <td>{{ store.authUser?.user.email }}</td>
               <td>
                 <div class="tooltip" data-tip="開発中">
@@ -70,7 +70,7 @@ definePageMeta({
         </table>
       </div>
     </div>
-    <h2 class="py-4 text-xl text-center font-bold">プロフィール情報</h2>
+    <h3 class="py-4 text-xl text-center text-black font-bold">プロフィール情報</h3>
     <div id="profile-form" class="flex justify-center mb-5">
       <div class="w-3/4 md:w-96">
         <form @submit.prevent="edit">

@@ -17,7 +17,7 @@ const props = defineProps<{
 </script>
 
 <template>
-  <div class="carousel carousel-center pt-4 w-full space-x-4 bg-white rounded-box">
+  <div class="carousel carousel-center md:w-[calc(100vw-276px)] md:max-w-2xl pt-4 space-x-4 bg-white rounded-box">
     <template v-if="teams?.length !== 0">
       <div v-for="team in props.teams">
         <TeamMemberCard :team="team" />

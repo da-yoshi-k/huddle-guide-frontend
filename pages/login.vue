@@ -34,7 +34,7 @@ definePageMeta({
   <div id="login-form" class="flex justify-center">
     <div class="card w-3/4 md:w-96 bg-base-100 shadow-md my-12">
       <div class="card-body mb-7">
-        <h2 class="py-4 text-xl text-center font-bold">ログイン</h2>
+        <h2 class="py-4 text-xl text-center text-black font-bold">ログイン</h2>
         <div>
           <form @submit.prevent="login">
             <div class="form-control">
