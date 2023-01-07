@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { useTeamStore } from '~~/stores/teams';
+import { useTeamsStore } from '~~/stores/teams';
 import { useWorkshopsStore } from '~~/stores/workshops';
 
 const workshopsStore = useWorkshopsStore();
-const teamStore = useTeamStore();
+const teamStore = useTeamsStore();
 await workshopsStore.fetchWorkshops();
 await teamStore.fetchTeams();
 definePageMeta({

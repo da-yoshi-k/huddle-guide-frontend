@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useTeamStore } from '~~/stores/teams';
+import { useTeamsStore } from '~~/stores/teams';
 import { useWorkshopsStore } from '~~/stores/workshops';
 import { Workshop } from '~~/types/workshop';
 const selectedWork = ref({
@@ -14,7 +14,7 @@ const handleShowSelectModal = (id: number, name: string) => {
 }
 const workshopsStore = useWorkshopsStore();
 await workshopsStore.fetchWorkshops();
-const teamStore = useTeamStore();
+const teamStore = useTeamsStore();
 const teams = await teamStore.fetchTeams();
 const standby = (async (teamId: string) => {
   const workshop = {
