@@ -17,7 +17,7 @@ const store = useAuthUserStore();
       <img src="/img/nav_logo.png" alt="huddle-guide brand logo">
     </div>
     <div class="flex-none text-yellow-100">
-      <ul class="menu menu-horizontal">
+      <ul class="menu menu-horizontal md:mr-8">
         <li tabindex="0">
           <div id="user-info">
             <div class="text-sm md:text-base">
@@ -31,7 +31,7 @@ const store = useAuthUserStore();
               </div>
             </template>
           </div>
-          <ul class="p-3 bg-neutral rounded-lg">
+          <ul class="p-3 bg-neutral rounded-lg" style="transform:translate(-20px)">
             <li>
               <NuxtLink to="/home" @click="handleCloseConnect">
                 ワークを退出する
