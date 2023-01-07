@@ -5,7 +5,7 @@ import { useNotification } from '@kyvg/vue3-notification';
 const { notify } = useNotification();
 const store = useWorkshopStore();
 const route = useRoute();
-const MIN_MEMBER_COUNT = 2;
+const MIN_MEMBER_COUNT = 1;
 await store.fetchWorkshop(route.params.id as string)
 const runTimeConfig = useRuntimeConfig();
 const cable = ActionCable.createConsumer(runTimeConfig.public.actioncableUrl)
