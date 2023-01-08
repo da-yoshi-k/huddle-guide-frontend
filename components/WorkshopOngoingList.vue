@@ -14,6 +14,8 @@ const props = defineProps<{
   }[]
 }>()
 
+const route = useRoute();
+
 const ongoingWorkshops = computed(() => {
   return props.workshops?.filter(workshop => workshop.work_step.name !== "終了")
 })
@@ -45,9 +47,11 @@ const handleParticipateWorkshop = async (workshopId: string) => {
   <template v-else>
     <div class="flex flex-row gap-12">
       <div class="text-black ml-4 flex items-center">参加可能なワークがありません</div>
-      <NuxtLink to="/works" class="btn btn-primary text-yellow-100">
-        ワークを開始する
-      </NuxtLink>
+      <template v-if="route.path !== '/works'">
+        <NuxtLink to="/works" class="btn btn-primary text-yellow-100">
+          ワークを開始する
+        </NuxtLink>
+      </template>
     </div>
   </template>
 </template>
