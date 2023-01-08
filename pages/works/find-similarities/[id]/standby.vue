@@ -8,6 +8,16 @@ const route = useRoute();
 const MIN_MEMBER_COUNT = 1;
 const runTimeConfig = useRuntimeConfig();
 const cable = ActionCable.createConsumer(runTimeConfig.public.actioncableUrl)
+await store.fetchWorkshop(route.params.id as string).then(() => {
+  if (store.workshop?.workshop.work_step.name === '終了') {
+    cable.disconnect()
+    navigateTo(`/works/find-similarities/${store.workshop?.workshop.id}/complete`)
+  } else if (store.workshop?.workshop.work_step.name !== '待機') {
+    notify({ type: "info", text: "ワークに参加しました。", duration: 1000 })
+    navigateTo(`/works/find-similarities/${store.workshop?.workshop.id}`)
+    cable.disconnect()
+  }
+})
 const workshopStandbyChannel = cable.subscriptions.create(
   { channel: 'WorkshopStandbyChannel', room: store.workshop?.workshop.id },
   {
@@ -25,16 +35,7 @@ const workshopStandbyChannel = cable.subscriptions.create(
     }
   }
 )
-await store.fetchWorkshop(route.params.id as string).then(() => {
-  if (store.workshop?.workshop.work_step.name === '終了') {
-    cable.disconnect()
-    navigateTo(`/works/find-similarities/${store.workshop?.workshop.id}/complete`)
-  } else if (store.workshop?.workshop.work_step.name !== '待機') {
-    notify({ type: "info", text: "ワークに参加しました。", duration: 1000 })
-    navigateTo(`/works/find-similarities/${store.workshop?.workshop.id}`)
-    cable.disconnect()
-  }
-})
+
 const disabled = computed(() => {
   return { 'btn-disabled': store.workshop!.workshop.users.length < MIN_MEMBER_COUNT }
 })
