@@ -13,23 +13,25 @@ const modalOpen = computed(() => {
 })
 
 const prevPosts = workShopStore.posts?.posts.filter(post => post.user_id === authUserStore.authUser?.user.id)
-const posts = ref({
-  posts: [{
-    id: 0,
-    content: '',
-    workshop_id: workShopStore.workshop?.workshop.id,
-    user_id: authUserStore.authUser?.user.id
-  }, {
-    id: 0,
-    content: '',
-    workshop_id: workShopStore.workshop?.workshop.id,
-    user_id: authUserStore.authUser?.user.id
-  }, {
-    id: 0,
-    content: '',
-    workshop_id: workShopStore.workshop?.workshop.id,
-    user_id: authUserStore.authUser?.user.id
-  }]
+const posts = computed(() => {
+  return {
+    posts: [{
+      id: 0,
+      content: '',
+      workshop_id: workShopStore.workshop?.workshop.id,
+      user_id: authUserStore.authUser?.user.id
+    }, {
+      id: 0,
+      content: '',
+      workshop_id: workShopStore.workshop?.workshop.id,
+      user_id: authUserStore.authUser?.user.id
+    }, {
+      id: 0,
+      content: '',
+      workshop_id: workShopStore.workshop?.workshop.id,
+      user_id: authUserStore.authUser?.user.id
+    }]
+  }
 })
 if (prevPosts != null) {
   for (let i = 0; i < prevPosts.length; i++) {
