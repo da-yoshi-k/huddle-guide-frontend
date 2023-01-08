@@ -18,7 +18,7 @@ const handleNextPresenter = () => {
 </script>
 
 <template>
-  <div class="bg-green-200 rounded-xl w-2/5 h-20 md:w-80 grid grid-cols-4 place-content-center">
+  <div class="bg-green-200 rounded-xl w-2/5 md:w-80 h-20 grid grid-cols-4 place-content-center">
     <div class="col-span-1 flex flex-col place-items-center place-self-center">
       <div class="avatar w-8 md:w-12 h-8 md:h-12">
         <div class="rounded-full">
@@ -35,10 +35,10 @@ const handleNextPresenter = () => {
       </div>
     </div>
     <div class="col-span-2 flex flex-col">
-      <div class="text-left text-xs">
+      <div class="text-left text-xs text-gray-600">
         発表者
       </div>
-      <div class="text-left">
+      <div class="text-left text-sm md:text-base">
         <template v-if="!!props.user">
           {{ props.user?.name }}
         </template>

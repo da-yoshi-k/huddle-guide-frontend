@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia';
 import { Teams } from '~/types/teams';
 
-export const useTeamStore = defineStore('team', {
+export const useTeamsStore = defineStore('teams', {
   state: () => ({
     teams: null as Teams | null,
   }),

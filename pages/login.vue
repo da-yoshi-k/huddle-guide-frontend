@@ -34,7 +34,7 @@ definePageMeta({
   <div id="login-form" class="flex justify-center">
     <div class="card w-3/4 md:w-96 bg-base-100 shadow-md my-12">
       <div class="card-body mb-7">
-        <h2 class="py-4 text-xl text-center font-bold">ログイン</h2>
+        <h2 class="py-4 text-xl text-center text-black font-bold">ログイン</h2>
         <div>
           <form @submit.prevent="login">
             <div class="form-control">
@@ -64,7 +64,7 @@ definePageMeta({
                 新規登録はこちら
               </NuxtLink>
             </div>
-            <div class="mb-4">
+            <div class="mb-4 tooltip" data-tip="開発中">
               <NuxtLink to="#" class="link-hover text-info">
                 パスワードを忘れた
               </NuxtLink>

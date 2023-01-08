@@ -4,7 +4,7 @@ const props = defineProps<{
     id: number,
     name: string,
   },
-  teams: [{
+  teams?: [{
     id: string,
     name: string
   }]
@@ -14,7 +14,7 @@ const emits = defineEmits<{
   (e: 'standby-work', teamId: string): void;
 }>();
 
-const selectedTeamId = ref(props.teams[0]?.id)
+const selectedTeamId = ref(props.teams ? props.teams[0]?.id : '')
 
 const disabled = computed(() => {
   return selectedTeamId.value != null ? '' : 'btn-disabled'
