@@ -9,10 +9,6 @@ const { notify } = useNotification();
 const store = useWorkshopStore();
 const authUserStore = useAuthUserStore();
 const route = useRoute();
-await store.fetchWorkshop(route.params.id as string);
-await store.fetchPosts(route.params.id as string);
-await store.fetchMessages();
-
 const runTimeConfig = useRuntimeConfig();
 const cable = ActionCable.createConsumer(runTimeConfig.public.actioncableUrl)
 const workshopChannel = cable.subscriptions.create(
@@ -41,6 +37,15 @@ const workshopChannel = cable.subscriptions.create(
     }
   }
 )
+
+await store.fetchWorkshop(route.params.id as string).then(() => {
+  if (store.workshop?.workshop.work_step.name === '終了') {
+    cable.disconnect()
+    navigateTo(`/works/find-similarities/${store.workshop?.workshop.id}/complete`)
+  }
+});
+await store.fetchPosts(route.params.id as string);
+await store.fetchMessages();
 
 const isEditModalOpen = ref(false)
 const isChatModalOpen = ref(false)

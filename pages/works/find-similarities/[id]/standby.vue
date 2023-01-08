@@ -6,7 +6,6 @@ const { notify } = useNotification();
 const store = useWorkshopStore();
 const route = useRoute();
 const MIN_MEMBER_COUNT = 1;
-await store.fetchWorkshop(route.params.id as string)
 const runTimeConfig = useRuntimeConfig();
 const cable = ActionCable.createConsumer(runTimeConfig.public.actioncableUrl)
 const workshopStandbyChannel = cable.subscriptions.create(
@@ -19,13 +18,23 @@ const workshopStandbyChannel = cable.subscriptions.create(
           break
         case 'start_workshop':
           notify({ type: "info", text: "ワークが開始されました。", duration: 1000 })
+          cable.disconnect()
           navigateTo(`/works/find-similarities/${store.workshop?.workshop.id}`)
           break
       }
     }
   }
 )
-
+await store.fetchWorkshop(route.params.id as string).then(() => {
+  if (store.workshop?.workshop.work_step.name === '終了') {
+    cable.disconnect()
+    navigateTo(`/works/find-similarities/${store.workshop?.workshop.id}/complete`)
+  } else if (store.workshop?.workshop.work_step.name !== '待機') {
+    notify({ type: "info", text: "ワークに参加しました。", duration: 1000 })
+    navigateTo(`/works/find-similarities/${store.workshop?.workshop.id}`)
+    cable.disconnect()
+  }
+})
 const disabled = computed(() => {
   return { 'btn-disabled': store.workshop!.workshop.users.length < MIN_MEMBER_COUNT }
 })
