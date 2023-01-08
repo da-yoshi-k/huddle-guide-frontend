@@ -16,20 +16,22 @@ const store = useAuthUserStore();
     <div class="flex-1">
       <img src="/img/nav_logo.png" alt="huddle-guide brand logo">
     </div>
-    <div class="flex-none text-yellow-100 md:mr-4">
-      <ul class="menu menu-horizontal px-1">
+    <div class="flex-none text-yellow-100">
+      <ul class="menu menu-horizontal md:mr-8">
         <li tabindex="0">
           <div id="user-info">
-            {{ store.authUser?.user.name }}
+            <div class="text-sm md:text-base">
+              {{ store.authUser?.user.name }}
+            </div>
             <template v-if="!!store.authUser?.user.avatar_url">
               <div class="avatar">
-                <div class="w-10 rounded-full">
+                <div class="w-6 md:w-10 rounded-full">
                   <img :src="store.authUser.user.avatar_url" />
                 </div>
               </div>
             </template>
           </div>
-          <ul class="p-2 bg-neutral">
+          <ul class="p-3 bg-neutral rounded-lg" style="transform:translate(-20px)">
             <li>
               <NuxtLink to="/home" @click="handleCloseConnect">
                 ワークを退出する

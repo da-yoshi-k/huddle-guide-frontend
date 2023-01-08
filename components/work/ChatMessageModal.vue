@@ -62,9 +62,9 @@ const handleCloseModal = () => {
         </div>
       </div>
       <form @submit.prevent>
-        <input type="text" v-model="message.message.content" class="input input-bordered md:w-[360px] mr-4"
-          @keypress.enter="handleCreateMessage">
-        <div class="btn btn-primary text-white" @click.stop.prevent="handleCreateMessage">送信</div>
+        <input type="text" v-model="message.message.content"
+          class="input input-bordered w-[200px] md:w-[360px] mr-2 md:mr-4" @keypress.enter="handleCreateMessage">
+        <div class="btn btn-primary btn-sm md:btn-md text-white" @click.stop.prevent="handleCreateMessage">送信</div>
       </form>
     </label>
   </label>
