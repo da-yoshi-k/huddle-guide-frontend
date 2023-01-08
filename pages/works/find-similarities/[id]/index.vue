@@ -13,7 +13,6 @@ const runTimeConfig = useRuntimeConfig();
 const cable = ActionCable.createConsumer(runTimeConfig.public.actioncableUrl)
 await store.fetchWorkshop(route.params.id as string).then(() => {
   if (store.workshop?.workshop.work_step.name === '終了') {
-    cable.disconnect()
     navigateTo(`/works/find-similarities/${store.workshop?.workshop.id}/complete`)
   }
 });

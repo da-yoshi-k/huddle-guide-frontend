@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { UserInfo } from '~~/types/userInfo';
 import { useTeamStore } from '~~/stores/team';
+import { useNotification } from '@kyvg/vue3-notification';
+const { notify } = useNotification();
 
 const store = useTeamStore();
 const route = useRoute();
@@ -44,6 +46,7 @@ const handleMemberAdd = async () => {
     body: userParam,
     ...options
   }).then(() => {
+    notify({ type: 'success', text: 'メンバーを追加しました。' })
     router.push('/home')
   })
 }
