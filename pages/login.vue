@@ -64,7 +64,7 @@ definePageMeta({
                 新規登録はこちら
               </NuxtLink>
             </div>
-            <div class="mb-4">
+            <div class="mb-4 tooltip" data-tip="開発中">
               <NuxtLink to="#" class="link-hover text-info">
                 パスワードを忘れた
               </NuxtLink>

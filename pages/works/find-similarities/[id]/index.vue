@@ -106,10 +106,10 @@ definePageMeta({
       <div class="flex flex-col">
         <h2 class="font-bold leading-tight text-2xl text-black m-4">共通点探し</h2>
         <WorkStepList :step="workStep" />
-        <div class="ml-8 flex gap-6">
+        <div class="ml-8 flex gap-4 flex-wrap">
           <WorkFacilitatorCard :user="facilitator!" />
           <WorkPresenterCard :user="presenter" @next-presenter="nextPresenter" />
-          <div class="flex items-center ml-auto mr-8">
+          <div class="flex items-center md:ml-auto mr-8">
             <WorkNextStepButton :step="workStep" @next-step="handleWorkStep" @end-work="handleEndWorkshop" />
           </div>
         </div>
