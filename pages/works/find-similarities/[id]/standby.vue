@@ -15,7 +15,6 @@ await store.fetchWorkshop(route.params.id as string).then(() => {
   } else if (store.workshop?.workshop.work_step.name !== '待機') {
     notify({ type: "info", text: "ワークに参加しました。", duration: 1000 })
     navigateTo(`/works/find-similarities/${store.workshop?.workshop.id}`)
-    cable.disconnect()
   }
 })
 const workshopStandbyChannel = cable.subscriptions.create(
@@ -28,7 +27,6 @@ const workshopStandbyChannel = cable.subscriptions.create(
           break
         case 'start_workshop':
           notify({ type: "info", text: "ワークが開始されました。", duration: 1000 })
-          cable.disconnect()
           navigateTo(`/works/find-similarities/${store.workshop?.workshop.id}`)
           break
       }
