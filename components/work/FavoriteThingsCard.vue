@@ -14,6 +14,10 @@ const props = defineProps<{
     content: string,
     workshop_id: string,
     user_id?: string,
+    sameUsers?: {
+      name: string,
+      avatar_url?: string,
+    }[]
   }[]
   reactions?: [{
     post_id: number,
@@ -34,7 +38,7 @@ const handleEditModalOpen = () => {
 </script>
 
 <template>
-  <div class="rounded-xl w-[380px] h-48 grid grid-cols-8 grid-rows-4 mb-4" :class="bgColor">
+  <div class="rounded-xl w-[380px] h-48 grid grid-cols-8 grid-rows-4 mb-4 shadow-md" :class="bgColor">
     <div class="col-span-1 flex place-self-center place-items-center">
       <div class="avatar w-8 h-8">
         <div class="w-14 rounded-full">
@@ -58,11 +62,24 @@ const handleEditModalOpen = () => {
         <img src="/img/edit.svg" class="w-6 h-6" />
       </button>
     </div>
-    <div class="col-span-5 row-span-3 flex flex-col">
+    <div class="col-span-7 row-span-3 flex flex-col">
       <template v-if="props.posts?.length !== 0">
         <div v-for="post in props.posts">
-          <div class="h-12 flex items-center">
-            ・{{ post.content }}
+          <div class="flex">
+            <div class="h-12 flex items-center">
+              ・{{ post.content }}
+            </div>
+            <div v-if="post.sameUsers" class="flex ml-auto mr-2 items-center">
+              <div class="avatar-group -space-x-4">
+                <div v-for="user in post.sameUsers">
+                  <div class="avatar bg-white">
+                    <div class="w-6">
+                      <img :src="user.avatar_url ? user.avatar_url : '/img/default_account.svg'" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </template>

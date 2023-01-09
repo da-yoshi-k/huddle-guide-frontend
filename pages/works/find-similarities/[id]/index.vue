@@ -62,10 +62,10 @@ const nextPresenter = async () => {
     workshopChannel.perform('update_presenter', {})
   });
 }
-const handleModalOpen = () => {
+const handleEditModalOpen = () => {
   isEditModalOpen.value = true
 }
-const handleModalClose = () => {
+const handleEditModalClose = () => {
   isEditModalOpen.value = false
 }
 
@@ -119,7 +119,7 @@ definePageMeta({
         <div class="flex flex-row mt-8 place-content-around flex-wrap">
           <div v-for="user in store.workshop?.workshop.users" :key="user.id">
             <WorkFavoriteThingsCard :user="user" :posts="store.posts?.posts.filter(post => post.user_id === user.id)"
-              :reactions=undefined :presenter-id="presenter?.id" @modal-open="handleModalOpen" />
+              :reactions=undefined :presenter-id="presenter?.id" @modal-open="handleEditModalOpen" />
           </div>
         </div>
         <div
@@ -127,7 +127,7 @@ definePageMeta({
           @click="handleChatModalOpen">
           <img src="/img/chat.svg" class="h-8 w-8" />
         </div>
-        <WorkFavoriteEditModal :open-flag="isEditModalOpen" @close-modal="handleModalClose"
+        <WorkFavoriteEditModal :open-flag="isEditModalOpen" @close-modal="handleEditModalClose"
           @posts-edit="handlePostEdit" />
         <WorkChatMessageModal :open-flag="isChatModalOpen" :messages="store.messages?.messages"
           :users="store.workshop!.workshop.users" :auth-user-id="authUserStore.authUser!.user.id"

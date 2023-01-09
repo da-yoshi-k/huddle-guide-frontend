@@ -3,6 +3,7 @@ import { Workshop } from '~~/types/workshop';
 import { Posts } from '~~/types/posts';
 import { Messages } from '~~/types/messages';
 import { Message } from '~~/types/message';
+import { User } from '~~/types/user';
 
 export const useWorkshopStore = defineStore('workshop', {
   state: () => ({
@@ -65,11 +66,32 @@ export const useWorkshopStore = defineStore('workshop', {
         ...options,
       })
         .then((data) => {
-          if (!!data.data.value) this.posts = data.data.value;
+          if (!!data.data.value) {
+            this.posts = data.data.value;
+            this.findSamePosts();
+          }
         })
         .catch((error) => {
           console.log(error);
         });
+    },
+    findSamePosts() {
+      this.posts?.posts.forEach((post) => {
+        const users: User[] = [];
+        const samePosts = this.posts?.posts.filter(
+          (item) =>
+            post.user_id !== item.user_id && post.content === item.content
+        );
+        samePosts?.forEach((pst) => {
+          const user = this.workshop!.workshop.users.find(
+            (user) => user.id === pst.user_id
+          );
+          if (user != null) {
+            users.push(user);
+          }
+        });
+        post.sameUsers = users;
+      });
     },
     async createPosts(posts: any) {
       const options = useApiFetchOption();

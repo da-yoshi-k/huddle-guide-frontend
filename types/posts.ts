@@ -1,3 +1,5 @@
+import { User } from './user';
+
 export interface Posts {
   posts: [
     {
@@ -5,6 +7,7 @@ export interface Posts {
       content: string;
       workshop_id: string;
       user_id: string;
+      sameUsers?: User[];
     }
   ];
 }
