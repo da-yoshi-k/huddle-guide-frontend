@@ -17,12 +17,7 @@ const MAX_MEMBER_COUNT = 6;
         <template v-if="!!props.users[n - 1]">
           <div class="avatar justify-center">
             <div class="w-14 rounded-full">
-              <template v-if="!!props.users[n - 1]?.avatar_url">
-                <img :src="props.users[n - 1].avatar_url" />
-              </template>
-              <template v-else>
-                <img src="/img/default_account.svg" />
-              </template>
+              <img :src="props.users[n - 1].avatar_url ? props.users[n - 1].avatar_url : '/img/default_account.svg'" />
             </div>
           </div>
           <div class="text-center text-sm">
@@ -30,7 +25,7 @@ const MAX_MEMBER_COUNT = 6;
           </div>
         </template>
         <template v-else>
-          <div class="avatar justify-center">
+          <div class="avatar justify-center opacity-30">
             <div class="w-14 rounded-full">
               <img src="/img/default_account.svg" />
             </div>

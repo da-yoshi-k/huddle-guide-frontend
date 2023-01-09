@@ -74,12 +74,8 @@ definePageMeta({
         <div class="flex flex-row justify-center gap-8">
           <div class="avatar">
             <div class="w-12 rounded-full">
-              <template v-if="!!searchResultUser.user.avatar_url">
-                <img :src="searchResultUser.user.avatar_url" />
-              </template>
-              <template v-else>
-                <img src="/img/default_account.svg" />
-              </template>
+              <img
+                :src="searchResultUser.user.avatar_url ? searchResultUser.user.avatar_url : '/img/default_account.svg'" />
             </div>
           </div>
           <div class="text-lg flex items-center">
