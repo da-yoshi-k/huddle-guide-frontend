@@ -12,9 +12,8 @@ const modalOpen = computed(() => {
   return props.openFlag ? 'modal-open' : ''
 })
 
-const prevPosts = workShopStore.posts?.posts.filter(post => post.user_id === authUserStore.authUser?.user.id)
 const posts = computed(() => {
-  return {
+  let posts = {
     posts: [{
       id: 0,
       content: '',
@@ -32,12 +31,15 @@ const posts = computed(() => {
       user_id: authUserStore.authUser?.user.id
     }]
   }
-})
-if (prevPosts != null) {
-  for (let i = 0; i < prevPosts.length; i++) {
-    posts.value.posts[i] = prevPosts[i]
+  let prevPosts = workShopStore.posts?.posts.filter(post => post.user_id === authUserStore.authUser?.user.id)
+  if (prevPosts != null) {
+    for (let i = 0; i < prevPosts.length; i++) {
+      posts.posts[i].id = prevPosts[i].id
+      posts.posts[i].content = prevPosts[i].content
+    }
   }
-}
+  return posts
+})
 
 const emits = defineEmits<{
   (e: 'posts-edit', posts: any): void;

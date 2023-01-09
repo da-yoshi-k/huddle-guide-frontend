@@ -38,16 +38,11 @@ const handleEditModalOpen = () => {
 </script>
 
 <template>
-  <div class="rounded-xl w-[380px] h-48 grid grid-cols-8 grid-rows-4 mb-4 shadow-md" :class="bgColor">
+  <div class="rounded-xl w-[380px] h-48 grid grid-cols-8 grid-rows-4 mb-4 mr-4 shadow-md" :class="bgColor">
     <div class="col-span-1 flex place-self-center place-items-center">
       <div class="avatar w-8 h-8">
         <div class="w-14 rounded-full">
-          <template v-if="!!props.user.avatar_url">
-            <img :src="props.user.avatar_url" />
-          </template>
-          <template v-else>
-            <img src="/img/default_account.svg" />
-          </template>
+          <img :src="props.user.avatar_url ? props.user.avatar_url : '/img/default_account.svg'" />
         </div>
       </div>
     </div>
@@ -57,8 +52,8 @@ const handleEditModalOpen = () => {
       </div>
     </div>
     <div class="col-span-1 row-span-3 flex items-center">
-      <button for="favorite-edit-modal" v-if="props.user.id === store.authUser?.user.id && props.posts?.length === 0"
-        @click="handleEditModalOpen" class="btn btn-circle btn-ghost">
+      <button for="favorite-edit-modal" v-if="props.user.id === store.authUser?.user.id" @click="handleEditModalOpen"
+        class="btn btn-circle btn-ghost">
         <img src="/img/edit.svg" class="w-6 h-6" />
       </button>
     </div>

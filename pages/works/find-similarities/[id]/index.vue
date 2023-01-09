@@ -16,7 +16,7 @@ await store.fetchWorkshop(route.params.id as string).then(() => {
     navigateTo(`/works/find-similarities/${store.workshop?.workshop.id}/complete`)
   }
 });
-await store.fetchPosts(route.params.id as string);
+await store.fetchPosts();
 await store.fetchMessages();
 const workshopChannel = cable.subscriptions.create(
   { channel: 'WorkshopChannel', room: store.workshop?.workshop.id },
@@ -24,7 +24,10 @@ const workshopChannel = cable.subscriptions.create(
     async received({ type, body }) {
       switch (type) {
         case 'create_post':
-          await store.fetchPosts(store.workshop!.workshop.id)
+          await store.fetchPosts()
+          break
+        case 'edit_post':
+          await store.fetchPosts()
           break
         case 'create_message':
           await store.fetchMessages()
@@ -82,8 +85,12 @@ const handleWorkStep = async () => {
   })
 }
 
-const handlePostEdit = async (posts: any) => {
-  await store.createPosts(posts);
+const handleEditPost = async (posts: any) => {
+  if (posts.posts[0].id === 0) {
+    await store.createPosts(posts);
+  } else {
+    await store.editPosts(posts);
+  }
   isEditModalOpen.value = false
 }
 
@@ -128,7 +135,7 @@ definePageMeta({
           <img src="/img/chat.svg" class="h-8 w-8" />
         </div>
         <WorkFavoriteEditModal :open-flag="isEditModalOpen" @close-modal="handleEditModalClose"
-          @posts-edit="handlePostEdit" />
+          @posts-edit="handleEditPost" />
         <WorkChatMessageModal :open-flag="isChatModalOpen" :messages="store.messages?.messages"
           :users="store.workshop!.workshop.users" :auth-user-id="authUserStore.authUser!.user.id"
           @close-chat-modal="handleChatModalClose" @create-message="handleCreateMessage" />
