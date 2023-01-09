@@ -59,10 +59,9 @@ export const useWorkshopStore = defineStore('workshop', {
         ...options,
       });
     },
-    async fetchPosts(workshopId: string) {
+    async fetchPosts() {
       const options = useApiFetchOption();
-      await useFetch<Posts>('posts', {
-        query: { workshop: workshopId },
+      await useFetch<Posts>(`workshops/${this.workshop!.workshop.id}/posts`, {
         ...options,
       })
         .then((data) => {
@@ -95,17 +94,26 @@ export const useWorkshopStore = defineStore('workshop', {
     },
     async createPosts(posts: any) {
       const options = useApiFetchOption();
-      await useFetch<Posts>('posts', {
+      await useFetch<Posts>(`workshops/${this.workshop!.workshop.id}/posts`, {
         method: 'POST',
         body: posts,
         ...options,
-      })
-        .then((data) => {
-          this.posts = data.data.value;
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+      });
+    },
+    async editPosts(posts: any) {
+      const options = useApiFetchOption();
+      posts.posts.forEach(async (post: any) => {
+        if (post.content != null) {
+          await useFetch(
+            `workshops/${this.workshop!.workshop.id}/posts/${post.id}`,
+            {
+              method: 'PATCH',
+              body: { post: post },
+              ...options,
+            }
+          );
+        }
+      });
     },
     async updateWorkStep(stepNum: number) {
       const options = useApiFetchOption();
