@@ -16,7 +16,7 @@ const login = handleSubmit(async () => {
   await store.loginUser(user).then(() => {
     const router = useRouter()
     router.push('/home')
-    notify({ type: 'success', text: 'ログインに成功しました。' })
+    notify({ type: 'success', text: 'ログインしました。' })
   }).catch(() => {
     notify({
       type: 'error',
