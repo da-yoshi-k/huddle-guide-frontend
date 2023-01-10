@@ -23,13 +23,12 @@ const store = useAuthUserStore();
             <div class="text-sm md:text-base">
               {{ store.authUser?.user.name }}
             </div>
-            <template v-if="!!store.authUser?.user.avatar_url">
-              <div class="avatar">
-                <div class="w-6 md:w-10 rounded-full">
-                  <img :src="store.authUser.user.avatar_url" />
-                </div>
+            <div class="avatar">
+              <div class="w-6 md:w-10 rounded-full">
+                <img
+                  :src="store.authUser?.user.avatar_url ? store.authUser.user.avatar_url : '/img/default_account.svg'" />
               </div>
-            </template>
+            </div>
           </div>
           <ul class="p-3 bg-neutral rounded-lg" style="transform:translate(-20px)">
             <li>

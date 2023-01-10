@@ -28,12 +28,7 @@ const messagePosition = computed(() => {
   <div class="chat" :class="messagePosition">
     <div class="chat-image avatar">
       <div class="w-10 rounded-full">
-        <template v-if="!!speakedUser?.avatar_url">
-          <img :src="speakedUser?.avatar_url" />
-        </template>
-        <template v-else>
-          <img src="/img/default_account.svg" />
-        </template>
+        <img :src="speakedUser?.avatar_url ? speakedUser?.avatar_url : '/img/default_account.svg'" />
       </div>
     </div>
     <div class="chat-header">
