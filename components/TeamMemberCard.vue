@@ -33,7 +33,7 @@ const MAX_MEMBER_COUNT = 6;
         </template>
         <template v-else>
           <NuxtLink :to="'/teams/' + props.team.id + '/members/new'" class="flex flex-col">
-            <div class="avatar justify-center">
+            <div class="avatar justify-center opacity-40">
               <div class=" w-8 h-8">
                 <img src="/img/person_add.svg" />
               </div>
