@@ -23,12 +23,8 @@ const MAX_MEMBER_COUNT = 6;
         <template v-if="!!props.team.users[n - 1]">
           <div class="avatar justify-center">
             <div class="w-8 rounded-full">
-              <template v-if="!!props.team.users[n - 1]?.avatar_url">
-                <img :src="props.team.users[n - 1].avatar_url" />
-              </template>
-              <template v-else>
-                <img src="/img/default_account.svg" />
-              </template>
+              <img
+                :src="props.team.users[n - 1].avatar_url ? props.team.users[n - 1].avatar_url : '/img/default_account.svg'" />
             </div>
           </div>
           <div class="text-center text-xs">
@@ -37,7 +33,7 @@ const MAX_MEMBER_COUNT = 6;
         </template>
         <template v-else>
           <NuxtLink :to="'/teams/' + props.team.id + '/members/new'" class="flex flex-col">
-            <div class="avatar justify-center">
+            <div class="avatar justify-center opacity-40">
               <div class=" w-8 h-8">
                 <img src="/img/person_add.svg" />
               </div>

@@ -46,13 +46,12 @@ const logout = () => {
               <div class="text-sm md:text-base">
                 {{ store.authUser?.user.name }}
               </div>
-              <template v-if="!!store.authUser?.user.avatar_url">
-                <div class="avatar">
-                  <div class="w-6 md:w-10 rounded-full">
-                    <img :src="store.authUser.user.avatar_url" />
-                  </div>
+              <div class="avatar">
+                <div class="w-6 md:w-10 rounded-full">
+                  <img
+                    :src="store.authUser?.user.avatar_url ? store.authUser.user.avatar_url : '/img/default_account.svg'" />
                 </div>
-              </template>
+              </div>
               <div class="w-4 md:w-5 h-4 md:h-5">
                 <svg class="fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                   <path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z" />

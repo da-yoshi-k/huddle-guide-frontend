@@ -14,12 +14,7 @@ const props = defineProps<{
     <div class="col-span-1 flex flex-col place-items-center place-self-center">
       <div class="avatar w-8 md:w-12 h-8 md:h-12">
         <div class="w-14 rounded-full">
-          <template v-if="!!props.user.avatar_url">
-            <img :src="props.user.avatar_url" />
-          </template>
-          <template v-else>
-            <img src="/img/default_account.svg" />
-          </template>
+          <img :src="props.user.avatar_url ? props.user.avatar_url : '/img/default_account.svg'" />
         </div>
       </div>
     </div>
