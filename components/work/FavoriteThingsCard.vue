@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useAuthUserStore } from '~~/stores/authUser';
+import { Level } from '~~/types/level';
 const store = useAuthUserStore();
 
 const props = defineProps<{
@@ -14,7 +15,7 @@ const props = defineProps<{
     content: string,
     workshop_id: string,
     user_id?: string,
-    level: number,
+    level: Level,
     sameUsers?: {
       name: string,
       avatar_url?: string,

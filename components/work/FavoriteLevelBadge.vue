@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { Level, toJapanese } from '~~/types/level';
 const props = defineProps<{
-  level: number
+  level: Level
 }>();
 
 const badgeColor = computed(() => {
@@ -16,9 +16,8 @@ const badgeColor = computed(() => {
       return 'badge-error'
   }
 })
-
 </script>
 
 <template>
-  <div class="badge badge-sm" :class="badgeColor">{{ toJapanese(props.level as Level) }}</div>
+  <div class="badge badge-sm" :class="badgeColor">{{ toJapanese(props.level) }}</div>
 </template>

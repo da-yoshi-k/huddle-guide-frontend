@@ -4,7 +4,6 @@ import { useAuthUserStore } from '~~/stores/authUser';
 import { Level, toJapanese } from '~~/types/level'
 const authUserStore = useAuthUserStore();
 const workShopStore = useWorkshopStore();
-
 const level: Level[] = [0, 1, 2, 3]
 
 const props = defineProps<{
@@ -79,7 +78,7 @@ const handleCloseModal = () => {
           </label>
           <input type="text" v-model.lazy="posts.posts[0].content" class="input input-bordered md:w-[300px] mr-2">
           <select v-model.lazy="posts.posts[0].level" class="select select-bordered text-xs">
-            <option v-for="(value, key) in level" :key="key" :value="value">{{ toJapanese(value as Level) }}</option>
+            <option v-for="(value, key) in level" :key="key" :value="value">{{ toJapanese(value) }}</option>
           </select>
         </div>
         <div class="form-control inline">
@@ -88,7 +87,7 @@ const handleCloseModal = () => {
           </label>
           <input type="text" v-model.lazy="posts.posts[1].content" class="input input-bordered md:w-[300px] mr-2">
           <select v-model.lazy="posts.posts[1].level" class="select select-bordered text-xs">
-            <option v-for="(value, key) in level" :key="key" :value="value">{{ toJapanese(value as Level) }}</option>
+            <option v-for="(value, key) in level" :key="key" :value="value">{{ toJapanese(value) }}</option>
           </select>
         </div>
         <div class="form-control inline">
@@ -97,7 +96,7 @@ const handleCloseModal = () => {
           </label>
           <input type="text" v-model.lazy="posts.posts[2].content" class="input input-bordered md:w-[300px] mr-2">
           <select v-model.lazy="posts.posts[2].level" class="select select-bordered text-xs">
-            <option v-for="(value, key) in level" :key="key" :value="value">{{ toJapanese(value as Level) }}</option>
+            <option v-for="(value, key) in level" :key="key" :value="value">{{ toJapanese(value) }}</option>
           </select>
         </div>
         <div class="flex justify-center mt-4">
