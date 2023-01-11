@@ -11,6 +11,7 @@ const props = defineProps<{
 }>();
 
 const modalOpen = computed(() => {
+  fetchPrevPosts();
   return props.openFlag ? 'modal-open' : ''
 })
 
@@ -50,8 +51,6 @@ const fetchPrevPosts = () => {
   }
 }
 
-fetchPrevPosts();
-
 const emits = defineEmits<{
   (e: 'posts-edit', posts: any): void;
   (e: 'close-modal'): void;
@@ -60,7 +59,6 @@ const handleEditFavoriteThings = () => {
   emits('posts-edit', posts.value)
 }
 const handleCloseModal = () => {
-  fetchPrevPosts()
   emits('close-modal')
 }
 </script>
