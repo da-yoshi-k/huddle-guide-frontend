@@ -125,7 +125,8 @@ definePageMeta({
         </div>
         <div class="flex flex-row mt-8 place-content-around flex-wrap">
           <div v-for="user in store.workshop?.workshop.users" :key="user.id">
-            <WorkFavoriteThingsCard :user="user" :posts="store.posts?.posts.filter(post => post.user_id === user.id)"
+            <WorkFavoriteThingsCard :user="user"
+              :posts="store.posts?.posts.filter(post => post.user_id === user.id).sort((a, b) => { return (a.id < b.id) ? -1 : 1 })"
               :reactions=undefined :presenter-id="presenter?.id" @modal-open="handleEditModalOpen" />
           </div>
         </div>

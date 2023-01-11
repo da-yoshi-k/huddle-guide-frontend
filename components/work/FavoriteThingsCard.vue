@@ -14,6 +14,7 @@ const props = defineProps<{
     content: string,
     workshop_id: string,
     user_id?: string,
+    level: number,
     sameUsers?: {
       name: string,
       avatar_url?: string,
@@ -61,8 +62,11 @@ const handleEditModalOpen = () => {
       <template v-if="props.posts?.length !== 0">
         <div v-for="post in props.posts">
           <div class="flex">
+            <div class="h-12 flex justify-center items-center w-16">
+              <WorkFavoriteLevelBadge :level="post.level" v-if="post.level !== 0" />
+            </div>
             <div class="h-12 flex items-center">
-              ・{{ post.content }}
+              {{ post.content }}
             </div>
             <div v-if="post.sameUsers" class="flex ml-auto mr-2 items-center">
               <div class="avatar-group -space-x-4">
