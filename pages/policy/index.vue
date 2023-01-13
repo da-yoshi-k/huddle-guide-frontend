@@ -5,7 +5,7 @@ definePageMeta({
 </script>
 
 <template>
-  <div class="w-auto flex justify-center">
+  <div class="md:w-auto flex justify-center">
     <div class="flex flex-col justify-center mx-8 my-8 md:w-3/5">
       <h2 class="text-center text-3xl font-bold mb-4 text-black">プライバシーポリシー</h2>
       <div class="mb-4">
@@ -58,8 +58,9 @@ definePageMeta({
       <div class="mb-4">
         <h3 class="text-lg font-bold">アクセス解析ツール</h3>
         <p class="mx-2">
-          当社は、お客様のアクセス解析のために、「Googleアナリティクス」を利用しています。Googleアナリティクスは、トラフィックデータの収集のためにCookieを使用しています。トラフィックデータは匿名で収集されており、個人を特定するものではありません。Cookieを無効にすれば、これらの情報の収集を拒否することができます。詳しくはお使いのブラウザの設定をご確認ください。Googleアナリティクスについて、詳しくは以下からご確認ください。
-          　https://marketingplatform.google.com/about/analytics/terms/jp/
+          当社は、お客様のアクセス解析のために、「Googleアナリティクス」を利用しています。Googleアナリティクスは、トラフィックデータの収集のためにCookieを使用しています。トラフィックデータは匿名で収集されており、個人を特定するものではありません。Cookieを無効にすれば、これらの情報の収集を拒否することができます。詳しくはお使いのブラウザの設定をご確認ください。Googleアナリティクスについて、詳しくは<a
+            href="https://marketingplatform.google.com/about/analytics/terms/jp/" target="_blank"
+            class="link-hover text-info">こちら</a>からご確認ください。
         </p>
       </div>
       <div class="mb-4">
