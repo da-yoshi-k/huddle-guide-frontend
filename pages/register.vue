@@ -38,7 +38,7 @@ definePageMeta({
 
 <template>
   <div id="login-form" class="flex justify-center bg-green-100">
-    <div class="card w-3/4 md:w-96 bg-base-100 shadow-md my-12">
+    <div class="card w-3/4 md:w-96 bg-base-100 shadow-md my-8">
       <div class="card-body">
         <h2 class="py-4 text-xl text-center text-black font-bold">新規登録</h2>
         <div>
@@ -90,10 +90,18 @@ definePageMeta({
             </div>
           </form>
         </div>
-        <div class="my-4">
+        <div class="mb-2">
           <NuxtLink to="/login" class="link-hover text-info">
             ログインはこちら
           </NuxtLink>
+        </div>
+        <div>
+          <p class="my-2 text-xs">ユーザーが本サービスへの登録申込をしたことをもって<br />
+            <NuxtLink to="/terms" class="link-hover text-info">利用規約</NuxtLink>
+            および
+            <NuxtLink to="/policy" class="link-hover text-info">プライバシーポリシー</NuxtLink>
+            のすべての条項に同意したものとみなします。
+          </p>
         </div>
         <div class="card-actions justify-center">
           <button class="btn btn-primary text-white" @click="register">登録</button>
