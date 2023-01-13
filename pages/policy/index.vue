@@ -5,7 +5,7 @@ definePageMeta({
 </script>
 
 <template>
-  <div class="w-screen flex justify-center">
+  <div class="w-auto flex justify-center">
     <div class="flex flex-col justify-center mx-8 my-8 md:w-3/5">
       <h2 class="text-center text-3xl font-bold mb-4 text-black">プライバシーポリシー</h2>
       <div class="mb-4">
