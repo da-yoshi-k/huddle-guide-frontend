@@ -118,7 +118,8 @@ definePageMeta({
         <WorkStepList :step="workStep" />
         <div class="ml-8 flex gap-4 flex-wrap">
           <WorkFacilitatorCard :user="facilitator!" />
-          <WorkPresenterCard :user="presenter" @next-presenter="nextPresenter" />
+          <WorkPresenterCard :user="presenter" :work_step="store.workshop!.workshop.work_step.name"
+            @next-presenter="nextPresenter" />
           <div class="flex items-center md:ml-auto mr-8">
             <WorkNextStepButton :step="workStep" @next-step="handleWorkStep" @end-work="handleEndWorkshop" />
           </div>
