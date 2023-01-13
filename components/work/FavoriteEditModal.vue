@@ -74,7 +74,8 @@ const handleCloseModal = () => {
           <label class="label">
             <span class="label-text">1つ目</span>
           </label>
-          <input type="text" v-model.lazy="posts.posts[0].content" class="input input-bordered md:w-[300px] mr-2">
+          <input type="text" v-model.lazy="posts.posts[0].content"
+            class="input input-bordered w-[180px] md:w-[300px] mr-2">
           <select v-model.lazy="posts.posts[0].level" class="select select-bordered text-xs">
             <option v-for="(value, key) in level" :key="key" :value="value">{{ toJapanese(value) }}</option>
           </select>
@@ -83,7 +84,8 @@ const handleCloseModal = () => {
           <label class="label">
             <span class="label-text">2つ目</span>
           </label>
-          <input type="text" v-model.lazy="posts.posts[1].content" class="input input-bordered md:w-[300px] mr-2">
+          <input type="text" v-model.lazy="posts.posts[1].content"
+            class="input input-bordered w-[180px] md:w-[300px] mr-2">
           <select v-model.lazy="posts.posts[1].level" class="select select-bordered text-xs">
             <option v-for="(value, key) in level" :key="key" :value="value">{{ toJapanese(value) }}</option>
           </select>
@@ -92,7 +94,8 @@ const handleCloseModal = () => {
           <label class="label">
             <span class="label-text">3つ目</span>
           </label>
-          <input type="text" v-model.lazy="posts.posts[2].content" class="input input-bordered md:w-[300px] mr-2">
+          <input type="text" v-model.lazy="posts.posts[2].content"
+            class="input input-bordered w-[180px] md:w-[300px] mr-2">
           <select v-model.lazy="posts.posts[2].level" class="select select-bordered text-xs">
             <option v-for="(value, key) in level" :key="key" :value="value">{{ toJapanese(value) }}</option>
           </select>

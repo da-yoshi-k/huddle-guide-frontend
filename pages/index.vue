@@ -67,7 +67,7 @@ definePageMeta({
       </NuxtLink>
     </div>
     <div class="text-right">
-      <a href="https://storyset.com/research" class="link-hover text-info text-xs">Illustration by Storyset</a>
+      <a href="https://storyset.com/research" class="link-hover text-info text-xs mr-2">Illustration by Storyset</a>
     </div>
   </div>
 </template>

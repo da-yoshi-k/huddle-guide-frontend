@@ -17,7 +17,8 @@ const MAX_MEMBER_COUNT = 6;
 
 <template>
   <div class="text-lg text-left">{{ props.team.name }}</div>
-  <div class="bg-gray-200 rounded-xl w-64 grid grid-cols-3 place-items-center">
+  <div
+    class="bg-gray-200 rounded-xl w-64 grid grid-cols-3 place-items-center hover:shadow-lg hover:transition-shadow duration-800">
     <div v-for="n of MAX_MEMBER_COUNT" :key="n">
       <div class="w-32 h-30 p-4 col-span-1 flex flex-col">
         <template v-if="!!props.team.users[n - 1]">
