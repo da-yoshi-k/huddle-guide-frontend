@@ -30,7 +30,9 @@ const workshopChannel = cable.subscriptions.create(
           await store.fetchPosts()
           break
         case 'create_message':
-          await store.fetchMessages()
+          await store.fetchMessages().then(() => {
+            isChatModalOpen.value ? isMessageUnread.value = false : isMessageUnread.value = true
+          })
           break
         case 'update_work_step':
           notify({ type: "info", text: "ステップが変更されました。", duration: 1000 })
@@ -59,6 +61,7 @@ const presenter = computed(() => {
 const workStep = computed(() => {
   return store.workshop!.workshop.work_step_id
 })
+const isMessageUnread = ref(false);
 
 const nextPresenter = async () => {
   await store.nextPresenter().then(() => {
@@ -71,9 +74,9 @@ const handleEditModalOpen = () => {
 const handleEditModalClose = () => {
   isEditModalOpen.value = false
 }
-
 const handleChatModalOpen = () => {
   isChatModalOpen.value = true
+  isMessageUnread.value = false
 }
 const handleChatModalClose = () => {
   isChatModalOpen.value = false
@@ -134,7 +137,7 @@ definePageMeta({
         <div
           class="fixed right-5 md:right-10 bottom-5 md:bottom-10 flex justify-center items-center rounded-full border-2 border-black bg-white h-12 w-12 shadow-md hover:bg-gray-200"
           @click="handleChatModalOpen">
-          <img src="/img/chat.svg" class="h-8 w-8" />
+          <img :src="isMessageUnread ? '/img/unread_chat.svg' : '/img/chat.svg'" class="h-8 w-8" />
         </div>
         <WorkFavoriteEditModal :open-flag="isEditModalOpen" @close-modal="handleEditModalClose"
           @posts-edit="handleEditPost" />
