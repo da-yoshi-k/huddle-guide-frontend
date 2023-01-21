@@ -4,6 +4,7 @@ import { useAuthUserStore } from '~~/stores/authUser';
 import ActionCable from 'actioncable'
 import { useNotification } from '@kyvg/vue3-notification';
 import { Message } from '~~/types/message';
+import { Posts } from '~~/types/posts';
 const { notify } = useNotification();
 
 const store = useWorkshopStore();
@@ -26,7 +27,7 @@ const workshopChannel = cable.subscriptions.create(
         case 'create_post':
           await store.fetchPosts()
           break
-        case 'edit_post':
+        case 'edit_posts':
           await store.fetchPosts()
           break
         case 'create_message':
@@ -88,11 +89,11 @@ const handleWorkStep = async () => {
   })
 }
 
-const handleEditPost = async (posts: any) => {
-  if (posts.posts[0].id === 0) {
-    await store.createPosts(posts);
-  } else {
-    await store.editPosts(posts);
+const handleEditPost = async (posts: Posts) => {
+  if (!!posts.posts.length) {
+    await store.editPosts(posts).then((message) => {
+      workshopChannel.perform('edit_posts', { message })
+    });
   }
   isEditModalOpen.value = false
 }
