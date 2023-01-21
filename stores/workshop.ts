@@ -92,18 +92,19 @@ export const useWorkshopStore = defineStore('workshop', {
         post.sameUsers = users;
       });
     },
-    async createPosts(posts: any) {
+    async editPosts(posts: Posts) {
       const options = useApiFetchOption();
-      await useFetch<Posts>(`workshops/${this.workshop!.workshop.id}/posts`, {
-        method: 'POST',
-        body: posts,
-        ...options,
-      });
-    },
-    async editPosts(posts: any) {
-      const options = useApiFetchOption();
-      posts.posts.forEach(async (post: any) => {
-        if (post.content != null) {
+      for (const post of posts.posts) {
+        if (post.id === 0) {
+          await useFetch<Posts>(
+            `workshops/${this.workshop!.workshop.id}/posts`,
+            {
+              method: 'POST',
+              body: { post: post },
+              ...options,
+            }
+          );
+        } else if (post.content != null) {
           await useFetch(
             `workshops/${this.workshop!.workshop.id}/posts/${post.id}`,
             {
@@ -113,7 +114,9 @@ export const useWorkshopStore = defineStore('workshop', {
             }
           );
         }
-      });
+      }
+      const message = 'finish';
+      return message;
     },
     async updateWorkStep(stepNum: number) {
       const options = useApiFetchOption();

@@ -12,6 +12,8 @@ const badgeColor = computed(() => {
       return 'badge-info';
     case Level.Casual:
       return 'badge-secondry';
+    case Level.Professional:
+      return 'badge-accent'
     case Level.Hardcore:
       return 'badge-error'
   }

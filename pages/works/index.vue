@@ -78,12 +78,6 @@ definePageMeta({
           </div>
         </div>
       </div>
-      <h3 class="font-bold leading-tight text-2xl text-black mb-4">ワーク参加履歴(開発中)</h3>
-      <div class="ml-4 mb-10">
-        <div>2022/12/03 Good&New</div>
-        <div>2022/12/02 Good&New</div>
-        <div>2022/12/01 共通点探し</div>
-      </div>
     </div>
     <div class="text-right">
       <a href="https://storyset.com/research" class="link-hover text-info text-xs mr-2">Illustration by Storyset</a>
