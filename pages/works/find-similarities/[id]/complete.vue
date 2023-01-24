@@ -53,7 +53,7 @@ const allSimilarities = computed(() => {
           </div>
         </template>
       </div>
-      <div class="flex justify-center">
+      <div class="flex justify-center mt-4">
         <NuxtLink to="/home" class="btn btn-primary text-yellow-100">ホームに戻る</NuxtLink>
       </div>
     </div>
