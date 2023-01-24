@@ -9,7 +9,7 @@
     <div>
       <NuxtLink to="/terms" class="link link-hover text-xl text-yellow-100">利用規約</NuxtLink>
       <NuxtLink to="/policy" class="link link-hover text-xl text-yellow-100">プライバシーポリシー</NuxtLink>
-      <NuxtLink to="#" class="link link-hover text-xl text-yellow-100">クイックガイド</NuxtLink>
+      <!-- <NuxtLink to="#" class="link link-hover text-xl text-yellow-100">クイックガイド</NuxtLink> -->
       <a class="link link-hover text-xl text-yellow-100" target="_blank" href="https://twitter.com/da_yoshi_k">お問合せ</a>
     </div>
   </footer>

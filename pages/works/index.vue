@@ -54,7 +54,7 @@ definePageMeta({
             <p>日々の中であった良かったことや<br />新しいニュースを共有しましょう</p>
             <div class="card-actions justify-around">
               <div class="tooltip" data-tip="開発中">
-                <button class="btn btn-primary text-yellow-100">開始する</button>
+                <button class="btn btn-neutral text-yellow-100">開始する</button>
               </div>
               <div class="tooltip" data-tip="開発中">
                 <button class="btn btn-neutral text-yellow-100">使い方</button>

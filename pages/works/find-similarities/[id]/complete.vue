@@ -32,7 +32,7 @@ const allSimilarities = computed(() => {
       </div>
       <div>
         <h3 class="text-lg font-bold mb-2 text-center">見つけた共通点</h3>
-        <template v-if="!!mySimilarities">
+        <template v-if="!!mySimilarities?.length">
           <div v-for="item in mySimilarities">
             <div class="flex justify-center">
               <div class="mr-4">{{ `${item.content}：` }}</div>
@@ -41,9 +41,9 @@ const allSimilarities = computed(() => {
           </div>
         </template>
         <template v-else>
-          <div class="text-center">チーム内での共通点はありませんでした。気になった趣味をメンバーに聞いてみましょう！</div>
+          <div class="text-center">チーム内での共通点はありませんでした。ワーク中に気になった趣味をメンバーに聞いてみましょう！</div>
         </template>
-        <template v-if="!!allSimilarities">
+        <template v-if="!!allSimilarities?.length">
           <h3 class="text-lg font-bold mt-6 mb-2 text-center">チーム内で見つかった他の共通点</h3>
           <div v-for="item in allSimilarities">
             <div class="flex justify-center">
