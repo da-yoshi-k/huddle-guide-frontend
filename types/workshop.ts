@@ -15,5 +15,6 @@ export interface Workshop {
     work_step: WorkStep;
     users: [User];
     team: Team;
+    work_date: Date;
   };
 }

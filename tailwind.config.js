@@ -20,7 +20,7 @@ module.exports = {
     "app.vue",
     "./components/**/*.{vue,js,jsx,ts,tsx}",
     "./layouts/**/*.vue",
-    "./pages/**/*.{vue,js,jsx,ts,tsx}",
+    "./pages/**/*.{vue,ts,js,jsx,tsx}",
     "./plugins/**/*.{js,ts}",
   ],
   theme: {
