@@ -12,7 +12,7 @@ definePageMeta({
 const mySimilarities = computed(() => {
   return store.posts?.posts.filter(post => post.user_id === authUserStore.authUser?.user.id && post.sameUsers && post.sameUsers?.length > 0)
 })
-const otherSimilarities = computed(() => {
+const allSimilarities = computed(() => {
   const items = store.posts?.posts.filter(post => post.sameUsers && post.sameUsers?.length > 0)
   const uniqueItems = items?.filter((e, index, self) => {
     return self.findIndex((el) => el.content === e.content) === index;
@@ -43,9 +43,9 @@ const otherSimilarities = computed(() => {
         <template v-else>
           <div class="text-center">チーム内での共通点はありませんでした。気になった趣味をメンバーに聞いてみましょう！</div>
         </template>
-        <template v-if="!!otherSimilarities">
+        <template v-if="!!allSimilarities">
           <h3 class="text-lg font-bold mt-6 mb-2 text-center">チーム内で見つかった他の共通点</h3>
-          <div v-for="item in otherSimilarities">
+          <div v-for="item in allSimilarities">
             <div class="flex justify-center">
               <div class="mr-4">{{ `${item.content}：` }}</div>
               <div>{{ `チーム内の${item.sameUsers!.length + 1}人の共通点` }}</div>
