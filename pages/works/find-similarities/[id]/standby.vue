@@ -54,16 +54,25 @@ definePageMeta({
   <div id="profile-form" class="flex justify-center mb-5">
     <div class="w-11/12 md:max-w-xl">
       <div id="work-info-container" class="flex flex-col mb-8">
-        <div class="flex mb-4">
-          <div class="font-bold leading-tight text-xl text-black">実施するワーク</div>
+        <div class="flex mb-2">
+          <div class="font-bold leading-tight text-lg text-black">実施するワーク</div>
           <div class="text-lg text-black pl-4 mr-4">{{ store.workshop?.workshop.work.name }}</div>
         </div>
-        <div class="flex mb-8">
-          <h3 class="font-bold leading-tight text-xl text-black">チーム名</h3>
+        <div class="flex mb-2">
+          <h3 class="font-bold leading-tight text-lg text-black">チーム名</h3>
           <div class="text-lg text-black pl-4 mr-4">{{ store.workshop?.workshop.team.name }}</div>
         </div>
         <div class="mb-8">
-          <h3 class="font-bold leading-tight text-xl text-black mb-4">ワークを行う上での心構え</h3>
+          <h3 class="font-bold leading-tight text-lg text-black mb-2">ワークの流れ</h3>
+          <ul class="list-decimal ml-8">
+            <li class="text-black">自分のカードの鉛筆ボタンをクリックし、好きなことを入力します。</li>
+            <li class="text-black">参加者全員が入力したら順番に発表していきます。<br />ファシリテーターは都度発表者を切り替えてください。</li>
+            <li class="text-black">全員の発表が終わったら雑談タイムです。気になったことを深く聞いてみましょう。</li>
+            <li class="text-black">完了画面では自分と他メンバーの共通点とチーム内で挙がった共通点が表示されるので、会話のきっかけにしましょう。</li>
+          </ul>
+        </div>
+        <div class="mb-8">
+          <h3 class="font-bold leading-tight text-lg text-black mb-2">ワークを行う上での心構え</h3>
           <ul class="list-decimal ml-8">
             <li class="text-black">ワークを盛り上げるため、リアクションを活発に行います。</li>
             <li class="text-black">お互いを尊重しあい、譲り合ってワークに参加します。</li>
