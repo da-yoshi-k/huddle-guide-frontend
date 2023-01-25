@@ -32,6 +32,7 @@ const register = handleSubmit(async () => {
 });
 
 definePageMeta({
+  noLoginAccess: true,
   layout: "static",
 });
 </script>
