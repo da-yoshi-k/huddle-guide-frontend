@@ -85,7 +85,7 @@ definePageMeta({
             </ValidationField>
           </div>
           <div class="form-control">
-            <label for="name" class="label">
+            <label for="description" class="label">
               <span class="label-text">自己紹介（400字まで）</span>
             </label>
             <ValidationField name="自己紹介" v-model="description" rules="max:400" v-slot="{ errors, handleChange }">

@@ -1,30 +1,14 @@
 <script setup lang="ts">
 definePageMeta({
-  noLoginAccess: true,
   layout: "static",
 });
 </script>
 
 <template>
   <div class="text-center">
-    <div class="top-container pt-5 grid grid-cols-1 md:grid-cols-2">
-      <div class="flex justify-center md:justify-end md:mr-4">
-        <img class="object-contain" src="/img/top_banner.png" alt="huddle-guide brand banner">
-      </div>
-      <div class="flex justify-center row-span-3 md:justify-start md:ml-4 max-w-lg">
-        <img class="object-contain justify-center" src="/img/top_discussion.svg" alt="discussion image">
-      </div>
-      <div class="flex justify-center md:justify-end md:mr-16">
-        <p class="pt-6 text-3xl">オンラインでもチームで<br>コミュニケーションが<br>取れていますか？</p>
-      </div>
-      <div class="my-6 flex justify-center md:justify-end md:mr-16">
-        <NuxtLink to="/register" class="btn btn-active brn-primary shadow text-sm md:text-lg text-base-100 mr-12">
-          使ってみる
-        </NuxtLink>
-        <NuxtLink to="/login" class="btn brn-neutral shadow text-sm md:text-lg text-base-100 ml-12">
-          ログイン
-        </NuxtLink>
-      </div>
+    <div class="pt-24 text-3xl font-bold">Huddle Guideとは</div>
+    <div>
+      <p class="py-6">Huddle Guideはチームメンバーの共通点を発見したり、<br />日々あった新しいことを共有するような<br />複数の同期型のワークを提供するサービスです</p>
     </div>
     <div class="pt-24 text-3xl font-bold">使い方</div>
     <div class="hero bg-base-100">
@@ -58,14 +42,6 @@ definePageMeta({
           </div>
         </div>
       </div>
-    </div>
-    <div class="my-6 flex justify-center">
-      <NuxtLink to="/register" class="btn btn-active brn-primary shadow text-sm md:text-lg text-base-100 mr-12">
-        使ってみる
-      </NuxtLink>
-      <NuxtLink to="/login" class="btn brn-neutral shadow text-sm md:text-lg text-base-100 ml-12">
-        ログイン
-      </NuxtLink>
     </div>
     <div class="text-right">
       <a href="https://storyset.com/research" class="link-hover text-info text-xs mr-2">Illustration by Storyset</a>

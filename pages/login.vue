@@ -26,6 +26,7 @@ const login = handleSubmit(async () => {
 });
 
 definePageMeta({
+  noLoginAccess: true,
   layout: "static",
 });
 </script>
