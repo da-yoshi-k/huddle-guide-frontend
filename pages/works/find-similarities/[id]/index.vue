@@ -24,6 +24,9 @@ const workshopChannel = cable.subscriptions.create(
   {
     async received({ type, body }) {
       switch (type) {
+        case 'join_workshop':
+          await store.fetchWorkshop(store.workshop!.workshop.id)
+          break
         case 'create_post':
           await store.fetchPosts()
           break
@@ -40,11 +43,15 @@ const workshopChannel = cable.subscriptions.create(
           await store.fetchWorkshop(store.workshop!.workshop.id)
           break
         case 'update_presenter':
+          notify({ type: "info", text: "発表者が変更されました。", duration: 400 })
           await store.fetchWorkshop(store.workshop!.workshop.id)
           break
         case 'end_workshop':
-          cable.disconnect();
-          navigateTo(`/works/find-similarities/${store.workshop?.workshop.id}/complete`)
+          notify({ type: "info", text: "ワークショップが終了されました。<br /> 5秒後に終了画面に遷移します。", duration: 5000 })
+          setTimeout(() => {
+            workshopChannel.unsubscribe();
+            navigateTo(`/works/find-similarities/${store.workshop?.workshop.id}/complete`)
+          }, 5000);
           break
       }
     }
