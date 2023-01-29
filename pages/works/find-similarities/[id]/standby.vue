@@ -27,6 +27,7 @@ const workshopStandbyChannel = cable.subscriptions.create(
         case 'start_workshop':
           notify({ type: "info", text: "ワークが開始されました。", duration: 1000 })
           navigateTo(`/works/find-similarities/${store.workshop?.workshop.id}`)
+          workshopStandbyChannel.unsubscribe()
           break
       }
     }
