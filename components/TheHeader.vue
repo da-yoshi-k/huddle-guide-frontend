@@ -3,7 +3,9 @@ import { useAuthUserStore } from '~~/stores/authUser';
 import { useNotification } from '@kyvg/vue3-notification';
 const { notify } = useNotification();
 const store = useAuthUserStore();
-const isLogin = ref(store.authUser?.user);
+const isLogin = computed(() => {
+  return !!store.authUser?.user
+})
 const logout = () => {
   try {
     localStorage.removeItem('auth_token');
@@ -11,6 +13,7 @@ const logout = () => {
       authUser: null
     })
     notify({ type: 'success', text: "ログアウトしました。" })
+    navigateTo('/login')
   } catch (error) {
     console.log(error);
   }
