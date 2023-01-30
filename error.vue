@@ -10,17 +10,21 @@ const isDev = process.dev;
   <div class="flex flex-col min-h-screen">
     <TheHeader />
     <div class="text-center">
-      <template v-if="error.statusCode === 404">
+      <template v-if="error.statusCode === 403">
+        <h1 class="text-5xl font-bold mt-4">403</h1>
+        <p class="my-4">指定されたページへのアクセスは制限されています。</p>
+      </template>
+      <template v-else-if="error.statusCode === 404">
         <h1 class="text-5xl font-bold mt-4">404</h1>
-        <p class="my-4">ページが見つかりませんでした</p>
+        <p class="my-4">お探しのページは見つかりません。<br />指定されたページは存在しないか、または移動した可能性があります。</p>
       </template>
       <template v-else>
-        <p class="my-4">エラーが発生しました</p>
+        <h1 class="text-5xl font-bold mt-4">{{ error.statusCode }}</h1>
+        <p class="my-4">エラーが発生しました。</p>
       </template>
       <button @click="handleError" class="btn btn-primary text-yellow-100">トップページに戻る</button>
       <div v-if="isDev" class="mt-4">
         {{ error.message }}
-        {{ error.statusCode }}
       </div>
     </div>
     <TheFooter />
