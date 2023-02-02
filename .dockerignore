@@ -9,4 +9,3 @@
 **/dist
 **/.vscode
 fly.production.toml
-fly.staging.toml
