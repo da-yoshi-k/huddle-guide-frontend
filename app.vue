@@ -1,6 +1,4 @@
 <script setup>
-import { useSeoMeta } from '@unhead/vue';
-
 const runTimeConfig = useRuntimeConfig();
 if (runTimeConfig.public.stage === 'production') {
   useHead({
@@ -16,22 +14,6 @@ if (runTimeConfig.public.stage === 'production') {
     meta: { hid: "robots", name: "robots", content: "noindex" }
   });
 }
-useSeoMeta({
-  description: '「Huddle Guide」は同期型のワークを提供するチームビルディングサポートサービス。共通点探しやGood&Newといったワークでチームメンバーと交流しよう。',
-  ogTitle: 'Huddle Guide',
-  ogSiteName: 'Huddle Guide',
-  ogType: 'website',
-  ogImage: 'https://huddle-guide.com/img/ogp_image.png',
-  ogUrl: 'https://huddle-guide.com/',
-  ogDescription: '「Huddle Guide」は同期型のワークを提供するチームビルディングサポートサービス。共通点探しやGood&Newといったワークでチームメンバーと交流しよう。',
-  ogLocale: 'ja_JP',
-  keywords: 'チームビルディング,リモートワーク',
-  twitterCard: 'summary_large_image',
-  twitterSite: '@da_yoshi_k',
-  twitterTitle: 'Huddle Guide',
-  twitterDescription: '「Huddle Guide」は同期型のワークを提供するチームビルディングサポートサービス。共通点探しやGood&Newでチームメンバーと交流しよう。',
-  twitterImage: 'https://huddle-guide.com/img/ogp_image.png',
-});
 </script>
 
 <template>
