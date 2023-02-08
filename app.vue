@@ -17,19 +17,20 @@ if (runTimeConfig.public.stage === 'production') {
   });
 }
 useSeoMeta({
-  description: '「Huddle Guide」は同期型のワークを提供するチームビルディングサポートサービス。共通点探しやGood&Newでチームメンバーと交流しよう。',
+  description: '「Huddle Guide」は同期型のワークを提供するチームビルディングサポートサービス。共通点探しやGood&Newといったワークでチームメンバーと交流しよう。',
   ogTitle: 'Huddle Guide',
   ogSiteName: 'Huddle Guide',
   ogType: 'website',
   ogUrl: 'https://huddle-guide.com/',
-  ogDescription: '「Huddle Guide」は同期型のワークを提供するチームビルディングサポートサービス。共通点探しやGood&Newでチームメンバーと交流しよう。',
+  ogDescription: '「Huddle Guide」は同期型のワークを提供するチームビルディングサポートサービス。共通点探しやGood&Newといったワークでチームメンバーと交流しよう。',
   ogLocale: 'ja_JP',
   ogImage: '/img/ogp_image.svg',
   keywords: 'チームビルディング',
+  twitterCard: 'summary_large_image',
+  twitterSite: '@da_yoshi_k',
   twitterTitle: 'Huddle Guide',
   twitterDescription: '「Huddle Guide」は同期型のワークを提供するチームビルディングサポートサービス。共通点探しやGood&Newでチームメンバーと交流しよう。',
-  twitterImage: '/img/ogp_image.svg',
-  twitterCard: 'summary_large_image',
+  twitterImage: 'https://huddle-guide.com/img/ogp_image.svg',
 });
 </script>
 
