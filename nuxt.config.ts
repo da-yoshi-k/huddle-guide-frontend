@@ -11,7 +11,8 @@ export default defineNuxtConfig({
             '「Huddle Guide」は同期型のワークを提供するチームビルディングサポートサービス。共通点探しやGood&Newといったワークでチームメンバーと交流しましょう。',
         },
         { property: 'og:title', content: 'Huddle Guide' },
-        { property: 'og:site:name', content: 'Huddle Guide' },
+        { property: 'og:type', content: 'website' },
+        { property: 'og:site_name', content: 'Huddle Guide' },
         { property: 'og:url', content: 'https://huddle-guide.com/' },
         {
           property: 'og:image',
