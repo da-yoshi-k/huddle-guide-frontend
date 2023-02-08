@@ -24,13 +24,13 @@ useSeoMeta({
   ogUrl: 'https://huddle-guide.com/',
   ogDescription: '「Huddle Guide」は同期型のワークを提供するチームビルディングサポートサービス。共通点探しやGood&Newといったワークでチームメンバーと交流しよう。',
   ogLocale: 'ja_JP',
-  ogImage: 'https://huddle-guide.com/img/ogp_image.svg',
+  ogImage: 'https://huddle-guide.com/img/ogp_image.png',
   keywords: 'チームビルディング,リモートワーク',
   twitterCard: 'summary_large_image',
   twitterSite: '@da_yoshi_k',
   twitterTitle: 'Huddle Guide',
   twitterDescription: '「Huddle Guide」は同期型のワークを提供するチームビルディングサポートサービス。共通点探しやGood&Newでチームメンバーと交流しよう。',
-  twitterImage: 'https://huddle-guide.com/img/ogp_image.svg',
+  twitterImage: 'https://huddle-guide.com/img/ogp_image.png',
 });
 </script>
 
