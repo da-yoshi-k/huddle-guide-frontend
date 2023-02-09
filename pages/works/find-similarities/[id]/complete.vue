@@ -6,9 +6,6 @@ const authUserStore = useAuthUserStore();
 const route = useRoute();
 await store.fetchWorkshop(route.params.id as string)
 await store.fetchPosts();
-definePageMeta({
-  requireLogin: true
-})
 const mySimilarities = computed(() => {
   return store.posts?.posts.filter(post => post.user_id === authUserStore.authUser?.user.id && post.sameUsers && post.sameUsers?.length > 0)
 })
@@ -18,6 +15,11 @@ const allSimilarities = computed(() => {
     return self.findIndex((el) => el.content === e.content) === index;
   })
   return uniqueItems
+})
+
+useHead({ title: 'ワーク終了' })
+definePageMeta({
+  requireLogin: true
 })
 </script>
 

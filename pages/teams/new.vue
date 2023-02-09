@@ -22,6 +22,7 @@ const create = handleSubmit(async () => {
   router.push('/teams');
 })
 
+useHead({ title: '新規チーム作成' })
 definePageMeta({
   requireLogin: true
 })

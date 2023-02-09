@@ -51,6 +51,7 @@ const handleMemberAdd = async () => {
   })
 }
 
+useHead({ title: 'メンバー追加' })
 definePageMeta({
   requireLogin: true
 })

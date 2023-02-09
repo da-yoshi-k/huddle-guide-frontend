@@ -4,6 +4,8 @@ import { useNotification } from "@kyvg/vue3-notification";
 const { notify } = useNotification()
 const store = useTeamsStore();
 store.fetchTeams();
+
+useHead({ title: 'チーム一覧' })
 definePageMeta({
   requireLogin: true
 })

@@ -32,6 +32,7 @@ const standby = (async (teamId: string) => {
   })
 })
 
+useHead({ title: 'ワーク一覧' })
 definePageMeta({
   requireLogin: true
 })

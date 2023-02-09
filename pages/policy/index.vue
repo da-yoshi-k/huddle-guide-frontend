@@ -1,4 +1,5 @@
 <script setup lang="ts">
+useHead({ title: 'プライバシーポリシー' })
 definePageMeta({
   layout: "static",
 });

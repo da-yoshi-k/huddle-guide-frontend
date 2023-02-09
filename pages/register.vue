@@ -31,6 +31,7 @@ const register = handleSubmit(async () => {
   }
 });
 
+useHead({ title: '新規登録' })
 definePageMeta({
   noLoginAccess: true,
   layout: "static",
