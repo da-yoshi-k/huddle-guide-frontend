@@ -1,4 +1,5 @@
 <script setup lang="ts">
+useHead({ title: '利用規約' })
 definePageMeta({
   layout: "static",
 });

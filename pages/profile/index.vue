@@ -35,6 +35,7 @@ const edit = handleSubmit(async () => {
   }
 })
 
+useHead({ title: 'プロフィール' })
 definePageMeta({
   requireLogin: true
 })

@@ -44,6 +44,7 @@ const startWorkshop = async () => {
   })
 }
 
+useHead({ title: '待機画面' })
 definePageMeta({
   requireLogin: true,
   layout: "work",
