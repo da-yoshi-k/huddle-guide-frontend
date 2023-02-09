@@ -115,6 +115,7 @@ const handleEndWorkshop = async () => {
   })
 }
 
+useHead({ title: '共通点探し' })
 definePageMeta({
   requireLogin: true,
   layout: "work",

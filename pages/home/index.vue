@@ -6,6 +6,7 @@ const workshopsStore = useWorkshopsStore();
 const teamStore = useTeamsStore();
 await workshopsStore.fetchWorkshops();
 await teamStore.fetchTeams();
+useHead({ title: 'ホーム' })
 definePageMeta({
   requireLogin: true
 })

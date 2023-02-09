@@ -25,6 +25,7 @@ const login = handleSubmit(async () => {
   });
 });
 
+useHead({ title: 'ログイン' })
 definePageMeta({
   noLoginAccess: true,
   layout: "static",
