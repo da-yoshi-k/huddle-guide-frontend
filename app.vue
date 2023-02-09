@@ -19,7 +19,7 @@ if (runTimeConfig.public.stage === 'production') {
 <template>
   <div class="flex flex-col min-h-screen">
     <NuxtLayout>
-      <NuxtLoadingIndicator :height=5 />
+      <NuxtLoadingIndicator :height=5 style="top: 64px" />
       <NuxtPage />
     </NuxtLayout>
   </div>

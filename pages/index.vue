@@ -9,10 +9,10 @@ definePageMeta({
   <div class="text-center">
     <div class="top-container pt-5 grid grid-cols-1 md:grid-cols-2">
       <div class="flex justify-center md:justify-end md:mr-4">
-        <img class="object-contain" src="/img/top_banner.png" alt="huddle-guide brand banner">
+        <img class="object-contain shadow-lg rounded-3xl" src="/img/top_banner.svg" alt="huddle-guide brand banner">
       </div>
-      <div class="flex justify-center row-span-3 md:justify-start md:ml-4 max-w-lg">
-        <img class="object-contain justify-center" src="/img/top_discussion.svg" alt="discussion image">
+      <div class="flex justify-center row-span-3 md:justify-start md:ml-4">
+        <img class="object-contain max-w-lg" src="/img/top_discussion.svg" alt="discussion image">
       </div>
       <div class="flex justify-center md:justify-end md:mr-16">
         <p class="pt-6 text-3xl">オンラインでもチームで<br>コミュニケーションが<br>取れていますか？</p>
