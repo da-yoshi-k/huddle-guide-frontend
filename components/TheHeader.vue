@@ -26,7 +26,7 @@ const logout = () => {
     <template v-if="!isLogin">
       <div class="flex-1">
         <NuxtLink to="/">
-          <img src="/img/nav_logo.png" alt="huddle-guide brand logo">
+          <img src="/img/nav_logo.svg" class="h-11 md:h-14 rounded-xl" alt="huddle-guide brand logo">
         </NuxtLink>
       </div>
       <div class="flex-none">
@@ -39,7 +39,7 @@ const logout = () => {
     <template v-else-if="isLogin">
       <div class="flex-1">
         <NuxtLink to="/home">
-          <img src="/img/nav_logo.png" alt="huddle-guide brand logo">
+          <img src="/img/nav_logo.svg" class="h-11 md:h-14 rounded-xl" alt="huddle-guide brand logo">
         </NuxtLink>
       </div>
       <div class="flex-none text-yellow-100">
