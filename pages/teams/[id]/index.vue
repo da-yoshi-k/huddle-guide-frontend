@@ -1,9 +1,15 @@
 <script setup lang="ts">
 import { useTeamStore } from '~~/stores/team';
 import { useForm, useField } from 'vee-validate';
+import { useAuthUserStore } from '~~/stores/authUser';
+import { useNotification } from "@kyvg/vue3-notification";
+const { notify } = useNotification()
 const store = useTeamStore();
+const authUserStore = useAuthUserStore();
 const route = useRoute();
 await store.fetchTeam(route.params.id as string);
+
+const MAX_MEMBER_COUNT = 6;
 
 // チームの情報
 const { handleSubmit } = useForm({})
@@ -37,14 +43,70 @@ const handleCancelEdit = (() => {
   description.value = store.team!.team.description
   isTeamEdit.value = false
 })
+const handleTeamDelete = (async () => {
+  const conf = confirm('チームを本当に削除しますか？\n※今までチームで実行したワークの履歴も削除されます');
+  if (conf) {
+    const options = useApiFetchOption();
+    await useFetch(`teams/${route.params.id}`, {
+      method: 'DELETE',
+      ...options,
+    }).then(() => {
+      notify({ type: "success", text: 'チームの削除が完了しました。' })
+      const router = useRouter();
+      router.push('/teams');
+    });
+  }
+})
 
 // メンバーの情報
 const adminUserId = computed(() => {
   const adminUser = store.team!.team.members!.find(member => member.role === 'admin')
   return adminUser?.user_id
 })
-
 const isMemberEdit = ref(false)
+
+const handleMemberEdit = (() => {
+  isMemberEdit.value = true
+})
+const handleCancelMemberEdit = (() => {
+  isMemberEdit.value = false
+})
+const handleAdminMemberChange = (async (userId: string) => {
+  const updateMember = store.team?.team.members?.find(member => member.user_id === userId)
+  const memberId = updateMember?.id
+  const member = {
+    member: {
+      "id": memberId,
+      "role": "admin"
+    }
+  };
+  const options = useApiFetchOption();
+  await useFetch(`teams/${route.params.id}/members/${memberId}`, {
+    method: 'PATCH',
+    body: member,
+    ...options,
+  }).then(() => {
+    notify({ type: "success", text: 'チームの管理者を変更しました。' })
+    store.fetchTeam(route.params.id as string);
+    isMemberEdit.value = false
+  });
+})
+const handleMemberDelete = (async (userId: string) => {
+  const conf = confirm('選択したユーザーを本当にチームから脱退させますか？');
+  if (conf) {
+    const deleteMember = store.team?.team.members?.find(member => member.user_id === userId)
+    const memberId = deleteMember?.id
+    const options = useApiFetchOption();
+    await useFetch(`teams/${route.params.id}/members/${memberId}`, {
+      method: 'DELETE',
+      ...options,
+    }).then(() => {
+      notify({ type: "success", text: 'メンバーの脱退が完了しました。' })
+      const router = useRouter();
+      router.push('/teams');
+    });
+  }
+})
 
 useHead({ title: 'チーム詳細' })
 definePageMeta({
@@ -60,11 +122,13 @@ definePageMeta({
         <div class="text-lg font-bold self-center">チームの情報</div>
         <div class="ml-auto">
           <div v-if="isTeamEdit">
-            <button class="btn btn-outline btn-accent mr-4" @click="editTeamInfo">更新</button>
-            <button class="btn btn-outline btn-ghost" @click="handleCancelEdit">キャンセル</button>
+            <button class="btn btn-sm btn-outline btn-error mr-4" @click="handleTeamDelete"
+              v-if="authUserStore.authUser?.user.id === adminUserId">チームを削除</button>
+            <button class="btn btn-sm btn-outline btn-accent mr-4" @click="editTeamInfo">更新</button>
+            <button class="btn btn-sm btn-outline btn-ghost" @click="handleCancelEdit">キャンセル</button>
           </div>
           <div v-else>
-            <button class="btn btn-outline btn-accent" @click="handleEdit">編集</button>
+            <button class="btn btn-sm btn-outline btn-accent" @click="handleEdit">編集</button>
           </div>
         </div>
       </div>
@@ -97,18 +161,46 @@ definePageMeta({
       </div>
     </div>
     <div id="member-container" class="mt-4 mx-auto px-4 max-w-3xl">
-      <div class="text-lg font-bold self-center mb-4">メンバー</div>
       <div class="flex">
+        <div class="text-lg font-bold self-center">メンバー</div>
+        <div class="ml-auto">
+          <div v-if="isMemberEdit">
+            <button class="btn btn-sm btn-outline btn-ghost" @click="handleCancelMemberEdit">キャンセル</button>
+          </div>
+          <div v-else>
+            <button class="btn btn-sm btn-outline btn-accent" @click="handleMemberEdit">編集</button>
+          </div>
+        </div>
+      </div>
+      <div id="member-box" class="flex flex-row place-content-around flex-wrap mt-4">
         <div v-for="member in store.team!.team.users">
-          <div class="w-96 flex">
-            <div class="avatar justify-center w-10">
+          <div class="flex items-center w-80 h-16 mb-4">
+            <div class="avatar justify-center w-10 h-10">
               <div class="rounded-full">
                 <img :src="member.avatar_url ? member.avatar_url : '/img/default_account.svg'" />
               </div>
             </div>
-            <div class="ml-4">
-              <div class="text-xs text-gray-500" v-show="member.id === adminUserId">チーム管理者</div>
+            <div class="ml-4 flex flex-col justify-center">
+              <div class="text-xs text-gray-500" v-if="member.id === adminUserId">チーム管理者</div>
               <div>{{ member.name }}</div>
+            </div>
+            <div class="flex flex-col flex-wrap w-24 ml-auto">
+              <div v-if="isMemberEdit">
+                <button class="btn btn-accent btn-outline btn-xs" @click="handleAdminMemberChange(member.id)"
+                  v-if="authUserStore.authUser?.user.id === adminUserId && member.id !== adminUserId">管理者に変更</button>
+                <button class="btn btn-error btn-outline btn-xs" @click="handleMemberDelete(member.id)"
+                  v-if="adminUserId !== member.id && (authUserStore.authUser?.user.id === adminUserId || authUserStore.authUser?.user.id === member.id)">脱退</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div v-if="store.team!.team.users!.length < MAX_MEMBER_COUNT">
+          <div class="flex items-center w-80 h-16 mb-4 opacity-50">
+            <div class="justify-center w-10 h-10">
+              <img :src="'/img/person_add.svg'" />
+            </div>
+            <div class="ml-4 flex flex-col justify-center">
+              <NuxtLink :to="`/teams/${route.params.id}/members/new`">メンバー追加</NuxtLink>
             </div>
           </div>
         </div>
@@ -120,5 +212,12 @@ definePageMeta({
 <style scoped>
 #description {
   white-space: pre-wrap;
+}
+
+#member-box:after {
+  content: "";
+  display: block;
+  width: 320px;
+  height: 0;
 }
 </style>
