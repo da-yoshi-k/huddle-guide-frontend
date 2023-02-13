@@ -13,7 +13,7 @@ const create = handleSubmit(async () => {
     }
   };
   const options = useApiFetchOption();
-  let { data } = await useFetch('teams', {
+  await useFetch('teams', {
     method: 'POST',
     body: team,
     ...options,
