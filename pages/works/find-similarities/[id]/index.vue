@@ -136,7 +136,7 @@ definePageMeta({
             <WorkNextStepButton :step="workStep" @next-step="handleWorkStep" @end-work="handleEndWorkshop" />
           </div>
         </div>
-        <div class="flex flex-row mt-8 place-content-around flex-wrap">
+        <div id="favorite-things" class="flex flex-row mt-8 place-content-around flex-wrap">
           <div v-for="user in store.workshop?.workshop.users" :key="user.id">
             <WorkFavoriteThingsCard :user="user"
               :posts="store.posts?.posts.filter(post => post.user_id === user.id).sort((a, b) => { return (a.id < b.id) ? -1 : 1 })"
@@ -157,3 +157,12 @@ definePageMeta({
     </div>
   </div>
 </template>
+
+<style scoped>
+#favorite-things:after {
+  content: "";
+  display: block;
+  width: 396px;
+  height: 0;
+}
+</style>
