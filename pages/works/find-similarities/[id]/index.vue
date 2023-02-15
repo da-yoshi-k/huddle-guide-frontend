@@ -47,9 +47,9 @@ const workshopChannel = cable.subscriptions.create(
           await store.fetchWorkshop(store.workshop!.workshop.id)
           break
         case 'end_workshop':
-          notify({ type: "info", text: "ワークショップが終了されました。<br /> 5秒後に終了画面に遷移します。", duration: 5000 })
+          notify({ type: "info", text: "ワークショップが終了されました。<br /> 5秒後に終了画面に遷移します。", duration: 4500 })
+          workshopChannel.unsubscribe();
           setTimeout(() => {
-            workshopChannel.unsubscribe();
             navigateTo(`/works/find-similarities/${store.workshop?.workshop.id}/complete`)
           }, 5000);
           break
@@ -123,38 +123,42 @@ definePageMeta({
 </script>
 
 <template>
-  <div class="flex justify-center w-full">
-    <div class="w-full max-w-6xl">
-      <div class="flex flex-col">
-        <h2 class="font-bold leading-tight text-2xl text-black m-4">共通点探し</h2>
-        <WorkStepList :step="workStep" />
-        <div class="ml-8 flex gap-4 flex-wrap">
-          <WorkFacilitatorCard :user="facilitator!" />
-          <WorkPresenterCard :user="presenter" :work_step="store.workshop!.workshop.work_step.name"
-            @next-presenter="nextPresenter" />
-          <div class="flex items-center md:ml-auto mr-8">
-            <WorkNextStepButton :step="workStep" @next-step="handleWorkStep" @end-work="handleEndWorkshop" />
+  <div class="flex flex-row">
+    <div class="flex justify-center w-full">
+      <div class="w-full max-w-6xl">
+        <div class="flex flex-col">
+          <h2 class="font-bold leading-tight text-2xl text-black m-4">共通点探し</h2>
+          <WorkStepList :step="workStep" />
+          <div class="ml-8 flex gap-4 flex-wrap">
+            <WorkFacilitatorCard :user="facilitator!" />
+            <WorkPresenterCard :user="presenter" :work_step="store.workshop!.workshop.work_step.name"
+              @next-presenter="nextPresenter" />
+            <div class="flex items-center md:ml-auto mr-8">
+              <WorkNextStepButton :step="workStep" @next-step="handleWorkStep" @end-work="handleEndWorkshop" />
+            </div>
+          </div>
+          <div id="favorite-things" class="flex flex-row mt-8 place-content-around flex-wrap">
+            <div v-for="user in store.workshop?.workshop.users" :key="user.id">
+              <WorkFavoriteThingsCard :user="user"
+                :posts="store.posts?.posts.filter(post => post.user_id === user.id).sort((a, b) => { return (a.id < b.id) ? -1 : 1 })"
+                :reactions=undefined :presenter-id="presenter?.id" @modal-open="handleEditModalOpen" />
+            </div>
+          </div>
+          <div
+            class="fixed right-5 md:right-10 bottom-5 md:bottom-10 flex justify-center items-center rounded-full border-2 border-black bg-white h-12 w-12 shadow-md hover:bg-gray-200 lg:invisible"
+            @click="handleChatModalOpen">
+            <img :src="isMessageUnread ? '/img/unread_chat.svg' : '/img/chat.svg'" class="h-8 w-8" />
           </div>
         </div>
-        <div id="favorite-things" class="flex flex-row mt-8 place-content-around flex-wrap">
-          <div v-for="user in store.workshop?.workshop.users" :key="user.id">
-            <WorkFavoriteThingsCard :user="user"
-              :posts="store.posts?.posts.filter(post => post.user_id === user.id).sort((a, b) => { return (a.id < b.id) ? -1 : 1 })"
-              :reactions=undefined :presenter-id="presenter?.id" @modal-open="handleEditModalOpen" />
-          </div>
-        </div>
-        <div
-          class="fixed right-5 md:right-10 bottom-5 md:bottom-10 flex justify-center items-center rounded-full border-2 border-black bg-white h-12 w-12 shadow-md hover:bg-gray-200"
-          @click="handleChatModalOpen">
-          <img :src="isMessageUnread ? '/img/unread_chat.svg' : '/img/chat.svg'" class="h-8 w-8" />
-        </div>
-        <WorkFavoriteEditModal :open-flag="isEditModalOpen" @close-modal="handleEditModalClose"
-          @posts-edit="handleEditPost" />
-        <WorkChatMessageModal :open-flag="isChatModalOpen" :messages="store.messages?.messages"
-          :users="store.workshop!.workshop.users" :auth-user-id="authUserStore.authUser!.user.id"
-          @close-chat-modal="handleChatModalClose" @create-message="handleCreateMessage" />
       </div>
     </div>
+    <WorkChatSidebar :messages="store.messages?.messages" :users="store.workshop!.workshop.users"
+      :auth-user-id="authUserStore.authUser!.user.id" @create-message="handleCreateMessage" />
+    <WorkFavoriteEditModal :open-flag="isEditModalOpen" @close-modal="handleEditModalClose"
+      @posts-edit="handleEditPost" />
+    <WorkChatMessageModal :open-flag="isChatModalOpen" :messages="store.messages?.messages"
+      :users="store.workshop!.workshop.users" :auth-user-id="authUserStore.authUser!.user.id"
+      @close-chat-modal="handleChatModalClose" @create-message="handleCreateMessage" />
   </div>
 </template>
 

@@ -27,7 +27,7 @@ const handleStandbyWork = () => {
 
 <template>
   <input type="checkbox" id="work-select-modal" class="modal-toggle" />
-  <label for="work-select-modal" class="modal cursor-pointer">
+  <label for="work-select-modal" class="modal cursor-pointer bg-slate-100 bg-opacity-50">
     <label class="modal-box relative" for="">
       <label for="work-select-modal" class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</label>
       <h3 class="text-xl font-bold mb-4">ワーク開始</h3>
