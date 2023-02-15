@@ -70,7 +70,7 @@ const handleCloseModal = () => {
   </label>
 </template>
 
-<style>
+<style scoped>
 #chat-messages-container {
   -ms-overflow-style: none;
   scrollbar-width: none;

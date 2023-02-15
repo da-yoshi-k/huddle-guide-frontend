@@ -1,5 +1,5 @@
 <template>
-  <notifications classes="my-notification" width="60%" style="top: 60px; left: 0px;" />
+  <notifications classes="my-notification" style="top: 64px; left: 14px;" />
 </template>
 
 <style lang="scss">
