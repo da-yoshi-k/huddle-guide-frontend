@@ -29,7 +29,7 @@ const workshopStandbyChannel = cable.subscriptions.create(
           workshopStandbyChannel.unsubscribe()
           setTimeout(() => {
             navigateTo(`/works/find-similarities/${store.workshop?.workshop.id}`)
-          }, 1000);
+          }, 500);
           break
       }
     }

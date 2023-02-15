@@ -11,7 +11,10 @@ const props = defineProps<{
 }>();
 
 const modalOpen = computed(() => {
-  fetchPrevPosts();
+  if (!props.openFlag) {
+    fetchPrevPosts()
+    handleFormDisabled()
+  }
   return props.openFlag ? 'modal-open' : ''
 })
 
@@ -40,6 +43,21 @@ const posts = computed(() => {
   return posts
 })
 
+const defaultPost = {
+  id: 0,
+  content: '',
+  workshop_id: workShopStore.workshop?.workshop.id,
+  user_id: authUserStore.authUser?.user.id,
+  level: 0 as Level
+}
+
+const isFirstPostBlank = ref(true)
+const isSecondPostBlank = ref(true)
+const handleFormDisabled = () => {
+  isFirstPostBlank.value = posts.value.posts[0].content === '' && posts.value.posts[1].content === ''
+  isSecondPostBlank.value = posts.value.posts[1].content === '' && posts.value.posts[2].content === ''
+}
+
 const fetchPrevPosts = () => {
   let prevPosts = workShopStore.posts?.posts.filter(post => post.user_id === authUserStore.authUser?.user.id)
     .sort(function (a, b) {
@@ -60,6 +78,13 @@ const handleEditFavoriteThings = () => {
   const submittingPosts = {
     posts: posts.value.posts.filter(post => post.content !== '')
   }
+  for (let i = 0; i < posts.value.posts.length; i++) {
+    if (submittingPosts.posts[i] != null) {
+      posts.value.posts[i] = { ...submittingPosts.posts[i] }
+    } else {
+      posts.value.posts[i] = { ...defaultPost }
+    }
+  }
   emits('posts-edit', submittingPosts)
 }
 const handleCloseModal = () => {
@@ -68,7 +93,7 @@ const handleCloseModal = () => {
 </script>
 
 <template>
-  <label for="favorite-edit-modal" class="modal cursor-pointer" :class="modalOpen">
+  <label for="favorite-edit-modal" class="modal bg-slate-100 bg-opacity-50" :class="modalOpen">
     <label class="modal-box relative" for="">
       <label for="favorite-edit-modal" class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
         @click="handleCloseModal">✕</label>
@@ -78,7 +103,7 @@ const handleCloseModal = () => {
           <label class="label">
             <span class="label-text">1つ目</span>
           </label>
-          <input type="text" v-model.lazy.trim="posts.posts[0].content" maxlength=20
+          <input type="text" v-model.lazy.trim="posts.posts[0].content" maxlength=20 @change="handleFormDisabled"
             class="input input-bordered w-[180px] md:w-[300px] mr-2">
           <select v-model.lazy="posts.posts[0].level" class="select select-bordered text-xs">
             <option v-for="(value, key) in level" :key="key" :value="value">{{ toJapanese(value) }}</option>
@@ -88,9 +113,10 @@ const handleCloseModal = () => {
           <label class="label">
             <span class="label-text">2つ目</span>
           </label>
-          <input type="text" v-model.lazy.trim="posts.posts[1].content" maxlength=20
-            class="input input-bordered w-[180px] md:w-[300px] mr-2">
-          <select v-model.lazy="posts.posts[1].level" class="select select-bordered text-xs">
+          <input type="text" v-model.lazy.trim="posts.posts[1].content" maxlength=20 @change="handleFormDisabled"
+            class="input input-bordered w-[180px] md:w-[300px] mr-2" :disabled="isFirstPostBlank ? true : undefined">
+          <select v-model.lazy="posts.posts[1].level" class="select select-bordered text-xs"
+            :disabled="isFirstPostBlank ? true : undefined">
             <option v-for="(value, key) in level" :key="key" :value="value">{{ toJapanese(value) }}</option>
           </select>
         </div>
@@ -98,9 +124,10 @@ const handleCloseModal = () => {
           <label class="label">
             <span class="label-text">3つ目</span>
           </label>
-          <input type="text" v-model.lazy.trim="posts.posts[2].content" maxlength=20
-            class="input input-bordered w-[180px] md:w-[300px] mr-2">
-          <select v-model.lazy="posts.posts[2].level" class="select select-bordered text-xs">
+          <input type="text" v-model.lazy.trim="posts.posts[2].content" maxlength=20 @change="handleFormDisabled"
+            class="input input-bordered w-[180px] md:w-[300px] mr-2" :disabled="isSecondPostBlank ? true : undefined">
+          <select v-model.lazy="posts.posts[2].level" class="select select-bordered text-xs"
+            :disabled="isSecondPostBlank ? true : undefined">
             <option v-for="(value, key) in level" :key="key" :value="value">{{ toJapanese(value) }}</option>
           </select>
         </div>

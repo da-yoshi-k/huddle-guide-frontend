@@ -39,25 +39,25 @@ const handleCreateMessage = () => {
 </script>
 
 <template>
-  <div class="hidden md:inline-block">
-    <aside class="flex sticky top-16 w-80 flex-col border-l border-gray-500 shadow-md"
-      style="height: calc(100vh - 64px)">
-      <div class="border-b p-2 bg-slate-100">
-        <div class="text-black text-xl text-center">チャット</div>
+  <div class="hidden lg:inline-block">
+    <div class="flex flex-col sticky top-20 w-80 bg-white shadow-xl rounded-lg mt-2 mr-2 overflow-hidden"
+      style="height: calc(100vh - 80px)">
+      <div class="p-2 bg-slate-200">
+        <div class="text-black text-xl ml-4">チャット</div>
       </div>
-      <div id="chat-messages-container" ref="chatLog" class="overflow-x-hidden overflow-y-scroll bg-white"
+      <div id="chat-messages-container" ref="chatLog" class="px-2 overflow-x-hidden overflow-y-scroll bg-slate-50"
         style="height: calc(100vh - 220px)">
         <div v-for="message in props.messages" :key="message.id">
           <WorkChatMessage :message="message" :auth-user-id="props.authUserId" :users="props.users" />
         </div>
       </div>
-      <div class="mt-auto mx-2 pt-6 h-32 border-t">
+      <div class="mt-auto pt-8 px-2 h-28 border-t border-gray-800 bg-slate-100">
         <form @submit.prevent>
           <input type="text" v-model="message.message.content" class="input input-bordered md:w-[220px] mx-2"
             @keypress.enter="handleCreateMessage">
           <div class="btn btn-primary btn-md text-white" @click.stop.prevent="handleCreateMessage">送信</div>
         </form>
       </div>
-    </aside>
+    </div>
   </div>
 </template>
