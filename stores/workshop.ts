@@ -118,6 +118,17 @@ export const useWorkshopStore = defineStore('workshop', {
       const message = 'finish';
       return message;
     },
+    async deletePost(postId: number) {
+      const options = useApiFetchOption();
+      await useFetch(
+        `workshops/${this.workshop!.workshop.id}/posts/${postId}`,
+        {
+          method: 'DELETE',
+          ...options,
+        }
+      );
+      this.fetchPosts();
+    },
     async updateWorkStep(stepNum: number) {
       const options = useApiFetchOption();
       const bodyParam = {
