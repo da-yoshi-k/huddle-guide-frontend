@@ -18,31 +18,6 @@ const modalOpen = computed(() => {
   return props.openFlag ? 'modal-open' : ''
 })
 
-const posts = computed(() => {
-  const posts = {
-    posts: [{
-      id: 0,
-      content: '',
-      workshop_id: workShopStore.workshop?.workshop.id,
-      user_id: authUserStore.authUser?.user.id,
-      level: 0 as Level
-    }, {
-      id: 0,
-      content: '',
-      workshop_id: workShopStore.workshop?.workshop.id,
-      user_id: authUserStore.authUser?.user.id,
-      level: 0 as Level
-    }, {
-      id: 0,
-      content: '',
-      workshop_id: workShopStore.workshop?.workshop.id,
-      user_id: authUserStore.authUser?.user.id,
-      level: 0 as Level
-    }]
-  }
-  return posts
-})
-
 const defaultPost = {
   id: 0,
   content: '',
@@ -50,6 +25,37 @@ const defaultPost = {
   user_id: authUserStore.authUser?.user.id,
   level: 0 as Level
 }
+
+let defaultPosts = reactive({
+  posts: [{
+    id: 0,
+    content: '',
+    workshop_id: workShopStore.workshop?.workshop.id,
+    user_id: authUserStore.authUser?.user.id,
+    level: 0 as Level
+  }, {
+    id: 0,
+    content: '',
+    workshop_id: workShopStore.workshop?.workshop.id,
+    user_id: authUserStore.authUser?.user.id,
+    level: 0 as Level
+  }, {
+    id: 0,
+    content: '',
+    workshop_id: workShopStore.workshop?.workshop.id,
+    user_id: authUserStore.authUser?.user.id,
+    level: 0 as Level
+  }]
+})
+
+const posts = computed({
+  get() {
+    return defaultPosts
+  },
+  set(newValue) {
+    defaultPosts = { ...newValue }
+  }
+})
 
 const isFirstPostBlank = ref(true)
 const isSecondPostBlank = ref(true)
@@ -90,8 +96,18 @@ const handleEditFavoriteThings = () => {
 }
 const handleDeletePost = (index: number, postId: number) => {
   emits('post-delete', postId)
-  posts.value.posts.splice(index, 1)
-  posts.value.posts.push(defaultPost)
+  posts.value.posts[index] = defaultPost
+  const remainingPosts = {
+    posts: posts.value.posts.filter(post => post.content !== '')
+  }
+  for (let i = 0; i < posts.value.posts.length; i++) {
+    if (remainingPosts.posts[i] != null) {
+      posts.value.posts[i] = { ...remainingPosts.posts[i] }
+    } else {
+      posts.value.posts[i] = { ...defaultPost }
+    }
+  }
+  handleFormDisabled()
 }
 const handleCloseModal = () => {
   emits('close-modal')
@@ -154,5 +170,5 @@ const handleCloseModal = () => {
         </div>
       </form>
     </label>
-  </label>
+</label>
 </template>

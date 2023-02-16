@@ -51,7 +51,7 @@ const handleCreateMessage = () => {
           <WorkChatMessage :message="message" :auth-user-id="props.authUserId" :users="props.users" />
         </div>
       </div>
-      <div class="mt-auto pt-8 px-2 h-28 border-t border-gray-800 bg-slate-100">
+      <div class="mt-auto pt-8 px-2 h-28 border-t border-gray-300 bg-slate-100">
         <form @submit.prevent>
           <input type="text" v-model="message.message.content" class="input input-bordered md:w-[220px] mx-2"
             @keypress.enter="handleCreateMessage">
@@ -59,5 +59,5 @@ const handleCreateMessage = () => {
         </form>
       </div>
     </div>
-  </div>
+</div>
 </template>
