@@ -119,7 +119,7 @@ const handleCloseModal = () => {
     <label class="modal-box relative" for="">
       <label for="favorite-edit-modal" class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
         @click="handleCloseModal">✕</label>
-      <h3 class="text-xl font-bold mb-4">自分の好きなことを3つまで入力してください</h3>
+      <h3 class="text-xl font-bold mb-4">自分の好きなことを最大3つまで入力してください</h3>
       <form @submit.prevent ref="postForm">
         <div class="form-control inline">
           <label class="label">
