@@ -18,31 +18,6 @@ const modalOpen = computed(() => {
   return props.openFlag ? 'modal-open' : ''
 })
 
-const posts = computed(() => {
-  let posts = {
-    posts: [{
-      id: 0,
-      content: '',
-      workshop_id: workShopStore.workshop?.workshop.id,
-      user_id: authUserStore.authUser?.user.id,
-      level: 0 as Level
-    }, {
-      id: 0,
-      content: '',
-      workshop_id: workShopStore.workshop?.workshop.id,
-      user_id: authUserStore.authUser?.user.id,
-      level: 0 as Level
-    }, {
-      id: 0,
-      content: '',
-      workshop_id: workShopStore.workshop?.workshop.id,
-      user_id: authUserStore.authUser?.user.id,
-      level: 0 as Level
-    }]
-  }
-  return posts
-})
-
 const defaultPost = {
   id: 0,
   content: '',
@@ -50,6 +25,37 @@ const defaultPost = {
   user_id: authUserStore.authUser?.user.id,
   level: 0 as Level
 }
+
+let defaultPosts = reactive({
+  posts: [{
+    id: 0,
+    content: '',
+    workshop_id: workShopStore.workshop?.workshop.id,
+    user_id: authUserStore.authUser?.user.id,
+    level: 0 as Level
+  }, {
+    id: 0,
+    content: '',
+    workshop_id: workShopStore.workshop?.workshop.id,
+    user_id: authUserStore.authUser?.user.id,
+    level: 0 as Level
+  }, {
+    id: 0,
+    content: '',
+    workshop_id: workShopStore.workshop?.workshop.id,
+    user_id: authUserStore.authUser?.user.id,
+    level: 0 as Level
+  }]
+})
+
+const posts = computed({
+  get() {
+    return defaultPosts
+  },
+  set(newValue) {
+    defaultPosts = { ...newValue }
+  }
+})
 
 const isFirstPostBlank = ref(true)
 const isSecondPostBlank = ref(true)
@@ -72,6 +78,7 @@ const fetchPrevPosts = () => {
 
 const emits = defineEmits<{
   (e: 'posts-edit', posts: any): void;
+  (e: 'post-delete', postId: number): void;
   (e: 'close-modal'): void;
 }>();
 const handleEditFavoriteThings = () => {
@@ -87,6 +94,21 @@ const handleEditFavoriteThings = () => {
   }
   emits('posts-edit', submittingPosts)
 }
+const handleDeletePost = (index: number, postId: number) => {
+  emits('post-delete', postId)
+  posts.value.posts[index] = defaultPost
+  const remainingPosts = {
+    posts: posts.value.posts.filter(post => post.content !== '')
+  }
+  for (let i = 0; i < posts.value.posts.length; i++) {
+    if (remainingPosts.posts[i] != null) {
+      posts.value.posts[i] = { ...remainingPosts.posts[i] }
+    } else {
+      posts.value.posts[i] = { ...defaultPost }
+    }
+  }
+  handleFormDisabled()
+}
 const handleCloseModal = () => {
   emits('close-modal')
 }
@@ -97,8 +119,8 @@ const handleCloseModal = () => {
     <label class="modal-box relative" for="">
       <label for="favorite-edit-modal" class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
         @click="handleCloseModal">✕</label>
-      <h3 class="text-xl font-bold mb-4">自分の好きなことを3つまで入力してください</h3>
-      <form @submit.prevent>
+      <h3 class="text-xl font-bold mb-4">自分の好きなことを最大3つまで入力してください</h3>
+      <form @submit.prevent ref="postForm">
         <div class="form-control inline">
           <label class="label">
             <span class="label-text">1つ目</span>
@@ -108,6 +130,10 @@ const handleCloseModal = () => {
           <select v-model.lazy="posts.posts[0].level" class="select select-bordered text-xs">
             <option v-for="(value, key) in level" :key="key" :value="value">{{ toJapanese(value) }}</option>
           </select>
+          <div v-if="posts.posts[0].id !== 0" class="ml-4 align-middle inline-block"
+            @click="handleDeletePost(0, posts.posts[0].id)">
+            <button class="btn btn-sm btn-circle btn-outline btn-error">✕</button>
+          </div>
         </div>
         <div class="form-control inline">
           <label class="label">
@@ -119,6 +145,10 @@ const handleCloseModal = () => {
             :disabled="isFirstPostBlank ? true : undefined">
             <option v-for="(value, key) in level" :key="key" :value="value">{{ toJapanese(value) }}</option>
           </select>
+          <div v-if="posts.posts[1].id !== 0" class="ml-4 align-middle inline-block"
+            @click="handleDeletePost(1, posts.posts[1].id)">
+            <button class="btn btn-sm btn-circle btn-outline btn-error">✕</button>
+          </div>
         </div>
         <div class="form-control inline">
           <label class="label">
@@ -130,11 +160,15 @@ const handleCloseModal = () => {
             :disabled="isSecondPostBlank ? true : undefined">
             <option v-for="(value, key) in level" :key="key" :value="value">{{ toJapanese(value) }}</option>
           </select>
+          <div v-if="posts.posts[2].id !== 0" class="ml-4 align-middle inline-block"
+            @click="handleDeletePost(2, posts.posts[2].id)">
+            <button class="btn btn-sm btn-circle btn-outline btn-error">✕</button>
+          </div>
         </div>
         <div class="flex justify-center mt-4">
           <button class="btn btn-primary text-white" @click.prevent="handleEditFavoriteThings">登録</button>
         </div>
       </form>
     </label>
-  </label>
+</label>
 </template>

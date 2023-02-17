@@ -33,6 +33,9 @@ const workshopChannel = cable.subscriptions.create(
         case 'edit_posts':
           await store.fetchPosts()
           break
+        case 'delete_post':
+          await store.fetchPosts()
+          break
         case 'create_message':
           await store.fetchMessages().then(() => {
             isChatModalOpen.value ? isMessageUnread.value = false : isMessageUnread.value = true
@@ -105,6 +108,12 @@ const handleEditPost = async (posts: Posts) => {
   isEditModalOpen.value = false
 }
 
+const handleDeltePost = async (postId: number) => {
+  await store.deletePost(postId).then(() => {
+    workshopChannel.perform('delete_post', {})
+  })
+}
+
 const handleCreateMessage = async (message: Message) => {
   await store.createMessage(message);
 }
@@ -154,8 +163,8 @@ definePageMeta({
     </div>
     <WorkChatSidebar :messages="store.messages?.messages" :users="store.workshop!.workshop.users"
       :auth-user-id="authUserStore.authUser!.user.id" @create-message="handleCreateMessage" />
-    <WorkFavoriteEditModal :open-flag="isEditModalOpen" @close-modal="handleEditModalClose"
-      @posts-edit="handleEditPost" />
+    <WorkFavoriteEditModal :open-flag="isEditModalOpen" @close-modal="handleEditModalClose" @posts-edit="handleEditPost"
+      @post-delete="handleDeltePost" />
     <WorkChatMessageModal :open-flag="isChatModalOpen" :messages="store.messages?.messages"
       :users="store.workshop!.workshop.users" :auth-user-id="authUserStore.authUser!.user.id"
       @close-chat-modal="handleChatModalClose" @create-message="handleCreateMessage" />
