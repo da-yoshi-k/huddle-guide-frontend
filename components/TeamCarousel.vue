@@ -24,7 +24,10 @@ const props = defineProps<{
       </div>
     </template>
     <template v-else>
-      <div class="text-gray-700">参加中のチームがありません</div>
+      <div class="flex flex-row gap-12">
+        <div class="text-black flex items-center">ワークに参加するには<br />チームに所属している必要があります</div>
+        <NuxtLink to="/teams/new" class="btn btn-primary text-yellow-100">チームを作成する</NuxtLink>
+      </div>
     </template>
-  </div>
+</div>
 </template>
