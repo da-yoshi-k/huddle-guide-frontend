@@ -9,11 +9,10 @@ const level: Level[] = [0, 1, 2, 3, 4]
 const props = defineProps<{
   openFlag: boolean
 }>();
-
 const modalOpen = computed(() => {
   if (!props.openFlag) {
     fetchPrevPosts()
-    handleFormDisabled()
+    handleFormValid()
   }
   return props.openFlag ? 'modal-open' : ''
 })
@@ -59,10 +58,27 @@ const posts = computed({
 
 const isFirstPostBlank = ref(true)
 const isSecondPostBlank = ref(true)
-const handleFormDisabled = () => {
+let errors = ref([''])
+const MAX_CONTENT_LENGTH = 20
+const MAX_CONTENT_LENGTH_MESSAGE = '各投稿は20文字以下で記入してください。'
+const MAX_CONTENT_DUPLICATE_MESSAGE = '同じ内容の投稿は行えません'
+const handleFormValid = () => {
   isFirstPostBlank.value = posts.value.posts[0].content === '' && posts.value.posts[1].content === ''
   isSecondPostBlank.value = posts.value.posts[1].content === '' && posts.value.posts[2].content === ''
+  // バリデーションチェック
+  errors.value = []
+  if (posts.value.posts.filter(item => item.content.length > MAX_CONTENT_LENGTH).length !== 0) {
+    errors.value.push(MAX_CONTENT_LENGTH_MESSAGE)
+  }
+  const nonEmptyContent = posts.value.posts.filter(p => p.content.trim() !== '');
+  const uniqueContentValues = new Set(nonEmptyContent.map(p => p.content));
+  if (uniqueContentValues.size !== nonEmptyContent.length) {
+    errors.value.push(MAX_CONTENT_DUPLICATE_MESSAGE)
+  }
 }
+const isSubmitDisabled = computed(() => {
+  return errors.value.length !== 0
+})
 
 const fetchPrevPosts = () => {
   let prevPosts = workShopStore.posts?.posts.filter(post => post.user_id === authUserStore.authUser?.user.id)
@@ -82,17 +98,19 @@ const emits = defineEmits<{
   (e: 'close-modal'): void;
 }>();
 const handleEditFavoriteThings = () => {
-  const submittingPosts = {
-    posts: posts.value.posts.filter(post => post.content !== '')
-  }
-  for (let i = 0; i < posts.value.posts.length; i++) {
-    if (submittingPosts.posts[i] != null) {
-      posts.value.posts[i] = { ...submittingPosts.posts[i] }
-    } else {
-      posts.value.posts[i] = { ...defaultPost }
+  if (!isSubmitDisabled.value) {
+    const submittingPosts = {
+      posts: posts.value.posts.filter(post => post.content !== '')
     }
+    for (let i = 0; i < posts.value.posts.length; i++) {
+      if (submittingPosts.posts[i] != null) {
+        posts.value.posts[i] = { ...submittingPosts.posts[i] }
+      } else {
+        posts.value.posts[i] = { ...defaultPost }
+      }
+    }
+    emits('posts-edit', submittingPosts)
   }
-  emits('posts-edit', submittingPosts)
 }
 const handleDeletePost = (index: number, postId: number) => {
   emits('post-delete', postId)
@@ -107,7 +125,7 @@ const handleDeletePost = (index: number, postId: number) => {
       posts.value.posts[i] = { ...defaultPost }
     }
   }
-  handleFormDisabled()
+  handleFormValid()
 }
 const handleCloseModal = () => {
   emits('close-modal')
@@ -120,12 +138,13 @@ const handleCloseModal = () => {
       <label for="favorite-edit-modal" class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
         @click="handleCloseModal">✕</label>
       <h3 class="text-xl font-bold mb-4">自分の好きなことを最大3つまで入力してください</h3>
+      <span class="text-error">{{ errors[0] }}</span>
       <form @submit.prevent ref="postForm">
         <div class="form-control inline">
           <label class="label">
             <span class="label-text">1つ目</span>
           </label>
-          <input type="text" v-model.lazy.trim="posts.posts[0].content" maxlength=20 @change="handleFormDisabled"
+          <input type="text" v-model.trim="posts.posts[0].content" @keyup="handleFormValid"
             class="input input-bordered w-[180px] md:w-[300px] mr-2">
           <select v-model.lazy="posts.posts[0].level" class="select select-bordered text-xs">
             <option v-for="(value, key) in level" :key="key" :value="value">{{ toJapanese(value) }}</option>
@@ -139,7 +158,7 @@ const handleCloseModal = () => {
           <label class="label">
             <span class="label-text">2つ目</span>
           </label>
-          <input type="text" v-model.lazy.trim="posts.posts[1].content" maxlength=20 @change="handleFormDisabled"
+          <input type="text" v-model.trim="posts.posts[1].content" @keyup="handleFormValid"
             class="input input-bordered w-[180px] md:w-[300px] mr-2" :disabled="isFirstPostBlank ? true : undefined">
           <select v-model.lazy="posts.posts[1].level" class="select select-bordered text-xs"
             :disabled="isFirstPostBlank ? true : undefined">
@@ -154,7 +173,7 @@ const handleCloseModal = () => {
           <label class="label">
             <span class="label-text">3つ目</span>
           </label>
-          <input type="text" v-model.lazy.trim="posts.posts[2].content" maxlength=20 @change="handleFormDisabled"
+          <input type="text" v-model.trim="posts.posts[2].content" @keyup="handleFormValid"
             class="input input-bordered w-[180px] md:w-[300px] mr-2" :disabled="isSecondPostBlank ? true : undefined">
           <select v-model.lazy="posts.posts[2].level" class="select select-bordered text-xs"
             :disabled="isSecondPostBlank ? true : undefined">
@@ -166,7 +185,8 @@ const handleCloseModal = () => {
           </div>
         </div>
         <div class="flex justify-center mt-4">
-          <button class="btn btn-primary text-white" @click.prevent="handleEditFavoriteThings">登録</button>
+          <button class="btn btn-primary text-white" @click.prevent="handleEditFavoriteThings"
+            :disabled="isSubmitDisabled ? true : undefined">登録</button>
         </div>
       </form>
     </label>
