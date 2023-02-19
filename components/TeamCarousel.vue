@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import TeamMemberCard from './TeamMemberCard.vue';
-
 const props = defineProps<{
   teams?: {
     id: string,
@@ -14,7 +13,6 @@ const props = defineProps<{
     }[]
   }[]
 }>();
-
 const route = useRoute();
 </script>
 
