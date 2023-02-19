@@ -14,6 +14,8 @@ const props = defineProps<{
     }[]
   }[]
 }>();
+
+const route = useRoute();
 </script>
 
 <template>
@@ -25,8 +27,12 @@ const props = defineProps<{
     </template>
     <template v-else>
       <div class="flex flex-row gap-12">
-        <div class="text-black flex items-center">ワークに参加するには<br />チームに所属している必要があります</div>
-        <NuxtLink to="/teams/new" class="btn btn-primary text-yellow-100">チームを作成する</NuxtLink>
+        <div class="text-black flex items-center">
+          ワークに参加するにはチームに所属している必要があります
+        </div>
+        <div v-if="route.path !== '/teams'">
+          <NuxtLink to="/teams/new" class="btn btn-primary text-yellow-100">チームを作成する</NuxtLink>
+        </div>
       </div>
     </template>
 </div>
