@@ -190,5 +190,5 @@ const handleCloseModal = () => {
         </div>
       </form>
     </label>
-</label>
+  </label>
 </template>

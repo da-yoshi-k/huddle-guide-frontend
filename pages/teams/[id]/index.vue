@@ -175,11 +175,7 @@ definePageMeta({
       <div id="member-box" class="flex flex-row place-content-around flex-wrap mt-4">
         <div v-for="member in store.team!.team.users">
           <div class="flex items-center w-80 h-16 mb-4">
-            <div class="avatar justify-center w-10 h-10">
-              <div class="rounded-full">
-                <img :src="member.avatar_url ? member.avatar_url : '/img/default_account.svg'" />
-              </div>
-            </div>
+            <UserProfileAvatar :user="member" :size=10 />
             <div class="ml-4 flex flex-col justify-center">
               <div class="text-xs text-gray-500" v-if="member.id === adminUserId">チーム管理者</div>
               <div>{{ member.name }}</div>

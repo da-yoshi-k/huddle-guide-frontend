@@ -23,11 +23,8 @@ const MAX_MEMBER_COUNT = 6;
       <div v-for="n of MAX_MEMBER_COUNT" :key="n">
         <div class="w-32 h-30 p-4 col-span-1 flex flex-col">
           <template v-if="!!props.team.users[n - 1]">
-            <div class="avatar justify-center">
-              <div class="w-8 rounded-full">
-                <img
-                  :src="props.team.users[n - 1].avatar_url ? props.team.users[n - 1].avatar_url : '/img/default_account.svg'" />
-              </div>
+            <div class="flex justify-center">
+              <UserProfileAvatar :user="props.team.users[n - 1]" :size=8 />
             </div>
             <div class="text-center text-xs">
               {{ props.team.users[n - 1] && props.team.users[n - 1]?.name }}
