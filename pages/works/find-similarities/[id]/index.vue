@@ -11,7 +11,11 @@ const store = useWorkshopStore();
 const authUserStore = useAuthUserStore();
 const route = useRoute();
 const runTimeConfig = useRuntimeConfig();
-const cable = ActionCable.createConsumer(runTimeConfig.public.actioncableUrl)
+const cable = ActionCable.createConsumer(runTimeConfig.public.actioncableUrl);
+if (cable == null) {
+  console.log('接続に失敗しました');
+}
+
 await store.fetchWorkshop(route.params.id as string).then(() => {
   if (store.workshop?.workshop.work_step.name === '終了') {
     navigateTo(`/works/find-similarities/${store.workshop?.workshop.id}/complete`)
@@ -52,6 +56,7 @@ const workshopChannel = cable.subscriptions.create(
         case 'end_workshop':
           notify({ type: "info", text: "ワークショップが終了されました。<br /> 5秒後に終了画面に遷移します。", duration: 4500 })
           workshopChannel.unsubscribe();
+          cable.disconnect();
           setTimeout(() => {
             navigateTo(`/works/find-similarities/${store.workshop?.workshop.id}/complete`)
           }, 5000);
