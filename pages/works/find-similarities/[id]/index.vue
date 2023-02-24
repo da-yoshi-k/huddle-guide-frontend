@@ -12,17 +12,16 @@ const authUserStore = useAuthUserStore();
 const route = useRoute();
 const runTimeConfig = useRuntimeConfig();
 const cable = ActionCable.createConsumer(runTimeConfig.public.actioncableUrl);
-if (runTimeConfig.public.stage !== 'production') {
-  console.log(cable?.subscriptions);
-}
 
-await store.fetchWorkshop(route.params.id as string).then(() => {
-  if (store.workshop?.workshop.work_step.name === '終了') {
-    navigateTo(`/works/find-similarities/${store.workshop?.workshop.id}/complete`)
-  }
-});
-await store.fetchPosts();
-await store.fetchMessages();
+const fetchWorkshopInfo = async () => {
+  await store.fetchWorkshop(route.params.id as string).then(() => {
+    if (store.workshop?.workshop.work_step.name === '終了') {
+      endWorkshop();
+    }
+  });
+  await store.fetchPosts();
+  await store.fetchMessages();
+}
 const isConnecting = ref(true)
 
 const workshopChannel = cable.subscriptions.create(
@@ -30,9 +29,7 @@ const workshopChannel = cable.subscriptions.create(
   {
     async connected() {
       isConnecting.value = false
-      await store.fetchWorkshop(route.params.id as string)
-      await store.fetchPosts();
-      await store.fetchMessages();
+      fetchWorkshopInfo()
     },
     disconnected() {
       isConnecting.value = true
@@ -65,12 +62,7 @@ const workshopChannel = cable.subscriptions.create(
           await store.fetchWorkshop(store.workshop!.workshop.id)
           break
         case 'end_workshop':
-          notify({ type: "info", text: "ワークショップが終了されました。<br /> 5秒後に終了画面に遷移します。", duration: 4500 })
-          workshopChannel.unsubscribe();
-          cable.disconnect();
-          setTimeout(() => {
-            navigateTo(`/works/find-similarities/${store.workshop?.workshop.id}/complete`)
-          }, 5000);
+          endWorkshop()
           break
       }
     }
@@ -123,7 +115,6 @@ const handleEditPost = async (posts: Posts) => {
   }
   isEditModalOpen.value = false
 }
-
 const handleDeltePost = async (postId: number) => {
   await store.deletePost(postId).then(() => {
     workshopChannel.perform('delete_post', {})
@@ -138,6 +129,14 @@ const handleEndWorkshop = async () => {
   await store.updateWorkStep(store.workshop!.workshop.work_step_id + 1).then(() => {
     workshopChannel.perform('end_workshop', {})
   })
+}
+const endWorkshop = () => {
+  notify({ type: "info", text: "ワークショップが終了されました。<br /> 5秒後に終了画面に遷移します。", duration: 4500 })
+  workshopChannel.unsubscribe();
+  cable.disconnect();
+  setTimeout(() => {
+    navigateTo(`/works/find-similarities/${store.workshop?.workshop.id}/complete`)
+  }, 5000);
 }
 
 useHead({ title: '共通点探し' })
