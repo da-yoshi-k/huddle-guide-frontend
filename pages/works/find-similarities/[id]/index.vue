@@ -29,7 +29,7 @@ const workshopChannel = cable.subscriptions.create(
   {
     async connected() {
       isConnecting.value = false
-      fetchWorkshopInfo()
+      await fetchWorkshopInfo()
     },
     disconnected() {
       isConnecting.value = true
