@@ -12,8 +12,8 @@ const authUserStore = useAuthUserStore();
 const route = useRoute();
 const runTimeConfig = useRuntimeConfig();
 const cable = ActionCable.createConsumer(runTimeConfig.public.actioncableUrl);
-if (cable == null) {
-  console.log('接続に失敗しました');
+if (runTimeConfig.public.stage !== 'production') {
+  console.log(cable?.subscriptions);
 }
 
 await store.fetchWorkshop(route.params.id as string).then(() => {
