@@ -23,7 +23,7 @@ const fetchWorkshopInfo = async () => {
   await store.fetchMessages();
 }
 const isConnecting = ref(true)
-
+await fetchWorkshopInfo();
 const workshopChannel = cable.subscriptions.create(
   { channel: 'WorkshopChannel', room: store.workshop?.workshop.id },
   {
