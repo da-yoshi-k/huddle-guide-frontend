@@ -12,8 +12,8 @@ const authUserStore = useAuthUserStore();
 const route = useRoute();
 const runTimeConfig = useRuntimeConfig();
 const cable = ActionCable.createConsumer(runTimeConfig.public.actioncableUrl);
-if (cable == null) {
-  console.log('接続に失敗しました');
+if (runTimeConfig.public.stage !== 'production') {
+  console.log(cable?.subscriptions);
 }
 
 await store.fetchWorkshop(route.params.id as string).then(() => {
@@ -23,9 +23,20 @@ await store.fetchWorkshop(route.params.id as string).then(() => {
 });
 await store.fetchPosts();
 await store.fetchMessages();
+const isConnecting = ref(true)
+
 const workshopChannel = cable.subscriptions.create(
   { channel: 'WorkshopChannel', room: store.workshop?.workshop.id },
   {
+    async connected() {
+      isConnecting.value = false
+      await store.fetchWorkshop(route.params.id as string)
+      await store.fetchPosts();
+      await store.fetchMessages();
+    },
+    disconnected() {
+      isConnecting.value = true
+    },
     async received({ type, body }) {
       switch (type) {
         case 'join_workshop':
@@ -166,6 +177,7 @@ definePageMeta({
         </div>
       </div>
     </div>
+    <WorkConnectingModal :open-flag="isConnecting" />
     <WorkChatSidebar :messages="store.messages?.messages" :users="store.workshop!.workshop.users"
       :auth-user-id="authUserStore.authUser!.user.id" @create-message="handleCreateMessage" />
     <WorkFavoriteEditModal :open-flag="isEditModalOpen" @close-modal="handleEditModalClose" @posts-edit="handleEditPost"
