@@ -26,6 +26,17 @@ await store.fetchMessages();
 const workshopChannel = cable.subscriptions.create(
   { channel: 'WorkshopChannel', room: store.workshop?.workshop.id },
   {
+    connected() {
+      if (runTimeConfig.public.stage !== 'production') {
+        console.log(cable?.subscriptions);
+      }
+    },
+    disconnected() {
+      if (runTimeConfig.public.stage !== 'production') {
+        console.log('切断されました');
+        console.log(cable?.subscriptions);
+      }
+    },
     async received({ type, body }) {
       switch (type) {
         case 'join_workshop':
