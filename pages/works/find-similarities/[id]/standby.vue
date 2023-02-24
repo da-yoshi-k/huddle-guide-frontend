@@ -10,20 +10,24 @@ const runTimeConfig = useRuntimeConfig();
 const cable = ActionCable.createConsumer(runTimeConfig.public.actioncableUrl)
 
 const isConnecting = ref(true)
-await store.fetchWorkshop(route.params.id as string).then(() => {
-  if (store.workshop?.workshop.work_step.name === '終了') {
-    navigateTo(`/works/find-similarities/${store.workshop?.workshop.id}/complete`)
-  } else if (store.workshop?.workshop.work_step.name !== '待機') {
-    notify({ type: "info", text: "ワークに参加しました。", duration: 1000 })
-    navigateTo(`/works/find-similarities/${store.workshop?.workshop.id}`)
-  }
-})
+const fetchWorkshopInfo = async () => {
+  await store.fetchWorkshop(route.params.id as string).then(() => {
+    if (store.workshop?.workshop.work_step.name === '終了') {
+      navigateTo(`/works/find-similarities/${store.workshop?.workshop.id}/complete`)
+    } else if (store.workshop?.workshop.work_step.name !== '待機') {
+      notify({ type: "info", text: "ワークに参加しました。", duration: 1000 })
+      navigateTo(`/works/find-similarities/${store.workshop?.workshop.id}`)
+    }
+  })
+}
+
+await fetchWorkshopInfo()
 const workshopStandbyChannel = cable.subscriptions.create(
   { channel: 'WorkshopStandbyChannel', room: store.workshop?.workshop.id },
   {
     async connected() {
       isConnecting.value = false
-      await store.fetchWorkshop(route.params.id as string)
+      await fetchWorkshopInfo()
     },
     disconnected() {
       isConnecting.value = true
