@@ -12,10 +12,6 @@ const authUserStore = useAuthUserStore();
 const route = useRoute();
 const runTimeConfig = useRuntimeConfig();
 const cable = ActionCable.createConsumer(runTimeConfig.public.actioncableUrl);
-if (runTimeConfig.public.stage !== 'production') {
-  console.log(cable?.subscriptions);
-}
-
 await store.fetchWorkshop(route.params.id as string).then(() => {
   if (store.workshop?.workshop.work_step.name === '終了') {
     navigateTo(`/works/find-similarities/${store.workshop?.workshop.id}/complete`)
