@@ -8,10 +8,8 @@ const route = useRoute();
 const MIN_MEMBER_COUNT = 1;
 const runTimeConfig = useRuntimeConfig();
 const cable = ActionCable.createConsumer(runTimeConfig.public.actioncableUrl)
-if (runTimeConfig.public.stage !== 'production') {
-  console.log(cable?.subscriptions);
-}
 
+const isConnecting = ref(true)
 await store.fetchWorkshop(route.params.id as string).then(() => {
   if (store.workshop?.workshop.work_step.name === '終了') {
     navigateTo(`/works/find-similarities/${store.workshop?.workshop.id}/complete`)
@@ -23,6 +21,13 @@ await store.fetchWorkshop(route.params.id as string).then(() => {
 const workshopStandbyChannel = cable.subscriptions.create(
   { channel: 'WorkshopStandbyChannel', room: store.workshop?.workshop.id },
   {
+    async connected() {
+      isConnecting.value = false
+      await store.fetchWorkshop(route.params.id as string)
+    },
+    disconnected() {
+      isConnecting.value = true
+    },
     received({ type, body }) {
       switch (type) {
         case 'join_member':
@@ -101,5 +106,6 @@ definePageMeta({
         </div>
       </div>
     </div>
+    <WorkConnectingModal :open-flag="isConnecting" />
   </div>
 </template>
