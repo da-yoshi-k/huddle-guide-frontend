@@ -70,7 +70,7 @@ const handleEditModalOpen = () => {
       <template v-if="props.posts?.length !== 0">
         <div v-for="post in props.posts">
           <div class="flex">
-            <div class="h-12 flex justify-center items-center w-16">
+            <div class="h-12 flex justify-center items-center w-[70px]">
               <WorkFavoriteLevelBadge :level="post.level" v-if="post.level !== 0" />
             </div>
             <div class="h-12 flex items-center">

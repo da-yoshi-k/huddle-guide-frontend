@@ -4,7 +4,6 @@ import { useAuthUserStore } from '~~/stores/authUser';
 import { Level, toJapanese } from '~~/types/level'
 const authUserStore = useAuthUserStore();
 const workShopStore = useWorkshopStore();
-const level: Level[] = [0, 1, 2, 3, 4]
 
 const props = defineProps<{
   openFlag: boolean
@@ -92,6 +91,9 @@ const fetchPrevPosts = () => {
   }
 }
 
+const handleSettiongLevel = (level: Level, index: number) => {
+  posts.value.posts[index].level = level
+}
 const emits = defineEmits<{
   (e: 'posts-edit', posts: any): void;
   (e: 'post-delete', postId: number): void;
@@ -145,10 +147,11 @@ const handleCloseModal = () => {
             <span class="label-text">1つ目</span>
           </label>
           <input type="text" v-model.trim="posts.posts[0].content" @keyup="handleFormValid"
-            class="input input-bordered w-[180px] md:w-[300px] mr-2">
-          <select v-model.lazy="posts.posts[0].level" class="select select-bordered text-xs">
-            <option v-for="(value, key) in level" :key="key" :value="value">{{ toJapanese(value) }}</option>
-          </select>
+            class="input input-bordered w-[180px] md:w-[270px] mr-2">
+          <div class="inline-block">
+            <WorkFavoliteLevelSelect :disabled="false" :index=0 :selected-level="posts.posts[0].level"
+              @set-level="handleSettiongLevel" />
+          </div>
           <div v-if="posts.posts[0].id !== 0" class="ml-4 align-middle inline-block"
             @click="handleDeletePost(0, posts.posts[0].id)">
             <button class="btn btn-sm btn-circle btn-outline btn-error">✕</button>
@@ -159,11 +162,11 @@ const handleCloseModal = () => {
             <span class="label-text">2つ目</span>
           </label>
           <input type="text" v-model.trim="posts.posts[1].content" @keyup="handleFormValid"
-            class="input input-bordered w-[180px] md:w-[300px] mr-2" :disabled="isFirstPostBlank ? true : undefined">
-          <select v-model.lazy="posts.posts[1].level" class="select select-bordered text-xs"
-            :disabled="isFirstPostBlank ? true : undefined">
-            <option v-for="(value, key) in level" :key="key" :value="value">{{ toJapanese(value) }}</option>
-          </select>
+            class="input input-bordered w-[180px] md:w-[270px] mr-2" :disabled="isFirstPostBlank ? true : undefined">
+          <div class="inline-block">
+            <WorkFavoliteLevelSelect :disabled="isFirstPostBlank" :index=1 :selected-level="posts.posts[1].level"
+              @set-level="handleSettiongLevel" />
+          </div>
           <div v-if="posts.posts[1].id !== 0" class="ml-4 align-middle inline-block"
             @click="handleDeletePost(1, posts.posts[1].id)">
             <button class="btn btn-sm btn-circle btn-outline btn-error">✕</button>
@@ -174,11 +177,11 @@ const handleCloseModal = () => {
             <span class="label-text">3つ目</span>
           </label>
           <input type="text" v-model.trim="posts.posts[2].content" @keyup="handleFormValid"
-            class="input input-bordered w-[180px] md:w-[300px] mr-2" :disabled="isSecondPostBlank ? true : undefined">
-          <select v-model.lazy="posts.posts[2].level" class="select select-bordered text-xs"
-            :disabled="isSecondPostBlank ? true : undefined">
-            <option v-for="(value, key) in level" :key="key" :value="value">{{ toJapanese(value) }}</option>
-          </select>
+            class="input input-bordered w-[180px] md:w-[270px] mr-2" :disabled="isSecondPostBlank ? true : undefined">
+          <div class="inline-block">
+            <WorkFavoliteLevelSelect :disabled="isSecondPostBlank" :index=2 :selected-level="posts.posts[2].level"
+              @set-level="handleSettiongLevel" />
+          </div>
           <div v-if="posts.posts[2].id !== 0" class="ml-4 align-middle inline-block"
             @click="handleDeletePost(2, posts.posts[2].id)">
             <button class="btn btn-sm btn-circle btn-outline btn-error">✕</button>
