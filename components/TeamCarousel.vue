@@ -33,6 +33,6 @@ const route = useRoute();
         </div>
       </template>
     </div>
-    <div class="flex justify-end text-black text-sm">Slide→</div>
+    <div v-if="teams?.length !== 0" class="flex justify-end text-black text-sm">Slide→</div>
   </div>
 </template>
