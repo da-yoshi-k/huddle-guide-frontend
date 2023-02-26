@@ -41,14 +41,18 @@ const handleMemberAdd = async () => {
     }
   }
   const options = useApiFetchOption();
-  await useFetch(`teams/${route.params.id}/members`, {
+  const { data, error } = await useFetch(`teams/${route.params.id}/members`, {
     method: "POST",
     body: userParam,
     ...options
-  }).then(() => {
+  })
+  if (error.value) {
+    notify({ type: 'error', text: error.value.data.errors[0] })
+    router.push('/home')
+  } else {
     notify({ type: 'success', text: 'メンバーを追加しました。' })
     router.push('/home')
-  })
+  }
 }
 
 useHead({ title: 'メンバー追加' })
