@@ -37,7 +37,7 @@ const workshopChannel = cable.subscriptions.create(
     async received({ type, body }) {
       switch (type) {
         case 'join_workshop':
-          await store.fetchWorkshop(store.workshop!.workshop.id)
+          await fetchWorkshopInfo()
           break
         case 'create_post':
           await store.fetchPosts()
@@ -62,6 +62,7 @@ const workshopChannel = cable.subscriptions.create(
           await store.fetchWorkshop(store.workshop!.workshop.id)
           break
         case 'end_workshop':
+          await store.fetchWorkshop(store.workshop!.workshop.id)
           endWorkshop()
           break
       }

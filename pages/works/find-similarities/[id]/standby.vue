@@ -27,7 +27,6 @@ const workshopStandbyChannel = cable.subscriptions.create(
   {
     async connected() {
       isConnecting.value = false
-      await fetchWorkshopInfo()
     },
     disconnected() {
       isConnecting.value = true
@@ -35,7 +34,7 @@ const workshopStandbyChannel = cable.subscriptions.create(
     received({ type, body }) {
       switch (type) {
         case 'join_member':
-          store.fetchWorkshop(route.params.id as string)
+          fetchWorkshopInfo()
           break
         case 'start_workshop':
           notify({ type: "info", text: "ワークが開始されました。", duration: 1000 })
