@@ -12,14 +12,14 @@ const props = defineProps<{
     }[]
   }
 }>()
-const MAX_MEMBER_COUNT = 6;
+const MAX_MEMBER_COUNT = 8;
 </script>
 
 <template>
   <div class="bg-gray-200 rounded-xl hover:shadow-lg hover:transition-shadow duration-800 p-2">
     <NuxtLink :to='`/teams/${props.team.id}`' class="text-lg text-left ml-2 hover:link-info">{{ props.team.name }}
     </NuxtLink>
-    <div class=" w-64 grid grid-cols-3 place-items-center">
+    <div class=" w-[350px] grid grid-cols-4 place-items-center">
       <div v-for="n of MAX_MEMBER_COUNT" :key="n">
         <div class="w-32 h-30 p-4 col-span-1 flex flex-col">
           <template v-if="!!props.team.users[n - 1]">
