@@ -7,11 +7,11 @@ const props = defineProps<{
     avatar_url?: string
   }]
 }>()
-const MAX_MEMBER_COUNT = 6;
+const MAX_MEMBER_COUNT = 8;
 </script>
 
 <template>
-  <div class="bg-gray-200 rounded-xl w-11/12 grid grid-cols-3 place-items-center">
+  <div class="bg-gray-200 rounded-xl w-11/12 grid grid-cols-4 place-items-center">
     <div v-for="n of MAX_MEMBER_COUNT" :key="n">
       <div class="w-32 h-30 p-4 col-span-1 flex flex-col items-center">
         <template v-if="!!props.users[n - 1]">

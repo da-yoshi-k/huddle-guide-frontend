@@ -9,7 +9,7 @@ const authUserStore = useAuthUserStore();
 const route = useRoute();
 await store.fetchTeam(route.params.id as string);
 
-const MAX_MEMBER_COUNT = 6;
+const MAX_MEMBER_COUNT = 8;
 
 // チームの情報
 const { handleSubmit } = useForm({})

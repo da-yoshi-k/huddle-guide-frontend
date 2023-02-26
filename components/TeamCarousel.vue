@@ -17,19 +17,22 @@ const route = useRoute();
 </script>
 
 <template>
-  <div class="carousel carousel-center md:w-[calc(100vw-276px)] md:max-w-2xl py-4 px-4 space-x-4 bg-white rounded-box">
-    <template v-if="teams?.length !== 0">
-      <div v-for="team in props.teams">
-        <TeamMemberCard :team="team" />
-      </div>
-    </template>
-    <template v-else>
-      <div class="flex flex-row gap-12">
-        <div class="text-black flex items-center">ワークに参加するにはチームに所属している必要があります</div>
-        <div v-if="route.path !== '/teams'">
-          <NuxtLink to="/teams/new" class="btn btn-primary text-yellow-100">チームを作成する</NuxtLink>
+  <div class="md:w-[calc(100vw-276px)] md:max-w-2xl">
+    <div class="carousel carousel-center py-4 px-4 space-x-4 bg-white rounded-box">
+      <template v-if="teams?.length !== 0">
+        <div v-for="team in props.teams">
+          <TeamMemberCard :team="team" />
         </div>
-      </div>
-    </template>
-</div>
+      </template>
+      <template v-else>
+        <div class="flex flex-row gap-12">
+          <div class="text-black flex items-center">ワークに参加するにはチームに所属している必要があります</div>
+          <div v-if="route.path !== '/teams'">
+            <NuxtLink to="/teams/new" class="btn btn-primary text-yellow-100">チームを作成する</NuxtLink>
+          </div>
+        </div>
+      </template>
+    </div>
+    <div class="flex justify-end text-black text-sm">Slide→</div>
+  </div>
 </template>
