@@ -25,6 +25,19 @@ const login = handleSubmit(async () => {
   });
 });
 
+const handleGoogleLogin = async (response: any) => {
+  await store.loginUserWithGoogle(response).then(() => {
+    const router = useRouter()
+    router.push('/home')
+    notify({ type: 'success', text: 'ログインしました。' })
+  }).catch(() => {
+    notify({
+      type: 'error',
+      text: '認証に失敗しました。',
+    });
+  });
+}
+
 useHead({ title: 'ログイン' })
 definePageMeta({
   noLoginAccess: true,
@@ -66,15 +79,14 @@ definePageMeta({
                 新規登録はこちら
               </NuxtLink>
             </div>
-            <!-- <div class="mb-4 tooltip" data-tip="開発中">
-              <NuxtLink to="#" class="link-hover text-info">
-                パスワードを忘れた
-              </NuxtLink>
-            </div> -->
           </form>
         </div>
         <div class="card-actions justify-center">
           <button class="btn btn-primary text-white" @click="login">ログイン</button>
+        </div>
+        <div class="divider">または</div>
+        <div class="flex justify-center">
+          <GoogleLogin :callback="handleGoogleLogin" />
         </div>
       </div>
     </div>

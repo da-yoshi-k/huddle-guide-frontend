@@ -24,6 +24,23 @@ export const useAuthUserStore = defineStore('authUser', {
       }
       await this.fetchAuthUser();
     },
+    async loginUserWithGoogle(credentials: any) {
+      const options = useApiFetchOption();
+      const { data, error } = await useFetch<Token>(
+        'google_login_api/callback',
+        {
+          method: 'POST',
+          body: credentials,
+          ...options,
+        }
+      );
+      if (data.value) {
+        localStorage.auth_token = data.value?.token;
+      } else {
+        throw error;
+      }
+      await this.fetchAuthUser();
+    },
     async fetchAuthUser() {
       if (!localStorage.auth_token) return null;
       if (this.authUser) return this.authUser;
