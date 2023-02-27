@@ -36,6 +36,7 @@
     "pinia-plugin-persistedstate": "^3.0.1",
     "sass": "^1.57.1",
     "vee-validate": "^4.7.3",
-    "vue-gtag": "^2.0.1"
+    "vue-gtag": "^2.0.1",
+    "vue3-google-login": "^2.0.14"
   }
 }

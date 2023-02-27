@@ -53,6 +53,7 @@ export default defineNuxtConfig({
       apiServerUrl: '',
       stage: '',
       actioncableUrl: '',
+      googleClientId: '',
     },
   },
   modules: [
