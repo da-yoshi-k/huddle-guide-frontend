@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import { useForm, useField } from 'vee-validate';
+import { useAuthUserStore } from '~~/stores/authUser';
 import { useNotification } from "@kyvg/vue3-notification";
 const { notify } = useNotification()
+const store = useAuthUserStore();
 const { handleSubmit } = useForm({})
 const { value: email } = useField("email");
 const { value: name } = useField("name");
@@ -31,7 +33,22 @@ const register = handleSubmit(async () => {
   }
 });
 
-useHead({ title: '新規登録' })
+const handleGoogleLogin = async (response: any) => {
+  await store.loginUserWithGoogle(response).then(() => {
+    const router = useRouter()
+    router.push('/home')
+    notify({ type: 'success', text: 'ログインしました。' })
+  }).catch(() => {
+    notify({
+      type: 'error',
+      text: '認証に失敗しました。',
+    });
+  });
+}
+
+useHead(
+  { title: '新規登録' },
+)
 definePageMeta({
   noLoginAccess: true,
   layout: "static",
@@ -107,6 +124,10 @@ definePageMeta({
         </div>
         <div class="card-actions justify-center">
           <button class="btn btn-primary text-white" @click="register">登録</button>
+        </div>
+        <div class="divider">または</div>
+        <div class="flex justify-center">
+          <GoogleLogin :callback="handleGoogleLogin" />
         </div>
       </div>
     </div>
