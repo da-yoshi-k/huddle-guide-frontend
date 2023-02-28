@@ -48,21 +48,6 @@ definePageMeta({
       </div>
       <h3 class="font-bold leading-tight text-2xl text-black mb-4">ワーク一覧</h3>
       <div id="works-container" class="flex flex-col items-center md:flex-row md:justify-around mb-8">
-        <div class="card w-80 bg-gray-200 shadow-xl mb-8">
-          <figure><img src="/img/works_news.svg" alt="Good&new" class="w-[200px] mt-4" /></figure>
-          <div class="card-body">
-            <h4 class="card-title">Good & New (開発中)</h4>
-            <p>日々の中であった良かったことや<br />新しいニュースを共有しましょう</p>
-            <div class="card-actions justify-around">
-              <div class="tooltip" data-tip="開発中">
-                <button class="btn btn-neutral text-yellow-100">開始する</button>
-              </div>
-              <div class="tooltip" data-tip="開発中">
-                <button class="btn btn-neutral text-yellow-100">使い方</button>
-              </div>
-            </div>
-          </div>
-        </div>
         <div class="card w-80 bg-base-100 shadow-xl mb-8">
           <figure><img src="/img/works_discussion.svg" alt="共通点探し" class="w-[200px] mt-4" /></figure>
           <div class="card-body">
@@ -71,6 +56,21 @@ definePageMeta({
             <div class="card-actions justify-around">
               <div @click="handleShowSelectModal(1, '共通点探し')">
                 <label for="work-select-modal" class="btn btn-primary text-yellow-100">開始する</label>
+              </div>
+              <div class="tooltip" data-tip="開発中">
+                <button class="btn btn-neutral text-yellow-100">使い方</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card w-80 bg-gray-200 shadow-xl mb-8">
+          <figure><img src="/img/works_news.svg" alt="Good&new" class="w-[200px] mt-4" /></figure>
+          <div class="card-body">
+            <h4 class="card-title">Good & New (開発中)</h4>
+            <p>日々の中であった良かったことや<br />新しいニュースを共有しましょう</p>
+            <div class="card-actions justify-around">
+              <div class="tooltip" data-tip="開発中">
+                <button class="btn btn-neutral text-yellow-100">開始する</button>
               </div>
               <div class="tooltip" data-tip="開発中">
                 <button class="btn btn-neutral text-yellow-100">使い方</button>
