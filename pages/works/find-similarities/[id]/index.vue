@@ -152,12 +152,16 @@ definePageMeta({
     <div class="flex justify-center w-full">
       <div class="w-full max-w-6xl">
         <div class="flex flex-col">
-          <h2 class="font-bold leading-tight text-2xl text-black m-4">共通点探し</h2>
+          <div class="flex">
+            <h2 class="font-bold leading-tight text-2xl text-black m-4">共通点探し</h2>
+            <WorkCountupTimer :title="'ワーク経過時間'" :time="store.workshop!.workshop.work_start_time" class="ml-auto mr-6" />
+          </div>
           <WorkStepList :step="workStep" />
           <div class="ml-8 flex gap-4 flex-wrap">
             <WorkFacilitatorCard :user="facilitator!" />
             <WorkPresenterCard :user="presenter" :work_step="store.workshop!.workshop.work_step.name"
               @next-presenter="nextPresenter" />
+            <WorkCountupTimer :title="'発表時間'" :time="store.workshop!.workshop.turn_start_time" />
             <div class="flex items-center md:ml-auto mr-8">
               <WorkNextStepButton :step="workStep" @next-step="handleWorkStep" @end-work="handleEndWorkshop" />
             </div>

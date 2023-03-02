@@ -47,10 +47,12 @@ export const useWorkshopStore = defineStore('workshop', {
         }
       }
       this.workshop!.workshop.presenter = nextPresenter;
+      const startTime = new Date();
       const options = useApiFetchOption();
       const param = {
         workshop: {
           presenter: nextPresenter,
+          turn_start_time: startTime,
         },
       };
       await useFetch(`workshops/${this.workshop!.workshop.id}`, {
@@ -142,6 +144,21 @@ export const useWorkshopStore = defineStore('workshop', {
         ...options,
       });
       this.workshop!.workshop.work_step_id = stepNum;
+    },
+    async startWorkshop() {
+      const options = useApiFetchOption();
+      const startTime = new Date();
+      const bodyParam = {
+        workshop: {
+          work_start_time: startTime,
+        },
+      };
+      await useFetch(`workshops/${this.workshop!.workshop.id}`, {
+        method: 'PATCH',
+        body: bodyParam,
+        ...options,
+      });
+      this.workshop!.workshop.work_start_time = startTime.toString();
     },
     async fetchMessages() {
       const options = useApiFetchOption();

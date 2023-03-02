@@ -54,6 +54,7 @@ const disabled = computed(() => {
 })
 
 const startWorkshop = async () => {
+  await store.startWorkshop()
   await store.updateWorkStep(2).then(() => {
     workshopStandbyChannel.perform('start_workshop', {})
   })
