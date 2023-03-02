@@ -25,6 +25,12 @@ setFormatElapsedTime()
 <template>
   <div class="flex flex-col justify-center items-center">
     <div class="text-sm">{{ props.title }}</div>
-    <div class="text-right">{{ formatElapsedTime }}</div>
+    <div id="number" class="text-right tracking-wide">{{ formatElapsedTime }}</div>
   </div>
 </template>
+
+<style scoped>
+#number {
+  font-family: sans-serif;
+}
+</style>
