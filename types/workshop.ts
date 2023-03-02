@@ -15,7 +15,7 @@ export interface Workshop {
     work_step: WorkStep;
     users: [User];
     team: Team;
-    work_date: Date;
+    work_date: string;
     work_start_time: string | null;
     turn_start_time: string | null;
   };

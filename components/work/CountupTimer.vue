@@ -4,19 +4,21 @@ const props = defineProps<{
   time: string | null,
   title: string
 }>()
-
+const nuxtApp = useNuxtApp();
 let formatElapsedTime = ref('--:--')
 
 const setFormatElapsedTime = () => {
   setInterval(() => {
     if (!props.time) {
+      formatElapsedTime.value = '--:--'
       return
     }
     const dateStr = (new Date).toString()
-    const diff = dayjs(dateStr).diff(dayjs(props.time), 'second')
+    const diff = dayjs(dateStr).diff(nuxtApp.$validDate(props.time), 'second')
     formatElapsedTime.value = `${diff / 60 | 0}:${('0' + diff % 60).slice(-2)}`
   }, 1000)
 }
+// コンポーネントが存在する場合には常に実行
 setFormatElapsedTime()
 </script>
 
