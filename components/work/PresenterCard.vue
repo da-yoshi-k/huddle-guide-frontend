@@ -45,7 +45,7 @@ const handleNextPresenter = () => {
           発表者
         </div>
         <div class="ml-1 w-3 h-3">
-          <ToolcipPresenterInfo />
+          <TooltipPresenterInfo />
         </div>
       </div>
       <div class="text-left text-sm md:text-base">
