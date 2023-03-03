@@ -40,8 +40,13 @@ const handleNextPresenter = () => {
       </div>
     </div>
     <div class="col-span-2 flex flex-col">
-      <div class="text-left text-xs text-gray-600">
-        発表者
+      <div class="flex items-center">
+        <div class="text-left text-xs text-gray-600">
+          発表者
+        </div>
+        <div class="ml-1 w-3 h-3">
+          <ToolcipPresenterInfo />
+        </div>
       </div>
       <div class="text-left text-sm md:text-base">
         <template v-if="!!props.user">
