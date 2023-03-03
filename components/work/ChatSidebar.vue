@@ -42,8 +42,11 @@ const handleCreateMessage = () => {
   <div class="hidden lg:inline-block">
     <div class="flex flex-col sticky top-20 w-80 bg-white shadow-xl rounded-lg mt-2 mr-2 overflow-hidden"
       style="height: calc(100vh - 80px)">
-      <div class="p-2 bg-slate-200">
+      <div class="flex p-2 bg-slate-200">
         <div class="text-black text-xl ml-4">チャット</div>
+        <div class="ml-4 w-4 self-center">
+          <ToolcipChatInfo />
+        </div>
       </div>
       <div id="chat-messages-container" ref="chatLog" class="px-2 overflow-x-hidden overflow-y-scroll bg-slate-50"
         style="height: calc(100vh - 220px)">
@@ -59,5 +62,5 @@ const handleCreateMessage = () => {
         </form>
       </div>
     </div>
-</div>
+  </div>
 </template>
