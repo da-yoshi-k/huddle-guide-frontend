@@ -45,7 +45,7 @@ const handleCreateMessage = () => {
       <div class="flex p-2 bg-slate-200">
         <div class="text-black text-xl ml-4">チャット</div>
         <div class="ml-4 w-4 self-center">
-          <ToolcipChatInfo />
+          <TooltipChatInfo />
         </div>
       </div>
       <div id="chat-messages-container" ref="chatLog" class="px-2 overflow-x-hidden overflow-y-scroll bg-slate-50"

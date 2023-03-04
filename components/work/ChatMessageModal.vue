@@ -58,7 +58,7 @@ const handleCloseModal = () => {
       <div class="flex items-center">
         <div class="text-xl font-bold border border-gray-100">チャット</div>
         <div class="ml-4 w-4">
-          <ToolcipChatInfo />
+          <TooltipChatInfo />
         </div>
       </div>
       <div id="chat-messages-container" ref="chatLog" class="m-4 max-h-[500px] overflow-scroll">
