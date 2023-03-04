@@ -55,7 +55,12 @@ const handleCloseModal = () => {
     <label class="modal-box relative" for="">
       <label for="chat-message-modal" class="btn btn-md btn-circle btn-ghost absolute right-2 top-2"
         @click="handleCloseModal">✕</label>
-      <h3 class="text-xl font-bold mb-4 border border-gray-100">チャット</h3>
+      <div class="flex items-center">
+        <div class="text-xl font-bold border border-gray-100">チャット</div>
+        <div class="ml-4 w-4">
+          <TooltipChatInfo />
+        </div>
+      </div>
       <div id="chat-messages-container" ref="chatLog" class="m-4 max-h-[500px] overflow-scroll">
         <div v-for="message in props.messages" :key="message.id">
           <WorkChatMessage :message="message" :auth-user-id="props.authUserId" :users="props.users" />
