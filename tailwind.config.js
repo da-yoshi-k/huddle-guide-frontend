@@ -12,6 +12,15 @@ module.exports = {
           "success": "#36D399",
           "warning": "#FBBD23",
           "error": "#fa3e3e",
+          "--animation-btn": "0s",
+          '.btn-twitter': {
+            'background-color': '#1B9DF0',
+            'border-color': '#1B9DF0',
+          },
+          '.btn-twitter:hover': {
+            'background-color': '#1B9DF0',
+            'border-color': '#1B9DF0',
+          },
         },
       },
     ],
