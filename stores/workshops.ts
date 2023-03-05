@@ -11,10 +11,17 @@ export const useWorkshopsStore = defineStore('workshops', {
   actions: {
     async fetchWorkshops() {
       const options = useApiFetchOption();
-      const { data } = await useFetch<Workshops>('workshops', {
+      const { data, error } = await useFetch<Workshops>('workshops', {
         ...options,
       });
-      this.workshops = data.value;
+      if (data.value) {
+        this.workshops = data.value;
+      } else {
+        if (error.value?.statusCode === 401) {
+          const router = useRouter();
+          router.push('/login');
+        }
+      }
     },
   },
 });
