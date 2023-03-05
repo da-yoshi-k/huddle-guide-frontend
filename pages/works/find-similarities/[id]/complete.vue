@@ -17,7 +17,7 @@ const mySimilaritiesText = encodeURIComponent(`ワークを行い、自分と同
 const mySimilaritieswitterUrl = `${twitterUrlBase}?url=${siteUrlBase}&text=${mySimilaritiesText}`
 
 const noSimilarityText = encodeURIComponent('自分と同じ共通点がない個性豊かなチームでワークをしました！\nあなたもHuddle Guideでチームメンバーとコミュニケーションを取りましょう！ #HuddleGuide\n')
-const noSimilarityTwitterUrl = `${twitterUrlBase}?url=${siteUrlBase}&text=${noSimilarityText}&hashtags=huddleguide`
+const noSimilarityTwitterUrl = `${twitterUrlBase}?url=${siteUrlBase}&text=${noSimilarityText}`
 
 const allSimilarities = computed(() => {
   const items = store.posts?.posts.filter(post => post.sameUsers && post.sameUsers?.length > 0)
