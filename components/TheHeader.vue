@@ -13,7 +13,8 @@ const logout = () => {
       authUser: null
     })
     notify({ type: 'success', text: "ログアウトしました。" })
-    navigateTo('/login')
+    const router = useRouter()
+    router.push('/login')
   } catch (error) {
     console.log(error);
   }

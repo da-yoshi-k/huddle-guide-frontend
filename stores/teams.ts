@@ -11,11 +11,18 @@ export const useTeamsStore = defineStore('teams', {
   actions: {
     async fetchTeams() {
       const options = useApiFetchOption();
-      const { data } = await useFetch<Teams>('teams', {
+      const { data, error } = await useFetch<Teams>('teams', {
         ...options,
       });
-      this.teams = data.value;
-      return this.teams;
+      if (data.value) {
+        this.teams = data.value;
+        return this.teams;
+      } else {
+        if (error.value?.statusCode === 401) {
+          const router = useRouter();
+          router.push('/login');
+        }
+      }
     },
   },
 });
