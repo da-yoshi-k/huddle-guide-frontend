@@ -6,7 +6,7 @@ export const Level = {
   Novice: 4,
   Casual: 5,
   Hardcore: 6,
-  Entry: 7,
+  Beginner: 7,
   Amateur: 8,
   Professional: 9,
 } as const;
@@ -29,8 +29,8 @@ export function toJapanese(level: Level) {
       return 'カジュアル';
     case Level.Hardcore:
       return 'ガチ';
-    case Level.Entry:
-      return 'エントリー';
+    case Level.Beginner:
+      return 'ビギナー';
     case Level.Amateur:
       return 'アマチュア';
     case Level.Professional:

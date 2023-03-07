@@ -10,7 +10,7 @@ definePageMeta({
     <div id="top-container" class="flex justify-center items-center h-[85vh] md:h-[650px]">
       <div class="top-container pt-5 grid grid-cols-1 md:grid-cols-2 md:max-h-[600px]">
         <div class="flex justify-center md:justify-end md:mr-4">
-          <img class="w-3/5 my-8 md:mb-4 md:w-full md:max-w-[420px] md:object-contain shadow-lg rounded-3xl"
+          <img class="w-3/5 my-8 md:mb-4 md:w-full max-w-[420px] object-contain shadow-lg rounded-3xl"
             src="/img/top_banner.svg" alt="huddle-guide brand banner">
         </div>
         <div class="flex justify-center row-span-3 md:justify-start md:ml-4">
@@ -20,18 +20,24 @@ definePageMeta({
           <p class="pt-6 text-3xl">オンラインでもチームで<br>コミュニケーションが<br>取れていますか？</p>
         </div>
         <div class="my-6 flex justify-center md:justify-end md:mr-16">
-          <NuxtLink to="/register" class="btn btn-active brn-primary shadow text-sm md:text-lg text-base-100 mr-12">
+          <NuxtLink to="/register"
+            class="btn btn-active brn-primary shadow hover:shadow-lg text-sm md:text-lg text-base-100 mr-12">
             使ってみる
           </NuxtLink>
-          <NuxtLink to="/login" class="btn brn-neutral shadow text-sm md:text-lg text-base-100 ml-12">
+          <NuxtLink to="/login" class="btn btn-active brn-primary shadow text-sm md:text-lg text-base-100 ml-12">
             ログイン
           </NuxtLink>
         </div>
       </div>
     </div>
-    <div class="text-lg md:text-2xl text-center my-6 md:my-0 mx-4">
-      <p class="py-6 md:leading-10"><span class="font-bold">Huddle
-          Guide</span>は、<br />チームメンバーの共通点を発見したり、<br />日々あった新しいことを同期的に共有することで<br />チームビルディングを行えるサービスです</p>
+    <div class="hero my-6 md:py-12 bg-[#EEEEEE]">
+      <div class="hero-content flex-col md:flex-row self-center center">
+        <img src="/img/top_team_image.svg" alt="team" class="object-contain w-[500px]" />
+        <div class="text-lg md:text-2xl text-center ">
+          <p class="py-6 md:leading-10"><span class="font-bold">Huddle
+              Guide</span>は、<br />チームメンバーの共通点を発見したり、<br />日々あった新しいことを同期的に共有することで<br />チームビルディングを行えるサービスです</p>
+        </div>
+      </div>
     </div>
     <div class="pt-24 text-3xl font-bold">使い方</div>
     <div class="hero bg-base-100">
@@ -67,15 +73,16 @@ definePageMeta({
       </div>
     </div>
     <div class="my-6 flex justify-center">
-      <NuxtLink to="/register" class="btn btn-active brn-primary shadow text-sm md:text-lg text-base-100 mr-12">
+      <NuxtLink to="/register"
+        class="btn btn-active brn-primary shadow hover:shadow-lg text-sm md:text-lg text-base-100 mr-12">
         使ってみる
       </NuxtLink>
-      <NuxtLink to="/login" class="btn brn-neutral shadow text-sm md:text-lg text-base-100 ml-12">
+      <NuxtLink to="/login" class="btn btn-active brn-primary shadow text-sm md:text-lg text-base-100 ml-12">
         ログイン
       </NuxtLink>
     </div>
     <div class="text-right">
       <a href="https://storyset.com/research" class="link-hover text-info text-xs mr-2">Illustration by Storyset</a>
     </div>
-</div>
+  </div>
 </template>

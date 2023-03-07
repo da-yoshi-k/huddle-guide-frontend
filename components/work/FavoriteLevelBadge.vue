@@ -20,7 +20,7 @@ const badgeColor = computed(() => {
       return 'badge-accent';
     case Level.Hardcore:
       return 'badge-error'
-    case Level.Entry:
+    case Level.Beginner:
       return 'badge-secondry';
     case Level.Amateur:
       return 'badge-accent';
