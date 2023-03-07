@@ -20,10 +20,11 @@ definePageMeta({
           <p class="pt-6 text-3xl">オンラインでもチームで<br>コミュニケーションが<br>取れていますか？</p>
         </div>
         <div class="my-6 flex justify-center md:justify-end md:mr-16">
-          <NuxtLink to="/register" class="btn btn-active brn-primary shadow text-sm md:text-lg text-base-100 mr-12">
+          <NuxtLink to="/register"
+            class="btn btn-active brn-primary shadow hover:shadow-lg text-sm md:text-lg text-base-100 mr-12">
             使ってみる
           </NuxtLink>
-          <NuxtLink to="/login" class="btn brn-neutral shadow text-sm md:text-lg text-base-100 ml-12">
+          <NuxtLink to="/login" class="btn btn-active brn-primary shadow text-sm md:text-lg text-base-100 ml-12">
             ログイン
           </NuxtLink>
         </div>
@@ -72,10 +73,11 @@ definePageMeta({
       </div>
     </div>
     <div class="my-6 flex justify-center">
-      <NuxtLink to="/register" class="btn btn-active brn-primary shadow text-sm md:text-lg text-base-100 mr-12">
+      <NuxtLink to="/register"
+        class="btn btn-active brn-primary shadow hover:shadow-lg text-sm md:text-lg text-base-100 mr-12">
         使ってみる
       </NuxtLink>
-      <NuxtLink to="/login" class="btn brn-neutral shadow text-sm md:text-lg text-base-100 ml-12">
+      <NuxtLink to="/login" class="btn btn-active brn-primary shadow text-sm md:text-lg text-base-100 ml-12">
         ログイン
       </NuxtLink>
     </div>
