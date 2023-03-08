@@ -1,3 +1,5 @@
+import { LoginType } from './loginType';
+
 export interface UserInfo {
   user: {
     id: string;
@@ -5,5 +7,6 @@ export interface UserInfo {
     email: string;
     description: string;
     avatar_url: string;
+    login_type: LoginType;
   };
 }
