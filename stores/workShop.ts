@@ -4,11 +4,14 @@ import { Posts } from '~~/types/posts';
 import { Messages } from '~~/types/messages';
 import { Message } from '~~/types/message';
 import { User } from '~~/types/user';
+import { Advancements } from '~~/types/advancements';
+import { Advancement } from '~~/types/advancement';
 
 export const useWorkshopStore = defineStore('workshop', {
   state: () => ({
     workshop: null as Workshop | null,
     posts: null as Posts | null,
+    advancements: null as Advancements | null,
     reactions: null,
     messages: null as Messages | null,
   }),
@@ -130,6 +133,47 @@ export const useWorkshopStore = defineStore('workshop', {
         }
       );
       this.fetchPosts();
+    },
+    async fetchAdvancements() {
+      const options = useApiFetchOption();
+      await useFetch<Advancements>(
+        `workshops/${this.workshop!.workshop.id}/advancements`,
+        {
+          ...options,
+        }
+      )
+        .then((data) => {
+          if (!!data.data.value) {
+            this.advancements = data.data.value;
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    async editAdvancement(advancement: Advancement) {
+      const options = useApiFetchOption();
+      if (advancement.id === 0) {
+        await useFetch<Advancements>(
+          `workshops/${this.workshop!.workshop.id}/advancements`,
+          {
+            method: 'POST',
+            body: { advancement: advancement },
+            ...options,
+          }
+        );
+      } else if (advancement.content != null) {
+        await useFetch(
+          `workshops/${this.workshop!.workshop.id}/advancements/${
+            advancement.id
+          }`,
+          {
+            method: 'PATCH',
+            body: { advancement: advancement },
+            ...options,
+          }
+        );
+      }
     },
     async updateWorkStep(stepNum: number) {
       const options = useApiFetchOption();
