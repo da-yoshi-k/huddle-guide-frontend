@@ -20,14 +20,20 @@ const ongoingWorkshops = computed(() => {
   return props.workshops?.filter(workshop => workshop.work_step.name !== "終了")
 })
 
-const handleParticipateWorkshop = async (workshopId: string) => {
+const handleParticipateWorkshop = async (workshopId: string, workshopName: string) => {
   const options = useApiFetchOption();
   await useFetch(`workshops/${workshopId}/participations`, {
     method: "POST",
     ...options,
   }).then(() => {
-    // TODO ワークごとに遷移先を決定する
-    navigateTo(`/works/find-similarities/${workshopId}/standby`)
+    switch (workshopName) {
+      case '共通点探し':
+        navigateTo(`/works/find-similarities/${workshopId}/standby`)
+        break;
+      case 'Good & New':
+        navigateTo(`/works/good-and-new/${workshopId}/standby`)
+        break;
+    }
   }).catch((error) => {
     console.log(error)
   });
@@ -40,7 +46,8 @@ const handleParticipateWorkshop = async (workshopId: string) => {
       <div class="flex flex-row justify-center gap-10 mb-2">
         <div class="flex items-center">{{ workshop.team.name }}</div>
         <div class="flex items-center">{{ workshop.work.name }}</div>
-        <button class="btn btn-primary text-yellow-100" @click="handleParticipateWorkshop(workshop.id)">参加する</button>
+        <button class="btn btn-primary text-yellow-100"
+          @click="handleParticipateWorkshop(workshop.id, workshop.work.name)">参加する</button>
       </div>
     </div>
   </template>

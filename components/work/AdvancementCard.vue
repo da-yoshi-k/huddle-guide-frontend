@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useAuthUserStore } from '~~/stores/authUser';
-import { AdvancementType } from '~~/types/advancementType';
+import { AdvancementType, toJapanese } from '~~/types/advancementType';
 const store = useAuthUserStore();
 
 const props = defineProps<{
@@ -62,11 +62,14 @@ const handleEditModalOpen = () => {
         <img src="/img/edit.svg" class="w-6 h-6" />
       </button>
     </div>
-    <div class="col-span-7 row-span-3 flex flex-col">
+    <div class="col-span-7 row-span-3 px-2">
       <template v-if="props.advancements?.length !== 0">
         <div v-for="advancement in props.advancements">
-          <div class="flex">
-            <div class="h-12 flex items-center break-all">
+          <div class="flex flex-col">
+            <div class="badge badge-secondary badge-lg text-black shadow-md">
+              {{ toJapanese(advancement.advancement_type) }}
+            </div>
+            <div class="h-12 p-2 break-all">
               {{ advancement.content }}
             </div>
           </div>

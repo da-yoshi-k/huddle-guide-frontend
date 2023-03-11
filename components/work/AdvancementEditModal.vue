@@ -63,7 +63,7 @@ const fetchPrevAdvancement = () => {
   let prevAdvancements = workShopStore.advancements?.advancements.filter(advancement => advancement.user_id === authUserStore.authUser?.user.id)
   if (prevAdvancements?.length !== 0 && prevAdvancements != undefined) {
     const prevAdvancement = { advancement: prevAdvancements[0] }
-    advancement.value = { ...prevAdvancement }
+    advancement.value.advancement.id = prevAdvancement.advancement.id
     selectedType.value = prevAdvancement.advancement.advancement_type
     contentValue.value = prevAdvancement.advancement.content
   }
@@ -73,12 +73,18 @@ const emits = defineEmits<{
   (e: 'advancement-edit', advancements: any): void;
   (e: 'close-modal'): void;
 }>();
+
+const setAdvancement = async () => {
+  advancement.value.advancement.advancement_type = selectedType.value
+  advancement.value.advancement.content = contentValue.value
+}
+
 const handleEditAdvancement = () => {
   handleFormEmptyValid()
   if (!isSubmitDisabled.value) {
-    advancement.value.advancement.advancement_type = selectedType.value
-    advancement.value.advancement.content = contentValue.value
-    emits('advancement-edit', advancement.value.advancement)
+    setAdvancement().then(() => {
+      emits('advancement-edit', advancement.value.advancement)
+    })
   }
 }
 const handleCloseModal = () => {
@@ -107,8 +113,7 @@ const handleCloseModal = () => {
           <label class="label">
             <span class="label-text">内容</span>
           </label>
-          <input type="text" v-model.trim.lazy="contentValue" @keyup="handleFormValid"
-            class="input input-bordered w-full">
+          <input type="text" v-model.trim="contentValue" @keyup="handleFormValid" class="input input-bordered w-full">
         </div>
         <div class="flex justify-center mt-4">
           <button class="btn btn-primary text-white" @click.prevent="handleEditAdvancement"
