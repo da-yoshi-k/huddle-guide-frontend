@@ -81,9 +81,9 @@ definePageMeta({
               <div @click="handleShowSelectModal(2, 'Good & New')">
                 <label for="work-select-modal" class="btn btn-primary text-yellow-100">開始する</label>
               </div>
-              <div class="tooltip" data-tip="開発中">
-                <button class="btn btn-neutral text-yellow-100">使い方</button>
-              </div>
+              <NuxtLink to="/works/good-and-new/about">
+                <button class="btn btn-primary text-yellow-100">使い方</button>
+              </NuxtLink>
             </div>
           </div>
         </div>
