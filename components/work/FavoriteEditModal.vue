@@ -141,7 +141,7 @@ const handleCloseModal = () => {
         @click="handleCloseModal">✕</label>
       <h3 class="text-xl font-bold mb-4">自分の好きなことを最大3つまで入力してください</h3>
       <span class="text-error">{{ errors[0] }}</span>
-      <form @submit.prevent ref="postForm">
+      <form @submit.prevent>
         <div class="form-control inline">
           <label class="label">
             <span class="label-text">1つ目</span>

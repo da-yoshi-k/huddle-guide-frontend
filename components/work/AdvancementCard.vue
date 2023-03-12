@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useAuthUserStore } from '~~/stores/authUser';
-import { Level } from '~~/types/level';
+import { AdvancementType, toJapanese } from '~~/types/advancementType';
 const store = useAuthUserStore();
 
 const props = defineProps<{
@@ -10,19 +10,15 @@ const props = defineProps<{
     descriptipn?: string,
     avatar_url?: string
   }
-  posts?: {
+  advancements?: {
     id: number,
     content: string,
     workshop_id: string,
     user_id?: string,
-    level: Level,
-    sameUsers?: {
-      name: string,
-      avatar_url?: string,
-    }[]
+    advancement_type: AdvancementType,
   }[]
   reactions?: [{
-    post_id: number,
+    advancement_id: number,
     user_id: string,
     reaction_type: number
   }]
@@ -35,7 +31,7 @@ const bgColor = computed(() => {
   return props.presenterId === props.user.id ? 'bg-green-200' : 'bg-gray-200'
 })
 const blankForm = computed(() => {
-  return props.user.id === store.authUser?.user.id && props.posts?.length === 0 && isGuide.value ? 'click-here' : ''
+  return props.user.id === store.authUser?.user.id && props.advancements?.length === 0 && isGuide.value ? 'click-here' : ''
 })
 const emits = defineEmits<{
   (e: 'modal-open'): void;
@@ -66,26 +62,15 @@ const handleEditModalOpen = () => {
         <img src="/img/edit.svg" class="w-6 h-6" />
       </button>
     </div>
-    <div class="col-span-7 row-span-3 flex flex-col">
-      <template v-if="props.posts?.length !== 0">
-        <div v-for="post in props.posts">
-          <div class="flex">
-            <div class="h-12 flex justify-center items-center w-[70px]">
-              <WorkFavoriteLevelBadge :level="post.level" v-if="post.level !== 0" />
+    <div class="col-span-7 row-span-3 px-2">
+      <template v-if="props.advancements?.length !== 0">
+        <div v-for="advancement in props.advancements">
+          <div class="flex flex-col">
+            <div class="badge badge-secondary badge-lg text-black shadow-md">
+              {{ toJapanese(advancement.advancement_type) }}
             </div>
-            <div class="h-12 flex items-center break-all">
-              {{ post.content }}
-            </div>
-            <div v-if="post.sameUsers" class="flex ml-auto mr-2 items-center bg-g">
-              <div class="avatar-group -space-x-4">
-                <div v-for="user in post.sameUsers">
-                  <div class="avatar bg-white">
-                    <div class="w-6">
-                      <img :src="user.avatar_url ? user.avatar_url : '/img/default_account.svg'" />
-                    </div>
-                  </div>
-                </div>
-              </div>
+            <div class="h-12 p-2 break-all">
+              {{ advancement.content }}
             </div>
           </div>
         </div>
