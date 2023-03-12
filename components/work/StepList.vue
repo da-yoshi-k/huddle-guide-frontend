@@ -11,7 +11,7 @@ const doneStep = (num: number) => {
 <template>
   <ul class="steps mb-4">
     <li class="step" :class="doneStep(1)">待機</li>
-    <li class="step" :class="doneStep(2)">好きなものを投稿</li>
+    <li class="step" :class="doneStep(2)">投稿</li>
     <li class="step" :class="doneStep(3)">順番に発表</li>
     <li class="step" :class="doneStep(4)">雑談</li>
     <li class="step" :class="doneStep(5)">終了</li>

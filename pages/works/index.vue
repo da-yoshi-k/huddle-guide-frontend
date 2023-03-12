@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { notify } from '@kyvg/vue3-notification';
 import { useTeamsStore } from '~~/stores/teams';
 import { useWorkshopsStore } from '~~/stores/workshops';
 import { Workshop } from '~~/types/workshop';
@@ -28,7 +29,15 @@ const standby = (async (teamId: string) => {
     ...options,
   }).then((data) => {
     const workshopId = data.data.value?.workshop.id
-    navigateTo(`/works/find-similarities/${workshopId}/standby`)
+    switch (data.data.value?.workshop.work.id) {
+      case 1:
+        navigateTo(`/works/find-similarities/${workshopId}/standby`)
+        break;
+      case 2:
+        navigateTo(`/works/good-and-new/${workshopId}/standby`)
+        break;
+    }
+
   })
 })
 
@@ -63,14 +72,14 @@ definePageMeta({
             </div>
           </div>
         </div>
-        <div class="card w-80 bg-gray-200 shadow-xl mb-8">
+        <div class="card w-80 shadow-xl mb-8">
           <figure><img src="/img/works_news.svg" alt="Good&new" class="w-[200px] mt-4" /></figure>
           <div class="card-body">
-            <h4 class="card-title">Good & New (開発中)</h4>
+            <h4 class="card-title">Good & New</h4>
             <p>日々の中であった良かったことや<br />新しいニュースを共有しましょう</p>
             <div class="card-actions justify-around">
-              <div class="tooltip" data-tip="開発中">
-                <button class="btn btn-neutral text-yellow-100">開始する</button>
+              <div @click="handleShowSelectModal(2, 'Good & New')">
+                <label for="work-select-modal" class="btn btn-primary text-yellow-100">開始する</label>
               </div>
               <div class="tooltip" data-tip="開発中">
                 <button class="btn btn-neutral text-yellow-100">使い方</button>
