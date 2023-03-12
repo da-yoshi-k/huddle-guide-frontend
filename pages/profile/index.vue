@@ -59,26 +59,17 @@ definePageMeta({
             <tr>
               <td class="text-xs">メールアドレス</td>
               <td>{{ store.authUser?.user.email }}</td>
-              <td>
-              </td>
             </tr>
             <template v-if="store.authUser?.user.login_type === LoginType.Default">
               <tr>
                 <td>パスワード</td>
                 <td>************</td>
-                <td>
-                  <div class="tooltip" data-tip="開発中">
-                    <button class="btn btn-outline btn-disabled">変更</button>
-                  </div>
-                </td>
               </tr>
             </template>
             <template v-else>
               <tr>
                 <td>アカウント種別</td>
                 <td>Googleアカウント</td>
-                <td>
-                </td>
               </tr>
             </template>
           </tbody>
