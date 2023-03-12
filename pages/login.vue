@@ -9,13 +9,13 @@ const { value: email } = useField("email");
 const { value: password } = useField("password");
 
 // 戻るボタンによる多重ログインの防止
-const handleLoggedIn = () => {
-  if (store.authUser) {
-    const router = useRouter();
-    router.push('/home');
-  }
-}
-handleLoggedIn();
+// const handleLoggedIn = () => {
+//   if (store.authUser) {
+//     const router = useRouter();
+//     router.push('/home');
+//   }
+// }
+// handleLoggedIn();
 
 const login = handleSubmit(async () => {
   const user = {
