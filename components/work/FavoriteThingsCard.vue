@@ -73,7 +73,7 @@ const handleEditModalOpen = () => {
             <div class="h-12 flex justify-center items-center w-[70px]">
               <WorkFavoriteLevelBadge :level="post.level" v-if="post.level !== 0" />
             </div>
-            <div class="h-12 flex items-center">
+            <div class="h-12 flex items-center break-all">
               {{ post.content }}
             </div>
             <div v-if="post.sameUsers" class="flex ml-auto mr-2 items-center bg-g">

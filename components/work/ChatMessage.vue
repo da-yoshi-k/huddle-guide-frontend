@@ -34,6 +34,6 @@ const messagePosition = computed(() => {
     <div class="chat-header">
       {{ speakedUser?.name }}
     </div>
-    <div class="chat-bubble text-sm">{{ props.message.content }}</div>
+    <div class="chat-bubble break-all text-sm">{{ props.message.content }}</div>
   </div>
 </template>
