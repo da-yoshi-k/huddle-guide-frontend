@@ -35,8 +35,11 @@ const edit = handleSubmit(async () => {
   }
   try {
     notify({ type: "success", text: 'プロフィールを変更しました。' })
-    await store.updateUser(formData);
-    location.reload()
+    await store.updateUser(formData).then(() => {
+      setTimeout(() => {
+        location.reload()
+      }, 1000);
+    });
   } catch (error) {
     console.log(error);
   }
