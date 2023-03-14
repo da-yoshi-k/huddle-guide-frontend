@@ -93,7 +93,7 @@ const handleEditModalOpen = () => {
   0% {}
 
   50% {
-    background: #f9e9c0;
+    background-color: hsl(var(--bc) / 0.2);
   }
 
   100% {}
