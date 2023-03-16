@@ -14,7 +14,7 @@ definePageMeta({
             src="/img/top_banner.svg" alt="huddle-guide brand banner">
         </div>
         <div class="flex justify-center row-span-3 md:justify-start md:ml-4">
-          <img class="object-contain max-w-lg" src="/img/top_discussion.svg" alt="discussion image">
+          <img class="object-contain w-[600px]" src="/img/top_discussion.svg" alt="discussion image">
         </div>
         <div class="flex justify-center md:justify-end md:mr-16">
           <p class="pt-6 text-3xl">オンラインでもチームで<br>コミュニケーションが<br>取れていますか？</p>
