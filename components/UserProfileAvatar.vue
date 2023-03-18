@@ -28,7 +28,7 @@ const props = defineProps<{
             </div>
             <div class="ml-2 self-center">{{ props.user.name }}</div>
           </div>
-          <div id="description" class="text-sm">{{ props.user.description }}</div>
+          <div id="description" class="text-sm break-all">{{ props.user.description }}</div>
         </div>
       </template>
     </VMenu>
