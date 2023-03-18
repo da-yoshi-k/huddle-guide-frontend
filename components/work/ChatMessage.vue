@@ -22,6 +22,9 @@ const messagePosition = computed(() => {
   return props.message.user_id !== props.authUserId ? 'chat-start' : 'chat-end'
 })
 
+const messageBgColor = computed(() => {
+  return props.message.user_id !== props.authUserId ? 'bg-gray-200' : ''
+})
 </script>
 
 <template>
@@ -34,6 +37,6 @@ const messagePosition = computed(() => {
     <div class="chat-header">
       {{ speakedUser?.name }}
     </div>
-    <div class="chat-bubble break-all text-sm">{{ props.message.content }}</div>
+    <div class="chat-bubble break-all text-sm" :class="messageBgColor">{{ props.message.content }}</div>
   </div>
 </template>

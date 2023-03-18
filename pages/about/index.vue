@@ -7,10 +7,14 @@ definePageMeta({
 
 <template>
   <div class="text-center">
-    <div class="pt-24 text-3xl font-bold underline underline-offset-4">Huddle Guideとは</div>
-    <div class="text-2xl text-center mx-4 my-12 leading-10">
-      <p class="py-6"><span class="font-bold">Huddle
-          Guide</span>は、<br />チームメンバーの共通点を発見したり、<br />日々あった新しいことを同期的に共有することで<br />チームビルディングを行えるサービスです</p>
+    <div class="hero md:py-12 bg-[#EEEEEE]">
+      <div class="hero-content flex-col md:flex-row self-center center">
+        <img src="/img/top_team_image.svg" alt="team" class="object-contain w-[500px]" />
+        <div class="text-lg md:text-2xl text-center ">
+          <p class="py-6 md:leading-10"><span class="font-bold">Huddle
+              Guide</span>は、<br />チームメンバーの共通点を発見したり、<br />日々あった新しいことを同期的に共有することで<br />チームビルディングを行えるサービスです</p>
+        </div>
+      </div>
     </div>
     <div class="pt-24 text-3xl font-bold">使い方</div>
     <div class="hero bg-base-100">
@@ -48,5 +52,5 @@ definePageMeta({
     <div class="text-right">
       <a href="https://storyset.com/research" class="link-hover text-info text-xs mr-2">Illustration by Storyset</a>
     </div>
-</div>
+  </div>
 </template>
