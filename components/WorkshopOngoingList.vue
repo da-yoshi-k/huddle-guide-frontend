@@ -1,7 +1,9 @@
 <script setup lang="ts">
+const nuxtApp = useNuxtApp();
 const props = defineProps<{
   workshops?: {
     id: string,
+    created_at: string,
     work: {
       name: string
     },
@@ -19,6 +21,10 @@ const route = useRoute();
 const ongoingWorkshops = computed(() => {
   return props.workshops?.filter(workshop => workshop.work_step.name !== "終了")
 })
+
+const formatCreatedAt = (createdAt: string) => {
+  return nuxtApp.$formatDateTime(createdAt)
+}
 
 const handleParticipateWorkshop = async (workshopId: string, workshopName: string) => {
   const options = useApiFetchOption();
@@ -43,9 +49,13 @@ const handleParticipateWorkshop = async (workshopId: string, workshopName: strin
 <template>
   <template v-if="ongoingWorkshops?.length !== 0">
     <div v-for="workshop in ongoingWorkshops" :key="workshop.id">
-      <div class="flex flex-row justify-center gap-10 mb-2">
+      <div class="flex flex-row justify-center gap-2 md:gap-10 mb-4">
         <div class="flex items-center">{{ workshop.team.name }}</div>
-        <div class="flex items-center">{{ workshop.work.name }}</div>
+        <div class="flex items-center justify-center w-[110px]">{{ workshop.work.name }}</div>
+        <div class="flex flex-col">
+          <div class="flex justify-center text-sm">開始日時</div>
+          <div class="flex items-center text-sm">{{ formatCreatedAt(workshop.created_at) }}</div>
+        </div>
         <button class="btn btn-primary text-yellow-100"
           @click="handleParticipateWorkshop(workshop.id, workshop.work.name)">参加する</button>
       </div>

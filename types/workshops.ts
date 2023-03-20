@@ -10,6 +10,7 @@ export interface Workshops {
     work_step_id: number;
     facilitator: string;
     presenter: string | null;
+    created_at: string;
     work: Work;
     work_step: WorkStep;
     team: Team;
