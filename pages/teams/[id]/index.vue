@@ -101,6 +101,10 @@ const handleMemberDelete = (async (userId: string) => {
       method: 'DELETE',
       ...options,
     }).then(() => {
+      // チームの管理者の場合、データの不整合が無いように再度データを取得する
+      if (authUserStore.authUser?.user.id === adminUserId.value) {
+        store.fetchTeam(route.params.id as string);
+      }
       notify({ type: "success", text: 'メンバーの脱退が完了しました。' })
       const router = useRouter();
       router.push('/teams');

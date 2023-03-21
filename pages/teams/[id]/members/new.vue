@@ -50,6 +50,7 @@ const handleMemberAdd = async () => {
     notify({ type: 'error', text: error.value.data.errors[0] })
     router.push('/home')
   } else {
+    store.fetchTeam(route.params.id as string);
     notify({ type: 'success', text: 'メンバーを追加しました。' })
     router.push('/home')
   }
