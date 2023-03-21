@@ -46,7 +46,7 @@ const handleEditModalOpen = () => {
   <div class="rounded-xl w-[380px] h-48 grid grid-cols-8 grid-rows-4 mb-4 mr-4 p-1 shadow-md" :class="bgColor">
     <div class="col-span-1 flex place-self-center place-items-center">
       <div class="avatar w-8 h-8">
-        <div class="w-14 rounded-full">
+        <div class="w-14 rounded-full bg-white">
           <img :src="props.user.avatar_url ? props.user.avatar_url : '/img/default_account.svg'" />
         </div>
       </div>

@@ -22,7 +22,7 @@ const MAX_MEMBER_COUNT = 8;
         </template>
         <template v-else>
           <div class="avatar justify-center opacity-30">
-            <div class="w-14 rounded-full">
+            <div class="w-14 rounded-full bg-white">
               <img src="/img/default_account.svg" />
             </div>
           </div>

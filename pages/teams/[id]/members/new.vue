@@ -79,7 +79,7 @@ definePageMeta({
       <template v-if="!!searchResultUser?.user.id">
         <div class="flex flex-row justify-center gap-8">
           <div class="avatar">
-            <div class="w-12 rounded-full">
+            <div class="w-12 rounded-full bg-white">
               <img
                 :src="searchResultUser.user.avatar_url ? searchResultUser.user.avatar_url : '/img/default_account.svg'" />
             </div>
