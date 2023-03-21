@@ -30,7 +30,7 @@ const messageBgColor = computed(() => {
 <template>
   <div class="chat" :class="messagePosition">
     <div class="chat-image avatar">
-      <div class="w-10 rounded-full">
+      <div class="w-10 rounded-full bg-white">
         <img :src="speakedUser?.avatar_url ? speakedUser?.avatar_url : '/img/default_account.svg'" />
       </div>
     </div>
