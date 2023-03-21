@@ -6,7 +6,16 @@
     <div class="mt-4 mx-auto p-4 max-w-4xl">
       <NuxtLink to="/works" class="btn btn-primary text-yellow-100 ml-2">戻る</NuxtLink>
       <div class="my-4 mx-auto p-4 max-w-4xl bg-slate-200">
-        <h1 class="text-xl font-bold">Good & New</h1>
+        <h1 class="text-xl font-bold mb-4">Good & New</h1>
+        <div class="mb-4">
+          <h3 class="text-lg underline underline-offset-2">ワークの概要</h3>
+          <div class="ml-2 mb-2">
+            <p>直近あった良かったことや新しい発見/気付き/話題を共有するワークです。</p>
+          </div>
+          <h3 class="text-lg underline underline-offset-2">ワークの目安時間</h3>
+          <p class="ml-2">全体で10〜20分。</p>
+        </div>
+        <h3 class="text-lg underline underline-offset-2">詳細な使い方</h3>
         <div class="hero">
           <div class="hero-content flex-col md:flex-row-reverse">
             <img src="https://huddle-guide-public.s3.ap-northeast-1.amazonaws.com/good-and-new/01_standby_screen.png"

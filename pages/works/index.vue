@@ -61,7 +61,7 @@ definePageMeta({
           <figure><img src="/img/works_discussion.svg" alt="共通点探し" class="w-[200px] mt-4" /></figure>
           <div class="card-body">
             <h4 class="card-title">共通点探し</h4>
-            <p>チームの仲間との共通点を探してみませんか？</p>
+            <p>チームの仲間との共通点を探してみませんか？<br />（目安時間：30〜50分）</p>
             <div class="card-actions justify-around">
               <div @click="handleShowSelectModal(1, '共通点探し')">
                 <label for="work-select-modal" class="btn btn-primary text-yellow-100">開始する</label>
@@ -76,7 +76,7 @@ definePageMeta({
           <figure><img src="/img/works_news.svg" alt="Good&new" class="w-[200px] mt-4" /></figure>
           <div class="card-body">
             <h4 class="card-title">Good & New</h4>
-            <p>日々の中であった良かったことや<br />新しいニュースを共有しましょう</p>
+            <p>日々の中であった良かったことや<br />新しいニュースを共有しましょう<br />（目安時間：10〜20分）</p>
             <div class="card-actions justify-around">
               <div @click="handleShowSelectModal(2, 'Good & New')">
                 <label for="work-select-modal" class="btn btn-primary text-yellow-100">開始する</label>
