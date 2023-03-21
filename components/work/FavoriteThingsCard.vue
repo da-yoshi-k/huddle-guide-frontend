@@ -17,8 +17,10 @@ const props = defineProps<{
     user_id?: string,
     level: Level,
     sameUsers?: {
+      id: string,
       name: string,
       avatar_url?: string,
+      description?: string
     }[]
   }[]
   reactions?: [{
@@ -50,7 +52,7 @@ const handleEditModalOpen = () => {
   <div class="rounded-xl w-[380px] h-48 grid grid-cols-8 grid-rows-4 mb-4 mr-4 p-1 shadow-md" :class="bgColor">
     <div class="col-span-1 flex place-self-center place-items-center">
       <div class="avatar w-8 h-8">
-        <div class="w-14 rounded-full">
+        <div class="w-14 rounded-full bg-white">
           <img :src="props.user.avatar_url ? props.user.avatar_url : '/img/default_account.svg'" />
         </div>
       </div>
@@ -79,11 +81,7 @@ const handleEditModalOpen = () => {
             <div v-if="post.sameUsers" class="flex ml-auto mr-2 items-center bg-g">
               <div class="avatar-group -space-x-4">
                 <div v-for="user in post.sameUsers">
-                  <div class="avatar bg-white">
-                    <div class="w-6">
-                      <img :src="user.avatar_url ? user.avatar_url : '/img/default_account.svg'" />
-                    </div>
-                  </div>
+                  <UserProfileAvatar :user="user" :size=6 />
                 </div>
               </div>
             </div>

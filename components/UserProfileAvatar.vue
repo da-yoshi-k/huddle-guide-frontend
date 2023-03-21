@@ -1,7 +1,6 @@
 <script setup lang="ts">
 const props = defineProps<{
   user: {
-    id: string,
     name: string,
     avatar_url?: string,
     description?: string
@@ -14,7 +13,7 @@ const props = defineProps<{
   <div>
     <VMenu :delay="{ show: 500, hide: 50 }">
       <div class="avatar">
-        <div class="rounded-full" :class="`w-${props.size} h-${props.size}`">
+        <div class="rounded-full bg-white" :class="`w-${props.size} h-${props.size}`">
           <img :src="props.user.avatar_url ? props.user.avatar_url : '/img/default_account.svg'" />
         </div>
       </div>
@@ -22,7 +21,7 @@ const props = defineProps<{
         <div class="bg-white p-4 max-w-[200px]">
           <div class="flex mb-2">
             <div class="avatar">
-              <div class="w-8 h-8 rounded-full self-center">
+              <div class="w-8 h-8 rounded-full self-center bg-white">
                 <img :src="props.user.avatar_url ? props.user.avatar_url : '/img/default_account.svg'" />
               </div>
             </div>

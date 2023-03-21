@@ -24,7 +24,7 @@ const store = useAuthUserStore();
               {{ store.authUser?.user.name }}
             </div>
             <div class="avatar">
-              <div class="w-6 md:w-10 rounded-full">
+              <div class="w-6 md:w-10 rounded-full bg-white">
                 <img
                   :src="store.authUser?.user.avatar_url ? store.authUser.user.avatar_url : '/img/default_account.svg'" />
               </div>

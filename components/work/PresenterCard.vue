@@ -28,13 +28,13 @@ const handleNextPresenter = () => {
       <div class="avatar w-8 md:w-12 h-8 md:h-12">
         <div class="rounded-full">
           <template v-if="!!props.user?.avatar_url">
-            <img :src="props.user.avatar_url" />
+            <img class="bg-white" :src="props.user.avatar_url" />
           </template>
           <template v-else-if="!!props.user">
-            <img src="/img/default_account.svg" />
+            <img class="bg-white" src="/img/default_account.svg" />
           </template>
           <template v-else>
-            <img src="/img/free.svg" />
+            <img class="bg-none" src="/img/free.svg" />
           </template>
         </div>
       </div>
