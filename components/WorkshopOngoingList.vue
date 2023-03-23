@@ -1,9 +1,13 @@
 <script setup lang="ts">
+import { useAuthUserStore } from '~~/stores/authUser';
+
 const nuxtApp = useNuxtApp();
+const store = useAuthUserStore();
 const props = defineProps<{
   workshops?: {
     id: string,
     created_at: string,
+    facilitator: string,
     work: {
       name: string
     },
@@ -24,6 +28,27 @@ const ongoingWorkshops = computed(() => {
 
 const formatCreatedAt = (createdAt: string) => {
   return nuxtApp.$formatDateTime(createdAt)
+}
+
+// ×ボタンが押下された時にワークショップを終了のステップまで進行させる
+const handleFinishWorkshop = async (workshopId: string) => {
+  const conf = confirm('選択したワークショップを終了させますか？');
+  if (conf) {
+    const FINISHED = 5 //　終了のステップID
+    const bodyParam = {
+      workshop: { work_step_id: FINISHED },
+    };
+    const options = useApiFetchOption();
+    await useFetch(`workshops/${workshopId}`, {
+      method: "PATCH",
+      body: bodyParam,
+      ...options,
+    }).then(() => {
+      location.reload();
+    }).catch((error) => {
+      console.log(error)
+    });
+  }
 }
 
 const handleParticipateWorkshop = async (workshopId: string, workshopName: string) => {
@@ -49,15 +74,19 @@ const handleParticipateWorkshop = async (workshopId: string, workshopName: strin
 <template>
   <template v-if="ongoingWorkshops?.length !== 0">
     <div v-for="workshop in ongoingWorkshops" :key="workshop.id">
-      <div class="flex flex-row justify-center gap-2 md:gap-10 mb-4">
-        <div class="flex items-center">{{ workshop.team.name }}</div>
-        <div class="flex items-center justify-center w-[110px]">{{ workshop.work.name }}</div>
+      <div class="flex flex-row justify-center items-center gap-2 md:gap-10 mb-4">
+        <div>{{ workshop.team.name }}</div>
+        <div class="w-[110px] text-center">{{ workshop.work.name }}</div>
         <div class="flex flex-col">
-          <div class="flex justify-center text-sm">開始日時</div>
-          <div class="flex items-center text-sm">{{ formatCreatedAt(workshop.created_at) }}</div>
+          <div class="text-center text-sm">開始日時</div>
+          <div class="text-center text-sm">{{ formatCreatedAt(workshop.created_at) }}</div>
         </div>
         <button class="btn btn-primary text-yellow-100"
           @click="handleParticipateWorkshop(workshop.id, workshop.work.name)">参加する</button>
+        <div v-if="store.authUser?.user.id === workshop.facilitator">
+          <button class="btn btn-sm btn-circle btn-outline btn-error"
+            @click="handleFinishWorkshop(workshop.id)">✕</button>
+        </div>
       </div>
     </div>
   </template>
