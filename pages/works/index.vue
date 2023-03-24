@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { notify } from '@kyvg/vue3-notification';
 import { useTeamsStore } from '~~/stores/teams';
 import { useWorkshopsStore } from '~~/stores/workshops';
 import { Workshop } from '~~/types/workshop';
@@ -37,7 +36,6 @@ const standby = (async (teamId: string) => {
         navigateTo(`/works/good-and-new/${workshopId}/standby`)
         break;
     }
-
   })
 })
 
