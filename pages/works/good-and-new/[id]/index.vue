@@ -13,14 +13,22 @@ const route = useRoute();
 const runTimeConfig = useRuntimeConfig();
 const cable = ActionCable.createConsumer(runTimeConfig.public.actioncableUrl);
 
+const workFinished = ref(false)
+const handleWorkshopCanceled = async () => {
+  if (store.workshop?.workshop.work_step.name === '終了') {
+    workFinished.value = true
+    notify({ type: "info", text: "ワークが終了されているため終了画面に遷移します。", duration: 1000 })
+    await navigateTo(`/works/good-and-new/${store.workshop?.workshop.id}/complete`)
+  }
+}
 const fetchWorkshopInfo = async () => {
-  await store.fetchWorkshop(route.params.id as string).then(() => {
-    if (store.workshop?.workshop.work_step.name === '終了') {
-      endWorkshop();
-    }
-  });
-  await store.fetchAdvancements();
-  await store.fetchMessages();
+  if (!workFinished.value) {
+    await store.fetchWorkshop(route.params.id as string).then(() => {
+      handleWorkshopCanceled()
+    });
+    await store.fetchAdvancements();
+    await store.fetchMessages();
+  }
 }
 const isConnecting = ref(true)
 await fetchWorkshopInfo();
@@ -50,10 +58,12 @@ const workshopChannel = cable.subscriptions.create(
         case 'update_work_step':
           notify({ type: "info", text: "ステップが変更されました。", duration: 1000 })
           await store.fetchWorkshop(store.workshop!.workshop.id)
+          await handleWorkshopCanceled()
           break
         case 'update_presenter':
           notify({ type: "info", text: "発表者が変更されました。", duration: 400 })
           await store.fetchWorkshop(store.workshop!.workshop.id)
+          await handleWorkshopCanceled()
           break
         case 'end_workshop':
           await store.fetchWorkshop(store.workshop!.workshop.id)
@@ -97,9 +107,12 @@ const handleChatModalClose = () => {
 }
 
 const handleWorkStep = async () => {
-  await store.updateWorkStep(store.workshop!.workshop.work_step_id + 1).then(() => {
-    workshopChannel.perform('update_work_step', {})
-  })
+  await fetchWorkshopInfo()
+  if (!workFinished.value) {
+    await store.updateWorkStep(store.workshop!.workshop.work_step_id + 1).then(() => {
+      workshopChannel.perform('update_work_step', {})
+    })
+  }
 }
 
 const handleEditAdvancement = async (advancement: Advancement) => {
@@ -116,9 +129,12 @@ const handleCreateMessage = async (message: Message) => {
 }
 
 const handleEndWorkshop = async () => {
-  await store.updateWorkStep(store.workshop!.workshop.work_step_id + 1).then(() => {
-    workshopChannel.perform('end_workshop', {})
-  })
+  await fetchWorkshopInfo()
+  if (!workFinished.value) {
+    await store.updateWorkStep(store.workshop!.workshop.work_step_id + 1).then(() => {
+      workshopChannel.perform('end_workshop', {})
+    })
+  }
 }
 const endWorkshop = () => {
   notify({ type: "info", text: "ワークショップが終了されました。<br /> 5秒後に終了画面に遷移します。", duration: 4500 })
