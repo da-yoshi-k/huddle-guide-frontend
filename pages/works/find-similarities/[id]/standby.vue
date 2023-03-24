@@ -11,14 +11,19 @@ const cable = ActionCable.createConsumer(runTimeConfig.public.actioncableUrl)
 
 const isConnecting = ref(true)
 const workFinished = ref(false)
+const handleWorkshopFinished = async () => {
+  if (store.workshop?.workshop.work_step.name === '終了') {
+    workFinished.value = true
+    notify({ type: "info", text: "ワークが終了されているため終了画面に遷移します。", duration: 1000 })
+    await navigateTo(`/works/find-similarities/${store.workshop?.workshop.id}/complete`)
+  }
+}
 const fetchWorkshopInfo = async () => {
-  await store.fetchWorkshop(route.params.id as string).then(() => {
-    if (store.workshop?.workshop.work_step.name === '終了') {
-      workFinished.value = true
-      navigateTo(`/works/find-similarities/${store.workshop?.workshop.id}/complete`)
-    } else if (store.workshop?.workshop.work_step.name !== '待機') {
+  await store.fetchWorkshop(route.params.id as string).then(async () => {
+    await handleWorkshopFinished()
+    if (!['待機', '終了'].includes(store.workshop!.workshop.work_step.name)) {
       notify({ type: "info", text: "ワークに参加しました。", duration: 1000 })
-      navigateTo(`/works/find-similarities/${store.workshop?.workshop.id}`)
+      await navigateTo(`/works/find-similarities/${store.workshop?.workshop.id}`)
     }
   })
 }
@@ -33,10 +38,10 @@ const workshopStandbyChannel = cable.subscriptions.create(
     disconnected() {
       isConnecting.value = true
     },
-    received({ type, body }) {
+    async received({ type, body }) {
       switch (type) {
         case 'join_member':
-          fetchWorkshopInfo()
+          await fetchWorkshopInfo()
           break
         case 'start_workshop':
           notify({ type: "info", text: "ワークが開始されました。", duration: 1000 })
